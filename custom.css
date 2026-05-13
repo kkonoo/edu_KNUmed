@@ -27,9 +27,11 @@ pre {
 
 
 /* 일반 코드 블록 (``` 만 쓴 것) */
+pre:not(.sourceCode) {
+  background: #f5f5f5;
+}
 pre:not(.sourceCode) code {
   color: #555;
-  background: #f5f5f5;
 }
 
 /* R 코드 블록 */
