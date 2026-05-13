@@ -27,7 +27,7 @@ code, pre code {
 
 /* R 코드 블록 */
 pre.sourceCode {
-  background: #1e1e2e;       /* 어두운 배경 */
+  background: #f3f0f7;
   border-radius: 6px;
   padding: 1em;
 }
