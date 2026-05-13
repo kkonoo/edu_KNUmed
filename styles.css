@@ -9,6 +9,9 @@ body {
 
 # toc (table of contents) 조정
 .sidebar.toc-left {
+  padding-left: 0;
+}
+.sidebar.toc-right {
   padding-right: 0;
 }
 
@@ -16,6 +19,7 @@ div.column-margin-content {
   right: 0;
   position: fixed;
 }
+
 
 # 토글 버튼
 .lang-toggle a {
