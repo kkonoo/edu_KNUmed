@@ -9,7 +9,7 @@ body {
 }
 
 /* 소제목 색상 */
-h2 { color: #5B4D80; font-size: 1.8em; }
+h2 { color: #5B4D80; font-size: 1.7em; }
 h3 { color: #7A6A99; font-size: 1.4em; }
 h4 { color: #9A8DB5; font-size: 1.1em; }
 
@@ -34,11 +34,14 @@ pre.sourceCode {
   padding: 1em;
   border: none;
 }
+pre.sourceCode code {
+  background: transparent;
+}
 
 /* callout 박스 안 글씨체/크기 */
 .callout-body-container {
   font-family: 'Pretendard', sans-serif;
-  font-size: 0.95em;
+  font-size: 1em;
   color: #555;
 }
 
@@ -63,8 +66,3 @@ dd,
   color: #555;
 }
 
-
-
-#h2 { color: #005F73; }           /* ## 제목 */
-#h3 { color: #0A9396; }           /* ### 제목 */
-#h4 { color: #94D2BD }        
