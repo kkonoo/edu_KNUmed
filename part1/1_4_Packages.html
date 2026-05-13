@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Part 1. 연구 효율을 높이는 R script 환경 구축</title>
+<title>4) 핵심 패키지 미리보기</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -155,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">1. 환경 구축하기</li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">Part1</a></li><li class="breadcrumb-item"><a href="../part1/1_4_Packages.html">Part 1. 연구 효율을 높이는 R script 환경 구축</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">1. 환경 구축하기</li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">Part1</a></li><li class="breadcrumb-item"><a href="../part1/1_4_Packages.html">4) 핵심 패키지 미리보기</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -188,25 +188,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Part 1. 연구 효율을 높이는 R script 환경 구축</span></a>
+ <span class="menu-text">1) 왜 R Script인가</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part1/1_2_Rproject.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Part 1. 연구 효율을 높이는 R script 환경 구축</span></a>
+ <span class="menu-text">2) R 프로젝트 파일 관리: 폴더 구조 체계화</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part1/1_3_Rscript.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Part 1. 연구 효율을 높이는 R script 환경 구축</span></a>
+ <span class="menu-text">3) R Script 작성 기본</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part1/1_4_Packages.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Part 1. 연구 효율을 높이는 R script 환경 구축</span></a>
+ <span class="menu-text">4) 핵심 패키지 미리보기</span></a>
   </div>
 </li>
       </ul>
@@ -279,17 +279,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#핵심-패키지-미리보기" id="toc-핵심-패키지-미리보기" class="nav-link active" data-scroll-target="#핵심-패키지-미리보기">4) 핵심 패키지 미리보기</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">5) Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">5) Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">1. 환경 구축하기</li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">Part1</a></li><li class="breadcrumb-item"><a href="../part1/1_4_Packages.html">Part 1. 연구 효율을 높이는 R script 환경 구축</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">1. 환경 구축하기</li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">Part1</a></li><li class="breadcrumb-item"><a href="../part1/1_4_Packages.html">4) 핵심 패키지 미리보기</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Part 1. 연구 효율을 높이는 R script 환경 구축</h1>
+<h1 class="title">4) 핵심 패키지 미리보기</h1>
 </div>
 
 
@@ -312,8 +311,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="핵심-패키지-미리보기" class="level2">
-<h2 class="anchored" data-anchor-id="핵심-패키지-미리보기">4) 핵심 패키지 미리보기</h2>
 <p>Part 2~3에서 사용할 패키지를 미리 설치합니다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 한 번만 실행하면 됩니다</span></span>
@@ -349,7 +346,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <hr>
-</section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">5) Summary</h2>
 <pre><code>✅ R Script = 분석 기록 → 재현성 확보
