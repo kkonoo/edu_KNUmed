@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Rscript 활용하기",
     "section": "",
-    "text": "Rscript 활용하기입니다. To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "입니다. To learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
     "objectID": "examples.html",
     "href": "examples.html",
     "title": "Rscript",
     "section": "",
-    "text": "Rscript 활용하기",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
     "crumbs": [
       "Home",
       "Rscript"
@@ -21,8 +21,8 @@
     "objectID": "examples.html#quarto",
     "href": "examples.html#quarto",
     "title": "Rscript",
-    "section": "Quarto",
-    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
     "crumbs": [
       "Home",
       "Rscript"
