@@ -26,12 +26,19 @@ code, pre code {
 .callout-body-container {
   font-family: 'Pretendard', sans-serif;
   font-size: 0.95em;
+  color: #888;
 }
 
 /* callout 제목 글씨체 */
 .callout-title-container {
   font-family: 'Pretendard', sans-serif;
   font-weight: 700;
+}
+
+/* definition */
+dd,
+.callout-body-container {
+  color: #888;
 }
 
 
