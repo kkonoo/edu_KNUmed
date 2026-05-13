@@ -30,6 +30,7 @@ pre.sourceCode {
   background: #f3f0f7;
   border-radius: 6px;
   padding: 1em;
+  border: none;
 }
 
 /* callout 박스 안 글씨체/크기 */
@@ -44,6 +45,15 @@ pre.sourceCode {
   font-family: 'Pretendard', sans-serif;
   font-weight: 700;
 }
+
+/* callout 컬러바 */
+.callout {
+  border-left: 3px solid;  /* 왼쪽 컬러바만 남기기 */
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+
 
 /* definition */
 dd,
