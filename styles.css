@@ -6,19 +6,10 @@ body {
   font-family: "Pretendard", sans-serif;
 }
 
-/* TOC를 오른쪽 끝에 고정 */
-.sidebar.margin-sidebar {
-  position: fixed !important;
-  right: 0 !important;
-  top: 60px;
-  width: 200px;
-  padding: 1em;
-}
-
-/* 본문이 TOC 공간 확보 */
-.page-columns .content {
-  margin-right: 220px;
-}
+/*-- scss:defaults --*/
+$grid-sidebar-width: 250px;
+$grid-margin-width: 200px;
+$grid-body-width: 1fr;
 
 # 토글 버튼
 .lang-toggle a {
