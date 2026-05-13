@@ -35,7 +35,7 @@ pre.sourceCode {
   border: none;
 }
 pre.sourceCode code {
-  background: transparent;
+  background: #f3f0f7;
 }
 
 /* callout 박스 안 글씨체/크기 */
