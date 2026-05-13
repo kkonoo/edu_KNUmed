@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1) 왜 R Script인가</title>
+<title>3-2) Quarto로 원클릭 리포트 만들기</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -120,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part3/3_1_figure.html">3. 결과 및 마무리</a></li><li class="breadcrumb-item"><a href="../part3/3_2_quarto.html">3-2) Quarto로 원클릭 리포트 만들기</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -143,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1) 왜 R Script인가</span></a>
   </div>
 </li>
@@ -213,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part3/3_2_quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="../part3/3_2_quarto.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3-2) Quarto로 원클릭 리포트 만들기</span></a>
   </div>
 </li>
@@ -235,17 +270,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#현재-많은-연구자의-워크플로우" id="toc-현재-많은-연구자의-워크플로우" class="nav-link active" data-scroll-target="#현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</a></li>
-  <li><a href="#r-script-파이프라인이란" id="toc-r-script-파이프라인이란" class="nav-link" data-scroll-target="#r-script-파이프라인이란">R Script 파이프라인이란</a></li>
+  <li><a href="#왜-quarto인가" id="toc-왜-quarto인가" class="nav-link active" data-scroll-target="#왜-quarto인가">왜 Quarto인가?</a></li>
+  <li><a href="#quarto-문서-기본-구조" id="toc-quarto-문서-기본-구조" class="nav-link" data-scroll-target="#quarto-문서-기본-구조">Quarto 문서 기본 구조</a></li>
+  <li><a href="#출력-포맷" id="toc-출력-포맷" class="nav-link" data-scroll-target="#출력-포맷">출력 포맷</a></li>
+  <li><a href="#인라인-코드-숫자-직접-타이핑-금지" id="toc-인라인-코드-숫자-직접-타이핑-금지" class="nav-link" data-scroll-target="#인라인-코드-숫자-직접-타이핑-금지">인라인 코드: 숫자 직접 타이핑 금지</a></li>
+  <li><a href="#실전-템플릿-분석-보고서" id="toc-실전-템플릿-분석-보고서" class="nav-link" data-scroll-target="#실전-템플릿-분석-보고서">실전 템플릿: 분석 보고서</a></li>
+  <li><a href="#정리" id="toc-정리" class="nav-link" data-scroll-target="#정리">정리</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part3/3_1_figure.html">3. 결과 및 마무리</a></li><li class="breadcrumb-item"><a href="../part3/3_2_quarto.html">3-2) Quarto로 원클릭 리포트 만들기</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1) 왜 R Script인가</h1>
+<h1 class="title">3-2) Quarto로 원클릭 리포트 만들기</h1>
 </div>
 
 
@@ -268,91 +307,177 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="현재-많은-연구자의-워크플로우" class="level3">
-<h3 class="anchored" data-anchor-id="현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</h3>
-<pre><code>Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...</code></pre>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>이 과정에서 생기는 문제들
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기</li>
-<li>“이 p-value 어디서 나온 거였지?” → 추적 어려움</li>
-<li>공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="r-script-파이프라인이란" class="level3">
-<h3 class="anchored" data-anchor-id="r-script-파이프라인이란">R Script 파이프라인이란</h3>
-<blockquote class="blockquote">
-<p><strong>input:</strong> 연구 데이터 <strong>➡️ <span style="color: #8B3A3A; font-weight: bold;">R script</span> ➡️ output:</strong> 논문용 표 &amp; 그래프 <strong>📊📈</strong></p>
-<p><strong>스크립트 = 분석 기록</strong></p>
-</blockquote>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 33%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>기존 방식 (SPSS/Excel)</th>
-<th>R Script 파이프라인</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>데이터 수정 시</td>
-<td>표/그래프 전부 다시</td>
-<td>스크립트 재실행 (n초)</td>
-</tr>
-<tr class="even">
-<td>분석 과정 공유</td>
-<td>구두 설명, 스크린샷</td>
-<td><code>.R</code> 파일 전달</td>
-</tr>
-<tr class="odd">
-<td>리뷰어 수정 요청</td>
-<td>처음부터 다시</td>
-<td>해당 줄만 수정 후 재실행</td>
-</tr>
-<tr class="even">
-<td>휴먼 에러</td>
-<td>복붙 실수, 오타</td>
-<td>코드가 동일하면 결과도 동일</td>
-</tr>
-<tr class="odd">
-<td>Reproducibility</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-</tbody>
-</table>
+<section id="왜-quarto인가" class="level2">
+<h2 class="anchored" data-anchor-id="왜-quarto인가">왜 Quarto인가?</h2>
+<p>지금까지 한 작업:</p>
+<pre><code>R script → 표 (docx) + 그래프 (tiff) → Word에 복붙 → PI에게 전달</code></pre>
+<p>Quarto를 쓰면:</p>
+<pre><code>Quarto 문서 하나 → Render 클릭 → 코드 + 결과 + 해석이 포함된 보고서 완성</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>실제 시나리오
+<span class="screen-reader-only">Tip</span>사실 지금 보고 있는 이 자료가 Quarto입니다
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>리뷰어: <em>“Table 1에서 BMI 대신 BSA를 써주세요”</em></p>
+<p>이 강의 웹사이트 자체가 <code>.qmd</code> 파일로 만들어졌습니다. 코드, 결과, 설명이 한 파일에 들어있어요.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="quarto-문서-기본-구조" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-문서-기본-구조">Quarto 문서 기본 구조</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "SBRT 올리고전이 생존분석 보고서"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "하은지"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 연구 배경</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>올리고전이 환자에서 SBRT의 치료 성적을 분석하였다.</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 분석 결과</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>​```{r}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>library(gtsummary)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>df_pt %&gt;%</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  select(Sex, Age_Tx, Primary, Death) %&gt;%</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  tbl_summary(by = Death)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>​```</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>위 Table 1에서 두 군 간 유의한 차이는 없었다.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>핵심</strong>: 코드와 해석이 같은 문서에 있으므로 결과가 바뀌면 해석도 바로 확인/수정 가능</p>
+<hr>
+</section>
+<section id="출력-포맷" class="level2">
+<h2 class="anchored" data-anchor-id="출력-포맷">출력 포맷</h2>
+<p>YAML에서 <code>format</code>만 바꾸면 됩니다:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>format</th>
+<th>출력</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>format: html</code></td>
+<td>웹 페이지</td>
+<td>내부 공유, 빠른 확인</td>
+</tr>
+<tr class="even">
+<td><code>format: docx</code></td>
+<td>Word 문서</td>
+<td>PI 보고, 논문 초고</td>
+</tr>
+<tr class="odd">
+<td><code>format: pdf</code></td>
+<td>PDF</td>
+<td>공식 보고서</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Word 출력</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">reference-doc</span><span class="kw">:</span><span class="at"> template.docx</span><span class="co">   # 서식 템플릿 지정 가능</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF 출력 (한글 지원)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">documentclass</span><span class="kw">:</span><span class="at"> article</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> </span><span class="st">"Malgun Gothic"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="인라인-코드-숫자-직접-타이핑-금지" class="level2">
+<h2 class="anchored" data-anchor-id="인라인-코드-숫자-직접-타이핑-금지">인라인 코드: 숫자 직접 타이핑 금지</h2>
+<p>논문 본문에 숫자를 넣을 때:</p>
+<p><strong>나쁜 방법</strong>: “총 45명의 환자가 포함되었다” (직접 타이핑)</p>
+<p><strong>좋은 방법</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>총 <span class="in">`​r nrow(df_pt)`</span>명의 환자가 포함되었다.</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>중앙 추적 기간은 <span class="in">`​r round(median(df_pt$OS), 1)`</span>개월이었다.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>→ 데이터가 바뀌어도 숫자가 자동 업데이트됨</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>이게 왜 중요한가
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>리뷰어: “inclusion criteria를 바꿔서 재분석해주세요”</p>
 <ul>
-<li>SPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…</li>
-<li>R Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝</li>
+<li>Word: 본문의 모든 숫자를 하나하나 찾아서 수정</li>
+<li>Quarto: 데이터만 바꾸고 Render → 본문 숫자 자동 변경</li>
 </ul>
 </div>
 </div>
+<hr>
+</section>
+<section id="실전-템플릿-분석-보고서" class="level2">
+<h2 class="anchored" data-anchor-id="실전-템플릿-분석-보고서">실전 템플릿: 분석 보고서</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 파라미터 =====</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>DATA_FILE <span class="ot">&lt;-</span> <span class="st">"rawdata/clinical_data.xlsx"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ====================</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE) <span class="sc">%&gt;%</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IN_sur <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death =</span> <span class="fu">as.numeric</span>(Death),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Multiplicity =</span> <span class="fu">factor</span>(Multiplicity)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table 1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sex, Age_Tx, Primary, Multiplicity, size_cm, TD, Death) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> Death) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(OS, Death) <span class="sc">~</span> Multiplicity, <span class="at">data =</span> df_pt)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> df_pt, <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">risk.table =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cox regression</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(OS, Death) <span class="sc">~</span> Age_Tx <span class="sc">+</span> Sex <span class="sc">+</span> Multiplicity <span class="sc">+</span> size_cm, <span class="at">data =</span> df_pt)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(cox, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, estimate, conf.low, conf.high, p.value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이 템플릿을 <code>.qmd</code>로 저장 → Render → 보고서 완성</p>
+<hr>
+</section>
+<section id="정리" class="level2">
+<h2 class="anchored" data-anchor-id="정리">정리</h2>
+<pre><code>✅ Quarto = 코드 + 결과 + 해석을 한 문서에
+✅ format만 바꾸면 html / docx / pdf 출력
+✅ 인라인 코드로 숫자 자동 업데이트
+✅ 데이터 변경 → Render 한 번 → 보고서 전체 갱신</code></pre>
 
 
 </section>
