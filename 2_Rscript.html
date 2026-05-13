@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Eunji Ha">
 
-<title>Rscript 활용하기</title>
+<title>Rscript</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -95,11 +129,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./1_env.html"> 
+    <a class="nav-link active" href="./1_env.html" aria-current="page"> 
 <span class="menu-text">1. 환경 구축하기</span></a>
   </li>  
   <li class="nav-item">
@@ -116,53 +150,71 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_Rscript.html">Rscript</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_env.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Part 1. 연구 효율을 높이는 R script 환경 구축</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_Rscript.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Rscript</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rscript</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part1.-연구-효율을-높이는-r-script-환경-구축" id="toc-part1.-연구-효율을-높이는-r-script-환경-구축" class="nav-link active" data-scroll-target="#part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</a></li>
-  <li><a href="#part2.-r-script-활용-임상-분석-파이프라인-만들기" id="toc-part2.-r-script-활용-임상-분석-파이프라인-만들기" class="nav-link" data-scroll-target="#part2.-r-script-활용-임상-분석-파이프라인-만들기">Part2. R script 활용 임상 분석 파이프라인 만들기</a></li>
-  <li><a href="#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" id="toc-part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" class="nav-link" data-scroll-target="#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리">Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리</a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#running-code-되니" id="toc-running-code-되니" class="nav-link" data-scroll-target="#running-code-되니">Running Code 되니?</a></li>
+  <li><a href="#dfdfdfd" id="toc-dfdfdfd" class="nav-link" data-scroll-target="#dfdfdfd">dfdfdfd</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Rscript 활용하기</h1>
-<p class="subtitle lead">효율적인 연구를 위한</p>
-  <div class="quarto-categories">
-    <div class="quarto-category">의학연구</div>
-    <div class="quarto-category">R</div>
-  </div>
-  </div>
+<h1 class="title">Rscript</h1>
+</div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-body">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Eunji Ha </p>
-          </div>
-  </div>
     
   
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 13, 2026</p>
-    </div>
-  </div>
     
   </div>
   
@@ -171,53 +223,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>본 강의에서는 “배운 R 기초를 어떻게 실제 논문 작성에 써먹는가”에 집중하고자 합니다.</p>
-<p>단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다.</p>
-<section id="part1.-연구-효율을-높이는-r-script-환경-구축" class="level2">
-<h2 class="anchored" data-anchor-id="part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</h2>
-<p>기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.</p>
-<ul>
-<li><p><strong>R script 활용 파이프라인 구축?</strong></p>
-<p>input: 연구 데이터 ➡️ <strong>R script</strong> ➡️ output: 논문용 표 &amp; 그래프📊📈</p>
-<p>✅ 휴먼 에러 최소화</p>
-<p>✅ 연구 효율성</p>
-<p>✅ Reproducibility</p></li>
-<li><p><strong>파일 관리의 정석 (R Project)</strong>: 폴더 구조 체계화</p>
-<ul>
-<li><p><code>scripts/</code>: 전처리 및 분석용 스크립트 관리</p></li>
-<li><p><code>rawdata/</code>: 원본 데이터 (+다른 곳에 백업)</p></li>
-<li><p><code>analysis/</code>: 단계별 분석 결과 저장</p></li>
-<li><p><code>results/</code>: 최종 Table 및 고해상도 Figure 정리</p>
-<p><img src="images/clipboard-3256079201.png" class="img-fluid" width="337"></p></li>
-</ul></li>
-</ul>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
 </section>
-<section id="part2.-r-script-활용-임상-분석-파이프라인-만들기" class="level2">
-<h2 class="anchored" data-anchor-id="part2.-r-script-활용-임상-분석-파이프라인-만들기">Part2. R script 활용 임상 분석 파이프라인 만들기</h2>
-<ul>
-<li><p>CSV/xlsx 읽기 → 전처리 → Table 1 (gtsummary) → KM → Cox → forest plot</p></li>
-<li><p><strong>데이터 전처리 (The Tidy Way)</strong>: 엑셀에서 하던 필터링과 정렬을 <code>dplyr</code> 패키지로 자동화하며, 이 과정이 전체의 70%임을 공유합니다.</p></li>
-<li><p><strong>Table 1 자동 생성 (<code>tableone</code>, <code>gtsummary</code>)</strong>:</p>
-<ul>
-<li>연속형/범주형 변수를 자동 판별하고 p-value를 한 번에 계산하는 실습을 진행합니다.</li>
-<li><strong>Labeling 기법</strong>: 변수명(<code>sbp_v1</code>)을 출력용 이름(<code>Systolic BP</code>)으로 자동 변환하여 ‘복사-붙여넣기’ 수작업을 생략합니다.</li>
-</ul></li>
-<li><p><strong>바이브코딩으로 R 스크립트 만들기</strong> - AI에게 프롬프트 → 코드 생성 → 실행 → 수정 사이클 - 좋은 프롬프트 작성법, AI가 틀리기 쉬운 통계적 함정</p></li>
-</ul>
+<section id="running-code-되니" class="level2">
+<h2 class="anchored" data-anchor-id="running-code-되니">Running Code 되니?</h2>
+<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>You can add options to executable code like this</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
 </section>
-<section id="part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" class="level2">
-<h2 class="anchored" data-anchor-id="part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리">Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리</h2>
-<ul>
-<li><p><strong>핵심 Figure 그리기</strong>: 논문의 퀄리티를 결정짓는 <strong>Kaplan-Meier Curve</strong>나 <strong>Forest Plot</strong>을 생성</p></li>
-<li><p><strong>통계 수치 자동 추출</strong>: p-value, HR, CI 등을 직접 타이핑하지 않고 <code>broom</code> 패키지를 통해 오타 없이 데이터프레임으로 추출</p></li>
-<li><p><strong>Quarto를 활용한 ‘원클릭 보고서’</strong>: 분석 코드와 해석이 포함된 문서를 PDF/Word/HTML로 즉시 출력하여 PI 보고용 자료를 완성</p></li>
-<li><p>R Markdown으로 재현 가능한 리포트</p></li>
-<li><p><strong>맞춤형 템플릿 제공</strong>: 생존분석(Survival Analysis)이나 성향점수 매칭(PSM) 등 실제 연구 주제에 맞춘 <strong>“Ready-to-use”</strong> 스크립트를 배포하여 즉시 활용 가능하게 합니다.</p></li>
-<li><p><strong>성공 경험 중심</strong>: 이론 설명은 10% 이내로 줄이고, <strong>“데이터 넣기 → 코드 실행 → 결과 확인”</strong> 과정을 반복하여 효용을 직접 느끼게 하는 것이 중요합니다.</p></li>
-</ul>
-<blockquote class="blockquote">
-<p><strong>AI 활용 가이드 (Magic Prompt)</strong>: “나는 간암 환자 200명의 생존 분석을 하고 있어. 데이터프레임 <code>df</code>를 사용해서 Kaplan-Meier 곡선을 그려주고, Risk Table과 Log-rank test p-value를 포함해줘</p>
-</blockquote>
+<section id="dfdfdfd" class="level2">
+<h2 class="anchored" data-anchor-id="dfdfdfd">dfdfdfd</h2>
+<dl>
+<dt>sdsd</dt>
+<dd>
+<p>sdsdsds</p>
+<p>sdsdsds</p>
+</dd>
+</dl>
+<p>/</p>
 
 
 </section>

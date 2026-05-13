@@ -28,8 +28,8 @@
     "text": "Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리\n\n핵심 Figure 그리기: 논문의 퀄리티를 결정짓는 Kaplan-Meier Curve나 Forest Plot을 생성\n통계 수치 자동 추출: p-value, HR, CI 등을 직접 타이핑하지 않고 broom 패키지를 통해 오타 없이 데이터프레임으로 추출\nQuarto를 활용한 ‘원클릭 보고서’: 분석 코드와 해석이 포함된 문서를 PDF/Word/HTML로 즉시 출력하여 PI 보고용 자료를 완성\nR Markdown으로 재현 가능한 리포트\n맞춤형 템플릿 제공: 생존분석(Survival Analysis)이나 성향점수 매칭(PSM) 등 실제 연구 주제에 맞춘 “Ready-to-use” 스크립트를 배포하여 즉시 활용 가능하게 합니다.\n성공 경험 중심: 이론 설명은 10% 이내로 줄이고, “데이터 넣기 → 코드 실행 → 결과 확인” 과정을 반복하여 효용을 직접 느끼게 하는 것이 중요합니다.\n\n\nAI 활용 가이드 (Magic Prompt): “나는 간암 환자 200명의 생존 분석을 하고 있어. 데이터프레임 df를 사용해서 Kaplan-Meier 곡선을 그려주고, Risk Table과 Log-rank test p-value를 포함해줘"
   },
   {
-    "objectID": "2_R스크립트.html",
-    "href": "2_R스크립트.html",
+    "objectID": "2_Rscript.html",
+    "href": "2_Rscript.html",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -39,8 +39,8 @@
     ]
   },
   {
-    "objectID": "2_R스크립트.html#quarto",
-    "href": "2_R스크립트.html#quarto",
+    "objectID": "2_Rscript.html#quarto",
+    "href": "2_Rscript.html#quarto",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -50,8 +50,8 @@
     ]
   },
   {
-    "objectID": "2_R스크립트.html#running-code-되니",
-    "href": "2_R스크립트.html#running-code-되니",
+    "objectID": "2_Rscript.html#running-code-되니",
+    "href": "2_Rscript.html#running-code-되니",
     "title": "Rscript",
     "section": "Running Code 되니?",
     "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
@@ -61,8 +61,8 @@
     ]
   },
   {
-    "objectID": "2_R스크립트.html#dfdfdfd",
-    "href": "2_R스크립트.html#dfdfdfd",
+    "objectID": "2_Rscript.html#dfdfdfd",
+    "href": "2_Rscript.html#dfdfdfd",
     "title": "Rscript",
     "section": "dfdfdfd",
     "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
@@ -72,8 +72,74 @@
     ]
   },
   {
-    "objectID": "1_환경구축.html",
-    "href": "1_환경구축.html",
+    "objectID": "1_env.html",
+    "href": "1_env.html",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "",
+    "text": "Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...\n\n\n\n\n\n\nWarning이 과정에서 생기는 문제들\n\n\n\n\n데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기\n“이 p-value 어디서 나온 거였지?” → 추적 불가\n공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷\n\n\n\n\n\n\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프 📊📈\n핵심은 “스크립트 = 분석 기록” 이라는 점입니다.\n\n\n\n\n\n\n\n\n\n기존 방식 (SPSS/Excel)\nR Script 파이프라인\n\n\n\n\n데이터 수정 시\n표/그래프 전부 다시\n스크립트 재실행 (1초)\n\n\n분석 과정 공유\n구두 설명, 스크린샷\n.R 파일 전달\n\n\n리뷰어 수정 요청\n처음부터 다시\n해당 줄만 수정 후 재실행\n\n\n휴먼 에러\n복붙 실수, 오타\n코드가 동일하면 결과도 동일\n\n\nReproducibility\n❌\n✅\n\n\n\n\n\n\n\n\n\nTip실제 시나리오\n\n\n\n리뷰어: “Table 1에서 BMI 대신 BSA를 써주세요”\n\nSPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…\nR Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "1_env.html#왜-r-script인가-5분",
+    "href": "1_env.html#왜-r-script인가-5분",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "",
+    "text": "Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...\n\n\n\n\n\n\nWarning이 과정에서 생기는 문제들\n\n\n\n\n데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기\n“이 p-value 어디서 나온 거였지?” → 추적 불가\n공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷\n\n\n\n\n\n\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프 📊📈\n핵심은 “스크립트 = 분석 기록” 이라는 점입니다.\n\n\n\n\n\n\n\n\n\n기존 방식 (SPSS/Excel)\nR Script 파이프라인\n\n\n\n\n데이터 수정 시\n표/그래프 전부 다시\n스크립트 재실행 (1초)\n\n\n분석 과정 공유\n구두 설명, 스크린샷\n.R 파일 전달\n\n\n리뷰어 수정 요청\n처음부터 다시\n해당 줄만 수정 후 재실행\n\n\n휴먼 에러\n복붙 실수, 오타\n코드가 동일하면 결과도 동일\n\n\nReproducibility\n❌\n✅\n\n\n\n\n\n\n\n\n\nTip실제 시나리오\n\n\n\n리뷰어: “Table 1에서 BMI 대신 BSA를 써주세요”\n\nSPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…\nR Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "1_env.html#r-project-파일-관리의-정석-10분",
+    "href": "1_env.html#r-project-파일-관리의-정석-10분",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "R Project: 파일 관리의 정석 (10분)",
+    "text": "R Project: 파일 관리의 정석 (10분)\n\n왜 R Project를 써야 하는가\nR Project(.Rproj)를 쓰면:\n\n작업 디렉토리가 자동 설정됩니다 — setwd() 지옥에서 해방\n프로젝트별로 독립된 환경 유지\n다른 컴퓨터에서 열어도 경로 문제 없음\n\n\n\n권장 폴더 구조\nmy_research_project/\n├── my_research_project.Rproj\n├── scripts/          # 분석 스크립트 (.R 파일)\n│   ├── 01_preprocessing.R\n│   ├── 02_table1.R\n│   └── 03_survival.R\n├── rawdata/          # 원본 데이터 (절대 수정 금지!)\n│   └── clinical_data.xlsx\n├── analysis/         # 중간 분석 결과\n│   └── cleaned_data.rds\n└── results/          # 최종 산출물\n    ├── Table1.docx\n    ├── KM_curve.tiff\n    └── forest_plot.tiff\n\n\n\n\n\n\nImportant핵심 원칙\n\n\n\n\nrawdata는 절대 건드리지 않는다 — 원본은 읽기만 하고, 전처리 결과는 analysis/에 저장\n스크립트에 번호를 붙인다 — 실행 순서가 명확해짐\nresults에는 최종본만 — 논문에 바로 들어갈 표와 그림\n\n\n\n\n\n실습: R Project 만들기\nRStudio에서:\nFile → New Project → New Directory → New Project\n→ 프로젝트 이름 입력 (예: \"SBRT_survival\")\n→ Create Project\n그 다음 콘솔에서 폴더 생성:\n# 폴더 구조 한 번에 만들기\ndir.create(\"scripts\")\ndir.create(\"rawdata\")\ndir.create(\"analysis\")\ndir.create(\"results\")",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "1_env.html#r-script-작성-기본-습관-10분",
+    "href": "1_env.html#r-script-작성-기본-습관-10분",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "R Script 작성 기본 습관 (10분)",
+    "text": "R Script 작성 기본 습관 (10분)\n\n스크립트 구조 템플릿\n모든 분석 스크립트는 이 구조를 따르면 됩니다:\n# ============================================================\n# 프로젝트: SBRT 간암 생존분석\n# 스크립트: 01_preprocessing.R\n# 작성자: 하은지\n# 최종수정: 2026-05-13\n# ============================================================\n\n# 1. 패키지 로딩 -----\nlibrary(tidyverse)\nlibrary(readxl)\n\n# 2. 데이터 읽기 -----\nraw &lt;- read_excel(\"rawdata/clinical_data.xlsx\")\n\n# 3. 전처리 -----\ndf &lt;- raw |&gt;\n  filter(!is.na(survival_time)) |&gt;\n  mutate(\n    age_group = ifelse(age &gt;= 65, \"≥65\", \"&lt;65\"),\n    event = as.numeric(status == \"dead\")\n  )\n\n# 4. 결과 저장 -----\nsaveRDS(df, \"analysis/cleaned_data.rds\")\n\n\n핵심 습관 3가지\n1. 주석은 “왜”를 적는다\n# 나쁜 주석\nfilter(age &gt;= 18)  # 18세 이상 필터 (코드 보면 알잖아요)\n\n# 좋은 주석\nfilter(age &gt;= 18)  # IRB 승인 기준: 성인 환자만 포함\n2. 하드코딩 금지\n# 나쁜 예\ndf &lt;- read_excel(\"/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx\")\n\n# 좋은 예 (R Project 안에서)\ndf &lt;- read_excel(\"rawdata/clinical_data.xlsx\")\n3. 중간 결과 저장\n# 전처리가 오래 걸리면 .rds로 저장해두기\nsaveRDS(df_cleaned, \"analysis/cleaned_data.rds\")\n\n# 다음 스크립트에서 바로 불러오기\ndf &lt;- readRDS(\"analysis/cleaned_data.rds\")",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "1_env.html#핵심-패키지-미리보기-5분",
+    "href": "1_env.html#핵심-패키지-미리보기-5분",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "핵심 패키지 미리보기 (5분)",
+    "text": "핵심 패키지 미리보기 (5분)\nPart 2~3에서 사용할 패키지를 미리 설치합니다.\n# 한 번만 실행하면 됩니다\ninstall.packages(c(\n  \"tidyverse\",    # 데이터 전처리 + 시각화\n  \"readxl\",       # 엑셀 파일 읽기\n  \"gtsummary\",    # Table 1 자동 생성\n  \"survival\",     # 생존분석\n  \"survminer\",    # KM curve 시각화\n  \"broom\",        # 통계 결과 → 데이터프레임\n  \"forestploter\"  # Forest plot\n))\n\n\n\n\n\n\nNote설치가 안 될 때\n\n\n\n# 특정 패키지가 에러나면 하나씩 설치\ninstall.packages(\"gtsummary\")\n\n# 그래도 안 되면 버전 확인\nR.version.string\n# R 4.3 이상 권장",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "1_env.html#part-1-정리",
+    "href": "1_env.html#part-1-정리",
+    "title": "Part 1. 연구 효율을 높이는 R script 환경 구축",
+    "section": "Part 1 정리",
+    "text": "Part 1 정리\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 주석, 상대경로, 중간저장\n\n다음 Part 2에서는 이 환경 위에서 실제 임상 데이터를 분석하는 파이프라인을 만들어봅니다.",
+    "crumbs": [
+      "Home",
+      "Part 1. 연구 효율을 높이는 R script 환경 구축"
+    ]
+  },
+  {
+    "objectID": "3_report.html",
+    "href": "3_report.html",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -83,8 +149,8 @@
     ]
   },
   {
-    "objectID": "1_환경구축.html#quarto",
-    "href": "1_환경구축.html#quarto",
+    "objectID": "3_report.html#quarto",
+    "href": "3_report.html#quarto",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -94,8 +160,8 @@
     ]
   },
   {
-    "objectID": "1_환경구축.html#running-code-되니",
-    "href": "1_환경구축.html#running-code-되니",
+    "objectID": "3_report.html#running-code-되니",
+    "href": "3_report.html#running-code-되니",
     "title": "Rscript",
     "section": "Running Code 되니?",
     "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
@@ -105,52 +171,8 @@
     ]
   },
   {
-    "objectID": "1_환경구축.html#dfdfdfd",
-    "href": "1_환경구축.html#dfdfdfd",
-    "title": "Rscript",
-    "section": "dfdfdfd",
-    "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
-    "crumbs": [
-      "Home",
-      "Rscript"
-    ]
-  },
-  {
-    "objectID": "3_결과정리.html",
-    "href": "3_결과정리.html",
-    "title": "Rscript",
-    "section": "",
-    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
-    "crumbs": [
-      "Home",
-      "Rscript"
-    ]
-  },
-  {
-    "objectID": "3_결과정리.html#quarto",
-    "href": "3_결과정리.html#quarto",
-    "title": "Rscript",
-    "section": "",
-    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
-    "crumbs": [
-      "Home",
-      "Rscript"
-    ]
-  },
-  {
-    "objectID": "3_결과정리.html#running-code-되니",
-    "href": "3_결과정리.html#running-code-되니",
-    "title": "Rscript",
-    "section": "Running Code 되니?",
-    "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
-    "crumbs": [
-      "Home",
-      "Rscript"
-    ]
-  },
-  {
-    "objectID": "3_결과정리.html#dfdfdfd",
-    "href": "3_결과정리.html#dfdfdfd",
+    "objectID": "3_report.html#dfdfdfd",
+    "href": "3_report.html#dfdfdfd",
     "title": "Rscript",
     "section": "dfdfdfd",
     "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
