@@ -4,11 +4,32 @@
     "href": "index.html",
     "title": "Rscript 활용하기",
     "section": "",
-    "text": "입니다. To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "본 강의에서는 “배운 R 기초를 어떻게 실제 논문 작성에 써먹는가”에 집중하고자 합니다.\n단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다."
   },
   {
-    "objectID": "examples.html",
-    "href": "examples.html",
+    "objectID": "index.html#part1.-연구-효율을-높이는-r-script-환경-구축",
+    "href": "index.html#part1.-연구-효율을-높이는-r-script-환경-구축",
+    "title": "Rscript 활용하기",
+    "section": "Part1. 연구 효율을 높이는 R script 환경 구축",
+    "text": "Part1. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\n\nR script 활용 파이프라인 구축?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\n✅ 휴먼 에러 최소화\n✅ 연구 효율성\n✅ Reproducibility\n파일 관리의 정석 (R Project): 폴더 구조 체계화\n\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (+다른 곳에 백업)\nanalysis/: 단계별 분석 결과 저장\nresults/: 최종 Table 및 고해상도 Figure 정리"
+  },
+  {
+    "objectID": "index.html#part2.-r-script-활용-임상-분석-파이프라인-만들기",
+    "href": "index.html#part2.-r-script-활용-임상-분석-파이프라인-만들기",
+    "title": "Rscript 활용하기",
+    "section": "Part2. R script 활용 임상 분석 파이프라인 만들기",
+    "text": "Part2. R script 활용 임상 분석 파이프라인 만들기\n\nCSV/xlsx 읽기 → 전처리 → Table 1 (gtsummary) → KM → Cox → forest plot\n데이터 전처리 (The Tidy Way): 엑셀에서 하던 필터링과 정렬을 dplyr 패키지로 자동화하며, 이 과정이 전체의 70%임을 공유합니다.\nTable 1 자동 생성 (tableone, gtsummary):\n\n연속형/범주형 변수를 자동 판별하고 p-value를 한 번에 계산하는 실습을 진행합니다.\nLabeling 기법: 변수명(sbp_v1)을 출력용 이름(Systolic BP)으로 자동 변환하여 ‘복사-붙여넣기’ 수작업을 생략합니다.\n\n바이브코딩으로 R 스크립트 만들기 - AI에게 프롬프트 → 코드 생성 → 실행 → 수정 사이클 - 좋은 프롬프트 작성법, AI가 틀리기 쉬운 통계적 함정"
+  },
+  {
+    "objectID": "index.html#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리",
+    "href": "index.html#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리",
+    "title": "Rscript 활용하기",
+    "section": "Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리",
+    "text": "Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리\n\n핵심 Figure 그리기: 논문의 퀄리티를 결정짓는 Kaplan-Meier Curve나 Forest Plot을 생성\n통계 수치 자동 추출: p-value, HR, CI 등을 직접 타이핑하지 않고 broom 패키지를 통해 오타 없이 데이터프레임으로 추출\nQuarto를 활용한 ‘원클릭 보고서’: 분석 코드와 해석이 포함된 문서를 PDF/Word/HTML로 즉시 출력하여 PI 보고용 자료를 완성\nR Markdown으로 재현 가능한 리포트\n맞춤형 템플릿 제공: 생존분석(Survival Analysis)이나 성향점수 매칭(PSM) 등 실제 연구 주제에 맞춘 “Ready-to-use” 스크립트를 배포하여 즉시 활용 가능하게 합니다.\n성공 경험 중심: 이론 설명은 10% 이내로 줄이고, “데이터 넣기 → 코드 실행 → 결과 확인” 과정을 반복하여 효용을 직접 느끼게 하는 것이 중요합니다.\n\n\nAI 활용 가이드 (Magic Prompt): “나는 간암 환자 200명의 생존 분석을 하고 있어. 데이터프레임 df를 사용해서 Kaplan-Meier 곡선을 그려주고, Risk Table과 Log-rank test p-value를 포함해줘"
+  },
+  {
+    "objectID": "2_R스크립트.html",
+    "href": "2_R스크립트.html",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -18,8 +39,8 @@
     ]
   },
   {
-    "objectID": "examples.html#quarto",
-    "href": "examples.html#quarto",
+    "objectID": "2_R스크립트.html#quarto",
+    "href": "2_R스크립트.html#quarto",
     "title": "Rscript",
     "section": "",
     "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
@@ -29,8 +50,8 @@
     ]
   },
   {
-    "objectID": "examples.html#running-code-되니",
-    "href": "examples.html#running-code-되니",
+    "objectID": "2_R스크립트.html#running-code-되니",
+    "href": "2_R스크립트.html#running-code-되니",
     "title": "Rscript",
     "section": "Running Code 되니?",
     "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
@@ -40,11 +61,99 @@
     ]
   },
   {
-    "objectID": "examples.html#dfdfdfd",
-    "href": "examples.html#dfdfdfd",
+    "objectID": "2_R스크립트.html#dfdfdfd",
+    "href": "2_R스크립트.html#dfdfdfd",
     "title": "Rscript",
     "section": "dfdfdfd",
-    "text": "dfdfdfd",
+    "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "1_환경구축.html",
+    "href": "1_환경구축.html",
+    "title": "Rscript",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "1_환경구축.html#quarto",
+    "href": "1_환경구축.html#quarto",
+    "title": "Rscript",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "1_환경구축.html#running-code-되니",
+    "href": "1_환경구축.html#running-code-되니",
+    "title": "Rscript",
+    "section": "Running Code 되니?",
+    "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "1_환경구축.html#dfdfdfd",
+    "href": "1_환경구축.html#dfdfdfd",
+    "title": "Rscript",
+    "section": "dfdfdfd",
+    "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "3_결과정리.html",
+    "href": "3_결과정리.html",
+    "title": "Rscript",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "3_결과정리.html#quarto",
+    "href": "3_결과정리.html#quarto",
+    "title": "Rscript",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "3_결과정리.html#running-code-되니",
+    "href": "3_결과정리.html#running-code-되니",
+    "title": "Rscript",
+    "section": "Running Code 되니?",
+    "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
+    "crumbs": [
+      "Home",
+      "Rscript"
+    ]
+  },
+  {
+    "objectID": "3_결과정리.html#dfdfdfd",
+    "href": "3_결과정리.html#dfdfdfd",
+    "title": "Rscript",
+    "section": "dfdfdfd",
+    "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
     "crumbs": [
       "Home",
       "Rscript"

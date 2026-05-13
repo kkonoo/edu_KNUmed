@@ -2,10 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kkonoo.github.io/edu_KNUmed/index.html</loc>
-    <lastmod>2026-05-13T04:22:04.912Z</lastmod>
+    <lastmod>2026-05-13T05:48:13.694Z</lastmod>
   </url>
   <url>
-    <loc>https://kkonoo.github.io/edu_KNUmed/examples.html</loc>
-    <lastmod>2026-05-13T04:53:56.606Z</lastmod>
+    <loc>https://kkonoo.github.io/edu_KNUmed/2_R스크립트.html</loc>
+    <lastmod>2026-05-13T04:56:08.592Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kkonoo.github.io/edu_KNUmed/1_환경구축.html</loc>
+    <lastmod>2026-05-13T04:56:08.592Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kkonoo.github.io/edu_KNUmed/3_결과정리.html</loc>
+    <lastmod>2026-05-13T04:56:08.592Z</lastmod>
   </url>
 </urlset>
