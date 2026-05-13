@@ -364,9 +364,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-1.-데이터-구조를-ai에게-알려주기" class="level3">
 <h3 class="anchored" data-anchor-id="step-1.-데이터-구조를-ai에게-알려주기">Step 1. 데이터 구조를 AI에게 알려주기</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 결과를 복사해서 AI에게 붙여넣기</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_pt)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DATA_FILE <span class="ot">&lt;-</span> <span class="st">"analysis/df_pt.rds"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"analysis/df_pt.rds"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 결과를 복사해서 AI에게 붙여넣기</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Key_pt"          "Key_lesion"      "IN_sur"          "IN_lesion"      
+ [5] "Sex"             "Age_Tx"          "OMD_Type"        "OMD_class"      
+ [9] "Tx_site"         "Primary"         "Bx_primary"      "Bx_primary_diff"
+[13] "Multiplicity"    "OMD_no"          "size_mm"         "DD"             
+[17] "fr"              "TD"              "GTV_cc"          "ITV_cc"         
+[21] "PTV_cc"          "Death"           "OS"              "LF"             
+[25] "LFFS"            "CTxAfterRT"      "CTxBeforeRT"     "bCTx_Line"      
+[29] "PTVmean_BED10"   "PTV_D2_BED10"    "PTV_D5_BED10"    "PTV_D95_BED10"  
+[33] "PTV_D98_BED10"   "Age_group"       "size_cm"         "BED_group"      </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Classes 'tbl_df', 'tbl' and 'data.frame':   55 obs. of  36 variables:
+ $ Key_pt         : num  2 6 7 9 10 15 17 18 19 20 ...
+ $ Key_lesion     : chr  "liver 2-1" "lung 6-1" "liver 7-1" "lung 9-1" ...
+ $ IN_sur         : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ IN_lesion      : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Sex            : Factor w/ 2 levels "Male","Female": 1 2 2 2 1 2 2 1 1 1 ...
+ $ Age_Tx         : num  76 76 55 68 77 63 77 76 64 83 ...
+ $ OMD_Type       : chr  "Metachronous oligorecurrence" "Repeat oligorecurrence" "Induced oligorecurrence" "Induced oligoprogression" ...
+ $ OMD_class      : chr  "oligometastasis" "oligometastasis" "oligometastasis" "oligoprogression" ...
+ $ Tx_site        : chr  "liver" "lung" "liver" "lung" ...
+ $ Primary        : chr  "Colon" "Colon" "Rectum" "Colon" ...
+ $ Bx_primary     : chr  "adenoca" "adenoca" "adenoca" "adenoca" ...
+ $ Bx_primary_diff: chr  "mod" "mod" "well" "mod" ...
+ $ Multiplicity   : Factor w/ 2 levels "multiple","single": 2 1 2 1 2 2 2 1 1 2 ...
+ $ OMD_no         : num  1 3 1 2 1 1 1 2 2 1 ...
+ $ size_mm        : num  15 25 42 5 27.5 19 16.7 4 12 16.5 ...
+ $ DD             : num  1600 1200 1000 1800 1250 1800 1200 1300 1200 1300 ...
+ $ fr             : num  3 4 5 3 4 3 4 4 4 4 ...
+ $ TD             : num  4800 4800 5000 5400 5000 5400 4800 5200 4800 5200 ...
+ $ GTV_cc         : num  5.839 5.8 25.904 0.097 6.709 ...
+ $ ITV_cc         : num  8.544 9.7 25.904 0.221 7.93 ...
+ $ PTV_cc         : num  18.87 33.9 53.89 3.93 26.66 ...
+ $ Death          : num  1 1 1 1 1 0 1 0 0 0 ...
+ $ OS             : num  20.7 34.5 26.6 11.7 43.4 ...
+ $ LF             : num  1 0 0 0 0 1 0 0 0 0 ...
+ $ LFFS           : num  9.23 33.51 24.51 6.51 22.34 ...
+ $ CTxAfterRT     : num  0 0 0 0 0 1 0 0 1 0 ...
+ $ CTxBeforeRT    : num  0 1 1 1 0 1 1 1 1 1 ...
+ $ bCTx_Line      : num  0 3 3 2 0 2 1 1 3 1 ...
+ $ PTVmean_BED10  : num  149 124 114 178 135 ...
+ $ PTV_D2_BED10   : num  162 142 116 207 158 ...
+ $ PTV_D5_BED10   : num  161 141 115 203 156 ...
+ $ PTV_D95_BED10  : num  120.5 103.7 95.9 148.6 111.5 ...
+ $ PTV_D98_BED10  : num  113.5 97 86.8 143.3 106.2 ...
+ $ Age_group      : chr  "≥65" "≥65" "&lt;65" "≥65" ...
+ $ size_cm        : num  1.5 2.5 4.2 0.5 2.75 1.9 1.67 0.4 1.2 1.65 ...
+ $ BED_group      : chr  "≥100 Gy" "≥100 Gy" "≥100 Gy" "≥100 Gy" ...</code></pre>
+</div>
 </div>
 </section>
 <section id="step-2.-프롬프트-작성" class="level3">
@@ -383,30 +437,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-3.-ai가-생성한-코드-예시" class="level3">
 <h3 class="anchored" data-anchor-id="step-3.-ai가-생성한-코드-예시">Step 3. AI가 생성한 코드 (예시)</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"analysis/df_pt.rds"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaplan-Meier fit</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(OS, Death <span class="sc">==</span> <span class="st">"Dead"</span>) <span class="sc">~</span> Multiplicity, <span class="at">data =</span> df_pt)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  fit,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_pt,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Time (months)"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Overall survival"</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#2E86AB"</span>, <span class="st">"#A23B72"</span>),</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="st">"results/KM_OS.tiff"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'survminer' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggpubr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggpubr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'survminer'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:survival':
+
+    myeloma</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"analysis/df_pt.rds"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaplan-Meier fit</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(OS, Death <span class="sc">==</span> <span class="st">"Dead"</span>) <span class="sc">~</span> Multiplicity, <span class="at">data =</span> df_pt)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_pt,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Time (months)"</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Overall survival"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#2E86AB"</span>, <span class="st">"#A23B72"</span>),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in pchisq(chi, df, lower.tail = FALSE): NaNs produced</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="st">"results/KM_OS.tiff"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• colour : "Strata"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
 </div>
 </section>
 <section id="step-4.-에러가-나면" class="level3">

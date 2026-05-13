@@ -303,15 +303,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="데이터-읽기" class="level2">
 <h2 class="anchored" data-anchor-id="데이터-읽기">데이터 읽기</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rawdata/clinical_data.xlsx"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 확인</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)       <span class="co"># 76행 x 33열</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)   <span class="co"># 변수 타입 한눈에</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.2.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rawdata/clinical_data.xlsx"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 확인</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)       <span class="co"># 76행 x 33열</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75 33</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)   <span class="co"># 변수 타입 한눈에</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 75
+Columns: 33
+$ Key_pt          &lt;dbl&gt; 2, 6, 6, 7, 9, 9, 10, 15, 17, 18, 18, 19, 19, 20, 21, …
+$ Key_lesion      &lt;chr&gt; "liver 2-1", "lung 6-1", "lung 6-2", "liver 7-1", "lun…
+$ IN_sur          &lt;dbl&gt; 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, …
+$ IN_lesion       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ Sex             &lt;chr&gt; "M", "F", "F", "F", "F", "F", "M", "F", "F", "M", "M",…
+$ Age_Tx          &lt;dbl&gt; 76, 76, 76, 55, 68, 68, 77, 63, 77, 76, 76, 64, 65, 83…
+$ OMD_Type        &lt;chr&gt; "Metachronous oligorecurrence", "Repeat oligorecurrenc…
+$ OMD_class       &lt;chr&gt; "oligometastasis", "oligometastasis", "oligometastasis…
+$ Tx_site         &lt;chr&gt; "liver", "lung", "lung", "liver", "lung", "lung", "lun…
+$ Primary         &lt;chr&gt; "Colon", "Colon", "Colon", "Rectum", "Colon", "Colon",…
+$ Bx_primary      &lt;chr&gt; "adenoca", "adenoca", "adenoca", "adenoca", "adenoca",…
+$ Bx_primary_diff &lt;chr&gt; "mod", "mod", "mod", "well", "mod", "mod", "well", "mo…
+$ Multiplicity    &lt;chr&gt; "single", "multiple", "multiple", "single", "multiple"…
+$ OMD_no          &lt;dbl&gt; 1, 3, 3, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 1, …
+$ size_mm         &lt;dbl&gt; 15.0, 25.0, 7.0, 42.0, 5.0, 6.0, 27.5, 19.0, 16.7, 4.0…
+$ DD              &lt;dbl&gt; 1600, 1200, 1200, 1000, 1800, 1800, 1250, 1800, 1200, …
+$ fr              &lt;dbl&gt; 3, 4, 4, 5, 3, 3, 4, 3, 4, 4, 4, 4, 4, 4, 4, 5, 8, 3, …
+$ TD              &lt;dbl&gt; 4800, 4800, 4800, 5000, 5400, 5400, 5000, 5400, 4800, …
+$ GTV_cc          &lt;dbl&gt; 5.839, 5.800, 0.300, 25.904, 0.097, 0.126, 6.709, 3.43…
+$ ITV_cc          &lt;dbl&gt; 8.544, 9.700, 0.700, 25.904, 0.221, 0.275, 7.930, 5.29…
+$ PTV_cc          &lt;dbl&gt; 18.872, 33.900, 7.500, 53.888, 3.933, 4.324, 26.663, 2…
+$ Death           &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, …
+$ OS              &lt;dbl&gt; 20.69815, 34.52977, 34.52977, 26.64476, 11.72895, 11.7…
+$ LF              &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, …
+$ LFFS            &lt;dbl&gt; 9.232033, 33.511294, 33.511294, 24.509240, 6.505133, 6…
+$ CTxAfterRT      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, …
+$ CTxBeforeRT     &lt;dbl&gt; 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, …
+$ bCTx_Line       &lt;dbl&gt; 0, 3, 3, 3, 2, 2, 0, 2, 1, 1, 1, 3, 4, 1, 2, 1, 1, 0, …
+$ PTVmean_BED10   &lt;dbl&gt; 148.7257, 123.8828, 126.8445, 113.7143, 178.0551, 175.…
+$ PTV_D2_BED10    &lt;dbl&gt; 162.4082, 142.2713, 153.4604, 115.8266, 206.7196, 202.…
+$ PTV_D5_BED10    &lt;dbl&gt; 160.5144, 140.7807, 151.2583, 115.1738, 202.5448, 199.…
+$ PTV_D95_BED10   &lt;dbl&gt; 120.48458, 103.69339, 98.09201, 95.89514, 148.57971, 1…
+$ PTV_D98_BED10   &lt;dbl&gt; 113.48200, 97.03628, 92.19770, 86.78378, 143.27898, 14…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 33
+  Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type     OMD_class Tx_site
+   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;  
+1      2 liver 2-1       1         1 M         76 Metachronou… oligomet… liver  
+2      6 lung 6-1        1         1 F         76 Repeat olig… oligomet… lung   
+3      6 lung 6-2        0         1 F         76 Repeat olig… oligomet… lung   
+4      7 liver 7-1       1         1 F         55 Induced oli… oligomet… liver  
+5      9 lung 9-1        1         1 F         68 Induced oli… oligopro… lung   
+6      9 lung 9-2        0         1 F         68 Induced oli… oligopro… lung   
+# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -331,12 +400,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="데이터-구조-파악">데이터 구조 파악</h2>
 <p>이 데이터는 <strong>환자-병변(lesion) 단위</strong>입니다. 한 환자가 여러 병변을 가질 수 있어요.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자 수 vs 병변 수</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(df<span class="sc">$</span>Key_pt)      <span class="co"># 환자 수</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)                    <span class="co"># 병변 수 (= 행 수)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자당 병변 수 확인</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">count</span>(Key_pt, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자 수 vs 병변 수</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(df<span class="sc">$</span>Key_pt)      <span class="co"># 환자 수</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)                    <span class="co"># 병변 수 (= 행 수)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자당 병변 수 확인</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">count</span>(Key_pt, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 2
+   Key_pt     n
+    &lt;dbl&gt; &lt;int&gt;
+ 1     89     4
+ 2     61     3
+ 3      6     2
+ 4      9     2
+ 5     18     2
+ 6     19     2
+ 7     22     2
+ 8     39     2
+ 9     50     2
+10     52     2
+# ℹ 45 more rows</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -403,51 +493,165 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="filter-행-필터링" class="level3">
 <h3 class="anchored" data-anchor-id="filter-행-필터링">filter: 행 필터링</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자 단위 분석용: 환자당 1행만</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IN_sur <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_pt)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 조건 필터</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, Sex <span class="sc">==</span> <span class="st">"M"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 조건 조합</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Primary <span class="sc">==</span> <span class="st">"Colon"</span> <span class="sc">|</span> Primary <span class="sc">==</span> <span class="st">"Rectum"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Primary <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Colon"</span>, <span class="st">"Rectum"</span>))  <span class="co"># 같은 결과, 더 깔끔</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 환자 단위 분석용: 환자당 1행만</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(IN_sur <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 조건 필터</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, Sex <span class="sc">==</span> <span class="st">"M"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 33
+   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
+ 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  
+ 2     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   
+ 3     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   
+ 4     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   
+ 5     21 lung 21-1       1         1 M         69 Repeat oli… oligopro… lung   
+ 6     22 lung 22-1       1         1 M         74 Repeat oli… oligomet… lung   
+ 7     24 lung 24-1       1         1 M         76 Metachrono… oligomet… lung   
+ 8     31 lung 31-1       1         1 M         76 Metachrono… oligomet… lung   
+ 9     32 lung 32-1       1         1 M         68 Repeat oli… oligomet… lung   
+10     36 lung 36-1       1         1 M         65 Repeat oli… oligopro… lung   
+# ℹ 16 more rows
+# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 조건 조합</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Primary <span class="sc">==</span> <span class="st">"Colon"</span> <span class="sc">|</span> Primary <span class="sc">==</span> <span class="st">"Rectum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 33
+   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
+ 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  
+ 2      6 lung 6-1        1         1 F         76 Repeat oli… oligomet… lung   
+ 3      7 liver 7-1       1         1 F         55 Induced ol… oligomet… liver  
+ 4      9 lung 9-1        1         1 F         68 Induced ol… oligopro… lung   
+ 5     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   
+ 6     15 lung 15-1       1         1 F         63 Repeat oli… oligopro… lung   
+ 7     17 lung 17-1       1         1 F         77 Metachrono… oligomet… lung   
+ 8     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   
+ 9     19 lung 19-1       1         1 M         64 Repeat oli… oligopro… lung   
+10     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   
+# ℹ 45 more rows
+# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Primary <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Colon"</span>, <span class="st">"Rectum"</span>))  <span class="co"># 같은 결과, 더 깔끔</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 33
+   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
+ 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  
+ 2      6 lung 6-1        1         1 F         76 Repeat oli… oligomet… lung   
+ 3      7 liver 7-1       1         1 F         55 Induced ol… oligomet… liver  
+ 4      9 lung 9-1        1         1 F         68 Induced ol… oligopro… lung   
+ 5     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   
+ 6     15 lung 15-1       1         1 F         63 Repeat oli… oligopro… lung   
+ 7     17 lung 17-1       1         1 F         77 Metachrono… oligomet… lung   
+ 8     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   
+ 9     19 lung 19-1       1         1 M         64 Repeat oli… oligopro… lung   
+10     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   
+# ℹ 45 more rows
+# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;</code></pre>
+</div>
 </div>
 </section>
 <section id="select-열-선택" class="level3">
 <h3 class="anchored" data-anchor-id="select-열-선택">select: 열 선택</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요한 열만</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Sex, Age_Tx, Primary, Death, OS)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 패턴 열 선택</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"PTV"</span>))</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Sex<span class="sc">:</span>Age_Tx, Death<span class="sc">:</span>LFFS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요한 열만</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Sex, Age_Tx, Primary, Death, OS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 6
+   Key_pt Sex   Age_Tx Primary Death    OS
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1      2 M         76 Colon       1  20.7
+ 2      6 F         76 Colon       1  34.5
+ 3      7 F         55 Rectum      1  26.6
+ 4      9 F         68 Colon       1  11.7
+ 5     10 M         77 Colon       1  43.4
+ 6     15 F         63 Rectum      0  76.8
+ 7     17 F         77 Rectum      1  54.7
+ 8     18 M         76 Rectum      0  59.0
+ 9     19 M         64 Rectum      0  47.6
+10     20 M         83 Rectum      0  31.7
+# ℹ 45 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 패턴 열 선택</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"PTV"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 6
+   PTV_cc PTVmean_BED10 PTV_D2_BED10 PTV_D5_BED10 PTV_D95_BED10 PTV_D98_BED10
+    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+ 1  18.9           149.         162.         161.         120.          113. 
+ 2  33.9           124.         142.         141.         104.           97.0
+ 3  53.9           114.         116.         115.          95.9          86.8
+ 4   3.93          178.         207.         203.         149.          143. 
+ 5  26.7           135.         158.         156.         111.          106. 
+ 6  20.3           167.         183.         181.         151.          146. 
+ 7  11.2           131.         157.         154.         106.          100. 
+ 8   9.61          149.         181.         177.         120.          112. 
+ 9   6.91          130.         169.         162.         106.          101. 
+10  12.3           142.         172.         168.         108.          101. 
+# ℹ 45 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Sex<span class="sc">:</span>Age_Tx, Death<span class="sc">:</span>LFFS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 7
+   Key_pt Sex   Age_Tx Death    OS    LF  LFFS
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1      2 M         76     1  20.7     1  9.23
+ 2      6 F         76     1  34.5     0 33.5 
+ 3      7 F         55     1  26.6     0 24.5 
+ 4      9 F         68     1  11.7     0  6.51
+ 5     10 M         77     1  43.4     0 22.3 
+ 6     15 F         63     0  76.8     1 27.6 
+ 7     17 F         77     1  54.7     0 28.6 
+ 8     18 M         76     0  59.0     0 58.3 
+ 9     19 M         64     0  47.6     0 46.5 
+10     20 M         83     0  31.7     0 25.5 
+# ℹ 45 more rows</code></pre>
+</div>
 </div>
 </section>
 <section id="mutate-새-변수-생성" class="level3">
 <h3 class="anchored" data-anchor-id="mutate-새-변수-생성">mutate: 새 변수 생성</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df_pt <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 연령군</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># factor 변환 (Table 1에서 범주형으로 인식시키기 위해)</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death =</span> <span class="fu">factor</span>(Death, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Alive"</span>, <span class="st">"Dead"</span>)),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 연속형 변수 단위 변환</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># BED10 카테고리</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 연령군</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># factor 변환 (Table 1에서 범주형으로 인식시키기 위해)</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death =</span> <span class="fu">factor</span>(Death, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Alive"</span>, <span class="st">"Dead"</span>)),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 연속형 변수 단위 변환</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># BED10 카테고리</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -469,15 +673,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="group_by-summarise-그룹별-요약" class="level3">
 <h3 class="anchored" data-anchor-id="group_by-summarise-그룹별-요약">group_by + summarise: 그룹별 요약</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary별 환자 수, 중앙 나이</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Primary) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_age =</span> <span class="fu">median</span>(Age_Tx),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">death_rate =</span> <span class="fu">mean</span>(Death <span class="sc">==</span> <span class="st">"Dead"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary별 환자 수, 중앙 나이</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Primary) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_age =</span> <span class="fu">median</span>(Age_Tx),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">death_rate =</span> <span class="fu">mean</span>(Death <span class="sc">==</span> <span class="st">"Dead"</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  Primary     n median_age death_rate
+  &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Rectum     32       68.5      0.562
+2 Colon      23       74        0.565</code></pre>
+</div>
 </div>
 <hr>
 </section>
@@ -486,41 +697,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="전처리-파이프라인-완성">전처리 파이프라인 완성</h2>
 <p>위 과정을 하나의 스크립트로 정리하면:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 파라미터 =====</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>DATA_FILE <span class="ot">&lt;-</span> <span class="st">"rawdata/clinical_data.xlsx"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ====================</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 읽기</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 환자 단위 데이터</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IN_sur <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Multiplicity =</span> <span class="fu">factor</span>(Multiplicity),</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 병변 단위 데이터</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>df_lesion <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">LF =</span> <span class="fu">as.numeric</span>(LF)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 저장</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="st">"analysis/df_pt.rds"</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_lesion, <span class="st">"analysis/df_lesion.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 파라미터 =====</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>DATA_FILE <span class="ot">&lt;-</span> <span class="st">"rawdata/clinical_data.xlsx"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ====================</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 읽기</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 환자 단위 데이터</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IN_sur <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">65</span>, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Multiplicity =</span> <span class="fu">factor</span>(Multiplicity),</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 병변 단위 데이터</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>df_lesion <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">LF =</span> <span class="fu">as.numeric</span>(LF)</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 저장</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="st">"analysis/df_pt.rds"</span>)</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_lesion, <span class="st">"analysis/df_lesion.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
