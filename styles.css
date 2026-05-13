@@ -6,11 +6,6 @@ body {
   font-family: "Pretendard", sans-serif;
 }
 
-/*-- scss:defaults --*/
-$grid-sidebar-width: 250px;
-$grid-margin-width: 200px;
-$grid-body-width: 1fr;
-
 # 토글 버튼
 .lang-toggle a {
   padding: 4px 10px;
