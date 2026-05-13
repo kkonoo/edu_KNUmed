@@ -8,9 +8,9 @@ body {
 }
 
 /* 소제목 색상 */
-h2 { color: #005F73; }           /* ## 제목 */
-h3 { color: #0A9396; }           /* ### 제목 */
-h4 { color: #94D2BD }        
+h2 { color: #1B365D; }           /* ## 제목 */
+h3 { color: #4A7799; }           /* ### 제목 */
+h4 { color: #7A9EB1 }        
 
 /* 언어 지정 없는 코드 블록 (``` 만 쓴 것) */
 pre.sourceCode:not([class*="language"]) code,
@@ -34,3 +34,8 @@ code, pre code {
   font-weight: 700;
 }
 
+
+
+#h2 { color: #005F73; }           /* ## 제목 */
+#h3 { color: #0A9396; }           /* ### 제목 */
+#h4 { color: #94D2BD }        
