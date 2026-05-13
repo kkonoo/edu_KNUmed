@@ -5,12 +5,14 @@
 
 body {
   font-family: "Pretendard", sans-serif;
+  font-size: 1.1em;   /* 기본 16px → ~17.6px */
 }
 
 /* 소제목 색상 */
-h2 { color: #5B4D80; }
-h3 { color: #7A6A99; }
-h4 { color: #9A8DB5; }     
+h2 { color: #5B4D80; font-size: 1.8em; }
+h3 { color: #7A6A99; font-size: 1.4em; }
+h4 { color: #9A8DB5; font-size: 1.1em; }
+
 
 /* 언어 지정 없는 코드 블록 (``` 만 쓴 것) */
 pre.sourceCode:not([class*="language"]) code,
