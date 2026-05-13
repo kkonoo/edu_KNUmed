@@ -6,22 +6,18 @@ body {
   font-family: "Pretendard", sans-serif;
 }
 
-
-# toc (table of contents) 조정
-.sidebar.toc-left {
-  padding-left: 0;
-}
-div.column-margin-content {
-  right: 0;
-  position: fixed;
-}
-
-#TOC {
-  position: fixed;
-  right: 0;
-  top: 80px;
+/* TOC를 오른쪽 끝에 고정 */
+.sidebar.margin-sidebar {
+  position: fixed !important;
+  right: 0 !important;
+  top: 60px;
   width: 200px;
   padding: 1em;
+}
+
+/* 본문이 TOC 공간 확보 */
+.page-columns .content {
+  margin-right: 220px;
 }
 
 # 토글 버튼
