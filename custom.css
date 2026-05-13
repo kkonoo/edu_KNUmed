@@ -43,7 +43,7 @@ pre.sourceCode, pre.sourceCode code {
 /* callout 박스 안 글씨체/크기 */
 .callout-body-container {
   font-family: 'Pretendard', sans-serif;
-  font-size: 1em;
+  font-size: 1.1em;
   color: #555;
 }
 
@@ -51,7 +51,7 @@ pre.sourceCode, pre.sourceCode code {
 .callout-title-container {
   font-family: 'Pretendard', sans-serif;
   font-weight: 700;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 /* callout 컬러바 */
