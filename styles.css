@@ -11,15 +11,18 @@ body {
 .sidebar.toc-left {
   padding-left: 0;
 }
-.sidebar.toc-right {
-  padding-right: 0;
-}
-
 div.column-margin-content {
   right: 0;
   position: fixed;
 }
 
+#TOC {
+  position: fixed;
+  right: 0;
+  top: 80px;
+  width: 200px;
+  padding: 1em;
+}
 
 # 토글 버튼
 .lang-toggle a {
