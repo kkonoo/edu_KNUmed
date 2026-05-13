@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1) 왜 R Script인가</title>
+<title>2-3) 바이브코딩으로 R 스크립트 만들기</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -120,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/2_1_preprocessing.html">2. R script 활용하기</a></li><li class="breadcrumb-item"><a href="../part2/2_3_vibecoding.html">2-3) 바이브코딩으로 R 스크립트 만들기</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -143,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1) 왜 R Script인가</span></a>
   </div>
 </li>
@@ -190,7 +225,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part2/2_3_vibecoding.html" class="sidebar-item-text sidebar-link">
+  <a href="../part2/2_3_vibecoding.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">2-3) 바이브코딩으로 R 스크립트 만들기</span></a>
   </div>
 </li>
@@ -223,17 +258,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#현재-많은-연구자의-워크플로우" id="toc-현재-많은-연구자의-워크플로우" class="nav-link active" data-scroll-target="#현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</a></li>
-  <li><a href="#r-script-파이프라인이란" id="toc-r-script-파이프라인이란" class="nav-link" data-scroll-target="#r-script-파이프라인이란">R Script 파이프라인이란</a></li>
+  <li><a href="#바이브코딩이란" id="toc-바이브코딩이란" class="nav-link active" data-scroll-target="#바이브코딩이란">바이브코딩이란?</a></li>
+  <li><a href="#프롬프트의-3요소" id="toc-프롬프트의-3요소" class="nav-link" data-scroll-target="#프롬프트의-3요소">프롬프트의 3요소</a>
+  <ul class="collapse">
+  <li><a href="#나쁜-프롬프트" id="toc-나쁜-프롬프트" class="nav-link" data-scroll-target="#나쁜-프롬프트">나쁜 프롬프트</a></li>
+  <li><a href="#좋은-프롬프트" id="toc-좋은-프롬프트" class="nav-link" data-scroll-target="#좋은-프롬프트">좋은 프롬프트</a></li>
+  </ul></li>
+  <li><a href="#실전-예시-ai에게-생존분석-시키기" id="toc-실전-예시-ai에게-생존분석-시키기" class="nav-link" data-scroll-target="#실전-예시-ai에게-생존분석-시키기">실전 예시: AI에게 생존분석 시키기</a>
+  <ul class="collapse">
+  <li><a href="#step-1.-데이터-구조를-ai에게-알려주기" id="toc-step-1.-데이터-구조를-ai에게-알려주기" class="nav-link" data-scroll-target="#step-1.-데이터-구조를-ai에게-알려주기">Step 1. 데이터 구조를 AI에게 알려주기</a></li>
+  <li><a href="#step-2.-프롬프트-작성" id="toc-step-2.-프롬프트-작성" class="nav-link" data-scroll-target="#step-2.-프롬프트-작성">Step 2. 프롬프트 작성</a></li>
+  <li><a href="#step-3.-ai가-생성한-코드-예시" id="toc-step-3.-ai가-생성한-코드-예시" class="nav-link" data-scroll-target="#step-3.-ai가-생성한-코드-예시">Step 3. AI가 생성한 코드 (예시)</a></li>
+  <li><a href="#step-4.-에러가-나면" id="toc-step-4.-에러가-나면" class="nav-link" data-scroll-target="#step-4.-에러가-나면">Step 4. 에러가 나면?</a></li>
+  </ul></li>
+  <li><a href="#실습-과제" id="toc-실습-과제" class="nav-link" data-scroll-target="#실습-과제">실습 과제</a></li>
+  <li><a href="#바이브코딩-체크리스트" id="toc-바이브코딩-체크리스트" class="nav-link" data-scroll-target="#바이브코딩-체크리스트">바이브코딩 체크리스트</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/2_1_preprocessing.html">2. R script 활용하기</a></li><li class="breadcrumb-item"><a href="../part2/2_3_vibecoding.html">2-3) 바이브코딩으로 R 스크립트 만들기</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1) 왜 R Script인가</h1>
+<h1 class="title">2-3) 바이브코딩으로 R 스크립트 만들기</h1>
 </div>
 
 
@@ -256,91 +304,182 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="현재-많은-연구자의-워크플로우" class="level3">
-<h3 class="anchored" data-anchor-id="현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</h3>
-<pre><code>Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...</code></pre>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>이 과정에서 생기는 문제들
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기</li>
-<li>“이 p-value 어디서 나온 거였지?” → 추적 어려움</li>
-<li>공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="r-script-파이프라인이란" class="level3">
-<h3 class="anchored" data-anchor-id="r-script-파이프라인이란">R Script 파이프라인이란</h3>
+<section id="바이브코딩이란" class="level2">
+<h2 class="anchored" data-anchor-id="바이브코딩이란">바이브코딩이란?</h2>
 <blockquote class="blockquote">
-<p><strong>input:</strong> 연구 데이터 <strong>➡️ <span style="color: #8B3A3A; font-weight: bold;">R script</span> ➡️ output:</strong> 논문용 표 &amp; 그래프 <strong>📊📈</strong></p>
-<p><strong>스크립트 = 분석 기록</strong></p>
+<p>AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복</p>
 </blockquote>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 33%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>기존 방식 (SPSS/Excel)</th>
-<th>R Script 파이프라인</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>데이터 수정 시</td>
-<td>표/그래프 전부 다시</td>
-<td>스크립트 재실행 (n초)</td>
-</tr>
-<tr class="even">
-<td>분석 과정 공유</td>
-<td>구두 설명, 스크린샷</td>
-<td><code>.R</code> 파일 전달</td>
-</tr>
-<tr class="odd">
-<td>리뷰어 수정 요청</td>
-<td>처음부터 다시</td>
-<td>해당 줄만 수정 후 재실행</td>
-</tr>
-<tr class="even">
-<td>휴먼 에러</td>
-<td>복붙 실수, 오타</td>
-<td>코드가 동일하면 결과도 동일</td>
-</tr>
-<tr class="odd">
-<td>Reproducibility</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-</tbody>
-</table>
+<p>코드를 “외우는” 것이 아니라, <strong>AI에게 잘 시키는 법</strong>을 배우는 것입니다.</p>
+<hr>
+</section>
+<section id="프롬프트의-3요소" class="level2">
+<h2 class="anchored" data-anchor-id="프롬프트의-3요소">프롬프트의 3요소</h2>
+<p>좋은 프롬프트 = <strong>역할 + 맥락 + 구체적 요청</strong></p>
+<section id="나쁜-프롬프트" class="level3">
+<h3 class="anchored" data-anchor-id="나쁜-프롬프트">나쁜 프롬프트</h3>
+<pre><code>통계 분석 해줘</code></pre>
+<p>→ AI가 뭘 해야 할지 모름. 쓸모없는 결과가 나옴.</p>
+</section>
+<section id="좋은-프롬프트" class="level3">
+<h3 class="anchored" data-anchor-id="좋은-프롬프트">좋은 프롬프트</h3>
+<pre><code>너는 임상통계 전문가야.
+
+나는 올리고전이 환자 대상 SBRT 논문을 쓰고 있어.
+데이터프레임 df_pt에 다음 변수가 있어:
+- Age_Tx: 치료 시 나이 (연속형)
+- Sex: 성별 (M/F)
+- Primary: 원발 부위 (Colon, Rectum, Lung 등)
+- Death: 사망 여부 (0/1)
+- OS: 전체 생존 기간 (개월)
+- size_cm: 종양 크기 (cm)
+- PTVmean_BED10: PTV 평균 BED10 (Gy)
+
+다음을 수행하는 R 코드를 작성해줘:
+1. gtsummary로 Table 1 생성 (Death 기준 그룹 비교, p-value 포함)
+2. 변수명은 논문용 라벨로 변환
+3. results/Table1.docx로 저장</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>실제 시나리오
+<span class="screen-reader-only">Tip</span>프롬프트 작성 팁
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>리뷰어: <em>“Table 1에서 BMI 대신 BSA를 써주세요”</em></p>
+<ol type="1">
+<li><strong><code>colnames(df)</code> 결과를 붙여넣기</strong> — AI가 변수명을 정확히 알아야 함</li>
+<li><strong>변수 타입 명시</strong> — 연속형/범주형/생존시간 구분</li>
+<li><strong>원하는 출력 형태 지정</strong> — “Word로 저장”, “tiff 300dpi”, “forest plot” 등</li>
+<li><strong>패키지 지정</strong> — “gtsummary로”, “survminer로” 등</li>
+</ol>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="실전-예시-ai에게-생존분석-시키기" class="level2">
+<h2 class="anchored" data-anchor-id="실전-예시-ai에게-생존분석-시키기">실전 예시: AI에게 생존분석 시키기</h2>
+<section id="step-1.-데이터-구조를-ai에게-알려주기" class="level3">
+<h3 class="anchored" data-anchor-id="step-1.-데이터-구조를-ai에게-알려주기">Step 1. 데이터 구조를 AI에게 알려주기</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 결과를 복사해서 AI에게 붙여넣기</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_pt)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_pt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-2.-프롬프트-작성" class="level3">
+<h3 class="anchored" data-anchor-id="step-2.-프롬프트-작성">Step 2. 프롬프트 작성</h3>
+<pre><code>위 데이터에서 생존분석을 해줘.
+
+- 환자 단위 (IN_sur == 1)
+- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교
+- Log-rank test p-value를 그래프에 표시
+- Risk table 포함
+- survminer 패키지 사용
+- 300 dpi tiff로 results/KM_OS.tiff에 저장</code></pre>
+</section>
+<section id="step-3.-ai가-생성한-코드-예시" class="level3">
+<h3 class="anchored" data-anchor-id="step-3.-ai가-생성한-코드-예시">Step 3. AI가 생성한 코드 (예시)</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"analysis/df_pt.rds"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaplan-Meier fit</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(OS, Death <span class="sc">==</span> <span class="st">"Dead"</span>) <span class="sc">~</span> Multiplicity, <span class="at">data =</span> df_pt)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_pt,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Time (months)"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Overall survival"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#2E86AB"</span>, <span class="st">"#A23B72"</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="st">"results/KM_OS.tiff"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-4.-에러가-나면" class="level3">
+<h3 class="anchored" data-anchor-id="step-4.-에러가-나면">Step 4. 에러가 나면?</h3>
+<p>에러 메시지를 <strong>그대로 복붙</strong>해서 AI에게 주면 됩니다.</p>
+<pre><code>이 코드를 실행했더니 다음 에러가 났어:
+
+Error in Surv(OS, Death == "Dead") : 
+  invalid status value
+
+고쳐줘.</code></pre>
+<p>→ AI가 <code>Death</code>가 factor라서 <code>== "Dead"</code> 비교가 안 되는 걸 잡아줌</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>AI가 틀리기 쉬운 통계적 함정
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Reference level 방향</strong> — <code>relevel(factor, ref = "baseline")</code>을 빠뜨리는 경우 많음</li>
+<li><strong>환자 vs 병변 단위 혼동</strong> — OS는 환자 단위, LFFS는 병변 단위</li>
+<li><strong>다중비교 보정 누락</strong> — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우</li>
+<li><strong>결측치 처리</strong> — 기본값이 <code>na.rm = FALSE</code>라 결과가 <code>NA</code>로 나올 수 있음</li>
+<li><strong>생존 시간/이벤트 뒤바꿈</strong> — <code>Surv(time, event)</code> 순서 주의</li>
+</ol>
+<p><strong>이것들은 사람이 알아야 합니다.</strong> Part 1에서 Base R로 직접 해본 이유가 여기 있어요.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="실습-과제" class="level2">
+<h2 class="anchored" data-anchor-id="실습-과제">실습 과제</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>직접 해보기
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>AI에게 프롬프트를 작성해서 다음 분석을 수행하는 R 코드를 만들어보세요.</p>
+<p><strong>과제 1</strong>: Cox proportional hazard regression</p>
 <ul>
-<li>SPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…</li>
-<li>R Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝</li>
+<li>종속변수: OS, Death</li>
+<li>독립변수: Age_Tx, Sex, Primary, size_cm, PTVmean_BED10</li>
+<li>Multivariable model 결과를 forest plot으로 시각화</li>
+<li><code>results/forest_OS.tiff</code>로 저장</li>
 </ul>
+<p><strong>과제 2</strong>: LFFS 분석 (병변 단위)</p>
+<ul>
+<li>종속변수: LFFS, LF</li>
+<li>BED10 ≥100 vs &lt;100으로 그룹 나누기</li>
+<li>KM curve + log-rank test</li>
+</ul>
+<p><strong>힌트</strong>: <code>colnames(df_pt)</code> 결과와 변수 설명을 AI에게 같이 보내세요.</p>
 </div>
 </div>
+<hr>
+</section>
+<section id="바이브코딩-체크리스트" class="level2">
+<h2 class="anchored" data-anchor-id="바이브코딩-체크리스트">바이브코딩 체크리스트</h2>
+<pre><code>✅ colnames()와 str() 결과를 AI에게 제공했는가?
+✅ 분석 단위(환자/병변)를 명시했는가?
+✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)
+✅ 사용할 패키지를 지정했는가?
+✅ AI 결과의 reference level, 단위, p-value를 직접 확인했는가?</code></pre>
 
 
 </section>

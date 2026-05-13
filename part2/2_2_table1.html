@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1) 왜 R Script인가</title>
+<title>2-2) Table 1 자동 생성</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -120,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/2_1_preprocessing.html">2. R script 활용하기</a></li><li class="breadcrumb-item"><a href="../part2/2_2_table1.html">2-2) Table 1 자동 생성</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -143,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part1/1_1_env.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1) 왜 R Script인가</span></a>
   </div>
 </li>
@@ -184,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part2/2_2_table1.html" class="sidebar-item-text sidebar-link">
+  <a href="../part2/2_2_table1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">2-2) Table 1 자동 생성</span></a>
   </div>
 </li>
@@ -223,17 +258,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#현재-많은-연구자의-워크플로우" id="toc-현재-많은-연구자의-워크플로우" class="nav-link active" data-scroll-target="#현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</a></li>
-  <li><a href="#r-script-파이프라인이란" id="toc-r-script-파이프라인이란" class="nav-link" data-scroll-target="#r-script-파이프라인이란">R Script 파이프라인이란</a></li>
+  <li><a href="#table-1이란" id="toc-table-1이란" class="nav-link active" data-scroll-target="#table-1이란">Table 1이란?</a></li>
+  <li><a href="#gtsummary-기본-사용법" id="toc-gtsummary-기본-사용법" class="nav-link" data-scroll-target="#gtsummary-기본-사용법">gtsummary 기본 사용법</a>
+  <ul class="collapse">
+  <li><a href="#가장-간단한-table-1" id="toc-가장-간단한-table-1" class="nav-link" data-scroll-target="#가장-간단한-table-1">가장 간단한 Table 1</a></li>
+  <li><a href="#그룹별-비교-p-value" id="toc-그룹별-비교-p-value" class="nav-link" data-scroll-target="#그룹별-비교-p-value">그룹별 비교 + p-value</a></li>
+  </ul></li>
+  <li><a href="#labeling-변수명-깔끔하게" id="toc-labeling-변수명-깔끔하게" class="nav-link" data-scroll-target="#labeling-변수명-깔끔하게">Labeling: 변수명 깔끔하게</a></li>
+  <li><a href="#table-1-내보내기" id="toc-table-1-내보내기" class="nav-link" data-scroll-target="#table-1-내보내기">Table 1 내보내기</a>
+  <ul class="collapse">
+  <li><a href="#word로-내보내기-논문-투고용" id="toc-word로-내보내기-논문-투고용" class="nav-link" data-scroll-target="#word로-내보내기-논문-투고용">Word로 내보내기 (논문 투고용)</a></li>
+  <li><a href="#csv로-내보내기" id="toc-csv로-내보내기" class="nav-link" data-scroll-target="#csv로-내보내기">CSV로 내보내기</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/2_1_preprocessing.html">2. R script 활용하기</a></li><li class="breadcrumb-item"><a href="../part2/2_2_table1.html">2-2) Table 1 자동 생성</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1) 왜 R Script인가</h1>
+<h1 class="title">2-2) Table 1 자동 생성</h1>
 </div>
 
 
@@ -256,93 +301,184 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="현재-많은-연구자의-워크플로우" class="level3">
-<h3 class="anchored" data-anchor-id="현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</h3>
-<pre><code>Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...</code></pre>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>이 과정에서 생기는 문제들
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="table-1이란" class="level2">
+<h2 class="anchored" data-anchor-id="table-1이란">Table 1이란?</h2>
+<p>논문의 첫 번째 표. 연구 대상의 기본 특성(baseline characteristics)을 요약합니다.</p>
+<p>엑셀로 만들면:</p>
 <ul>
-<li>데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기</li>
-<li>“이 p-value 어디서 나온 거였지?” → 추적 어려움</li>
-<li>공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷</li>
+<li>연속형은 median(range) 직접 계산 → 복붙</li>
+<li>범주형은 n(%) 직접 계산 → 복붙</li>
+<li>p-value 따로 계산 → 복붙</li>
+<li>변수 하나 바뀌면? <strong>처음부터 다시</strong></li>
 </ul>
-</div>
-</div>
+<p>R로 만들면: <strong>코드 한 번 실행 → 끝</strong></p>
+<hr>
 </section>
-<section id="r-script-파이프라인이란" class="level3">
-<h3 class="anchored" data-anchor-id="r-script-파이프라인이란">R Script 파이프라인이란</h3>
-<blockquote class="blockquote">
-<p><strong>input:</strong> 연구 데이터 <strong>➡️ <span style="color: #8B3A3A; font-weight: bold;">R script</span> ➡️ output:</strong> 논문용 표 &amp; 그래프 <strong>📊📈</strong></p>
-<p><strong>스크립트 = 분석 기록</strong></p>
-</blockquote>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 33%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>기존 방식 (SPSS/Excel)</th>
-<th>R Script 파이프라인</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>데이터 수정 시</td>
-<td>표/그래프 전부 다시</td>
-<td>스크립트 재실행 (n초)</td>
-</tr>
-<tr class="even">
-<td>분석 과정 공유</td>
-<td>구두 설명, 스크린샷</td>
-<td><code>.R</code> 파일 전달</td>
-</tr>
-<tr class="odd">
-<td>리뷰어 수정 요청</td>
-<td>처음부터 다시</td>
-<td>해당 줄만 수정 후 재실행</td>
-</tr>
-<tr class="even">
-<td>휴먼 에러</td>
-<td>복붙 실수, 오타</td>
-<td>코드가 동일하면 결과도 동일</td>
-</tr>
-<tr class="odd">
-<td>Reproducibility</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-</tbody>
-</table>
+<section id="gtsummary-기본-사용법" class="level2">
+<h2 class="anchored" data-anchor-id="gtsummary-기본-사용법">gtsummary 기본 사용법</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"analysis/df_pt.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="가장-간단한-table-1" class="level3">
+<h3 class="anchored" data-anchor-id="가장-간단한-table-1">가장 간단한 Table 1</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sex, Age_Tx, Primary, Multiplicity, size_cm, TD, GTV_cc) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이것만으로도:</p>
+<ul>
+<li>연속형 → median (IQR) 자동 계산</li>
+<li>범주형 → n (%) 자동 계산</li>
+<li>결측치 자동 표시</li>
+</ul>
+</section>
+<section id="그룹별-비교-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="그룹별-비교-p-value">그룹별 비교 + p-value</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sex, Age_Tx, Primary, Multiplicity, size_cm, TD, GTV_cc, Death) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> Death,                          <span class="co"># 그룹 변수</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{median} ({p25}, {p75})"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="fu">list</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span>                            <span class="co"># p-value 자동 계산</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">%&gt;%</span>                      <span class="co"># Overall 컬럼 추가</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>()                          <span class="co"># 변수명 볼드</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>실제 시나리오
+<span class="screen-reader-only">Tip</span>p-value 자동 선택
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>리뷰어: <em>“Table 1에서 BMI 대신 BSA를 써주세요”</em></p>
+<p><code>add_p()</code>는 변수 타입에 따라 알아서 검정법을 선택합니다:</p>
 <ul>
-<li>SPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…</li>
-<li>R Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝</li>
+<li>범주형 → chi-squared test (기대빈도 &lt; 5이면 Fisher’s exact)</li>
+<li>연속형 → Wilcoxon rank-sum test</li>
 </ul>
+<p>검정법을 직접 지정하려면:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_p</span>(<span class="at">test =</span> <span class="fu">list</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"t.test"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"fisher.test"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="labeling-변수명-깔끔하게" class="level2">
+<h2 class="anchored" data-anchor-id="labeling-변수명-깔끔하게">Labeling: 변수명 깔끔하게</h2>
+<p>코드에서는 <code>Age_Tx</code>, <code>size_cm</code>이지만, 논문에서는 <code>Age at treatment</code>, <code>Tumor size (cm)</code>으로 나와야 합니다.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sex, Age_Tx, Primary, size_cm, TD, GTV_cc, PTVmean_BED10, Death) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> Death,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      Age_Tx        <span class="sc">~</span> <span class="st">"Age at treatment"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      size_cm       <span class="sc">~</span> <span class="st">"Tumor size (cm)"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      TD            <span class="sc">~</span> <span class="st">"Total dose (cGy)"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      GTV_cc        <span class="sc">~</span> <span class="st">"GTV volume (cc)"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">~</span> <span class="st">"PTV mean BED₁₀ (Gy)"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>팁: label을 한 곳에서 관리하기
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>변수-라벨 매핑을 따로 정의해두면 여러 테이블에서 재사용 가능합니다.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>my_labels <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  Age_Tx        <span class="sc">~</span> <span class="st">"Age at treatment"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  Sex           <span class="sc">~</span> <span class="st">"Sex"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  Primary       <span class="sc">~</span> <span class="st">"Primary site"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  size_cm       <span class="sc">~</span> <span class="st">"Tumor size (cm)"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  TD            <span class="sc">~</span> <span class="st">"Total dose (cGy)"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  GTV_cc        <span class="sc">~</span> <span class="st">"GTV volume (cc)"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  PTVmean_BED10 <span class="sc">~</span> <span class="st">"PTV mean BED₁₀ (Gy)"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 어디서든 label = my_labels로 재사용</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="table-1-내보내기" class="level2">
+<h2 class="anchored" data-anchor-id="table-1-내보내기">Table 1 내보내기</h2>
+<section id="word로-내보내기-논문-투고용" class="level3">
+<h3 class="anchored" data-anchor-id="word로-내보내기-논문-투고용">Word로 내보내기 (논문 투고용)</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sex, Age_Tx, Primary, size_cm, TD, GTV_cc, Death) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> Death) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_p</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>()</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Word 파일로 저장</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>tbl <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flex_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">save_as_docx</span>(<span class="at">path =</span> <span class="st">"results/Table1.docx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="csv로-내보내기" class="level3">
+<h3 class="anchored" data-anchor-id="csv로-내보내기">CSV로 내보내기</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"results/Table1.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>핵심 포인트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>리뷰어가 “BMI 대신 BSA를 넣어주세요”라고 하면?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select()에서 변수 하나만 바꾸고 다시 실행 → 끝</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Sex, Age_Tx, BSA, Primary, size_cm, TD, GTV_cc, Death)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>엑셀로 했으면 30분, R이면 30초.</p>
 </div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

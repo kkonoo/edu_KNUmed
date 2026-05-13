@@ -48,23 +48,71 @@
     ]
   },
   {
+    "objectID": "part2/2_2_table1.html",
+    "href": "part2/2_2_table1.html",
+    "title": "2-2) Table 1 자동 생성",
+    "section": "",
+    "text": "논문의 첫 번째 표. 연구 대상의 기본 특성(baseline characteristics)을 요약합니다.\n엑셀로 만들면:\n\n연속형은 median(range) 직접 계산 → 복붙\n범주형은 n(%) 직접 계산 → 복붙\np-value 따로 계산 → 복붙\n변수 하나 바뀌면? 처음부터 다시\n\nR로 만들면: 코드 한 번 실행 → 끝",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-2) Table 1 자동 생성"
+    ]
+  },
+  {
+    "objectID": "part2/2_2_table1.html#table-1이란",
+    "href": "part2/2_2_table1.html#table-1이란",
+    "title": "2-2) Table 1 자동 생성",
+    "section": "",
+    "text": "논문의 첫 번째 표. 연구 대상의 기본 특성(baseline characteristics)을 요약합니다.\n엑셀로 만들면:\n\n연속형은 median(range) 직접 계산 → 복붙\n범주형은 n(%) 직접 계산 → 복붙\np-value 따로 계산 → 복붙\n변수 하나 바뀌면? 처음부터 다시\n\nR로 만들면: 코드 한 번 실행 → 끝",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-2) Table 1 자동 생성"
+    ]
+  },
+  {
+    "objectID": "part2/2_2_table1.html#gtsummary-기본-사용법",
+    "href": "part2/2_2_table1.html#gtsummary-기본-사용법",
+    "title": "2-2) Table 1 자동 생성",
+    "section": "gtsummary 기본 사용법",
+    "text": "gtsummary 기본 사용법\n\nlibrary(tidyverse)\nlibrary(gtsummary)\n\ndf_pt &lt;- readRDS(\"analysis/df_pt.rds\")\n\n\n가장 간단한 Table 1\n\ndf_pt %&gt;%\n  select(Sex, Age_Tx, Primary, Multiplicity, size_cm, TD, GTV_cc) %&gt;%\n  tbl_summary()\n\n이것만으로도:\n\n연속형 → median (IQR) 자동 계산\n범주형 → n (%) 자동 계산\n결측치 자동 표시\n\n\n\n그룹별 비교 + p-value\n\ndf_pt %&gt;%\n  select(Sex, Age_Tx, Primary, Multiplicity, size_cm, TD, GTV_cc, Death) %&gt;%\n  tbl_summary(\n    by = Death,                          # 그룹 변수\n    statistic = list(\n      all_continuous() ~ \"{median} ({p25}, {p75})\",\n      all_categorical() ~ \"{n} ({p}%)\"\n    ),\n    digits = list(\n      all_continuous() ~ 1,\n      all_categorical() ~ c(0, 1)\n    )\n  ) %&gt;%\n  add_p() %&gt;%                            # p-value 자동 계산\n  add_overall() %&gt;%                      # Overall 컬럼 추가\n  bold_labels()                          # 변수명 볼드\n\n\n\n\n\n\n\nTipp-value 자동 선택\n\n\n\nadd_p()는 변수 타입에 따라 알아서 검정법을 선택합니다:\n\n범주형 → chi-squared test (기대빈도 &lt; 5이면 Fisher’s exact)\n연속형 → Wilcoxon rank-sum test\n\n검정법을 직접 지정하려면:\n\nadd_p(test = list(\n  all_continuous() ~ \"t.test\",\n  all_categorical() ~ \"fisher.test\"\n))",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-2) Table 1 자동 생성"
+    ]
+  },
+  {
+    "objectID": "part2/2_2_table1.html#labeling-변수명-깔끔하게",
+    "href": "part2/2_2_table1.html#labeling-변수명-깔끔하게",
+    "title": "2-2) Table 1 자동 생성",
+    "section": "Labeling: 변수명 깔끔하게",
+    "text": "Labeling: 변수명 깔끔하게\n코드에서는 Age_Tx, size_cm이지만, 논문에서는 Age at treatment, Tumor size (cm)으로 나와야 합니다.\n\ndf_pt %&gt;%\n  select(Sex, Age_Tx, Primary, size_cm, TD, GTV_cc, PTVmean_BED10, Death) %&gt;%\n  tbl_summary(\n    by = Death,\n    label = list(\n      Age_Tx        ~ \"Age at treatment\",\n      size_cm       ~ \"Tumor size (cm)\",\n      TD            ~ \"Total dose (cGy)\",\n      GTV_cc        ~ \"GTV volume (cc)\",\n      PTVmean_BED10 ~ \"PTV mean BED₁₀ (Gy)\"\n    )\n  ) %&gt;%\n  add_p() %&gt;%\n  add_overall() %&gt;%\n  bold_labels()\n\n\n\n\n\n\n\nNote팁: label을 한 곳에서 관리하기\n\n\n\n변수-라벨 매핑을 따로 정의해두면 여러 테이블에서 재사용 가능합니다.\n\nmy_labels &lt;- list(\n  Age_Tx        ~ \"Age at treatment\",\n  Sex           ~ \"Sex\",\n  Primary       ~ \"Primary site\",\n  size_cm       ~ \"Tumor size (cm)\",\n  TD            ~ \"Total dose (cGy)\",\n  GTV_cc        ~ \"GTV volume (cc)\",\n  PTVmean_BED10 ~ \"PTV mean BED₁₀ (Gy)\"\n)\n\n# 어디서든 label = my_labels로 재사용",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-2) Table 1 자동 생성"
+    ]
+  },
+  {
+    "objectID": "part2/2_2_table1.html#table-1-내보내기",
+    "href": "part2/2_2_table1.html#table-1-내보내기",
+    "title": "2-2) Table 1 자동 생성",
+    "section": "Table 1 내보내기",
+    "text": "Table 1 내보내기\n\nWord로 내보내기 (논문 투고용)\n\nlibrary(flextable)\n\ntbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, Primary, size_cm, TD, GTV_cc, Death) %&gt;%\n  tbl_summary(by = Death) %&gt;%\n  add_p() %&gt;%\n  add_overall() %&gt;%\n  bold_labels()\n\n# Word 파일로 저장\ntbl %&gt;%\n  as_flex_table() %&gt;%\n  flextable::save_as_docx(path = \"results/Table1.docx\")\n\n\n\nCSV로 내보내기\n\ntbl %&gt;%\n  as_tibble() %&gt;%\n  write_csv(\"results/Table1.csv\")\n\n\n\n\n\n\n\nImportant핵심 포인트\n\n\n\n리뷰어가 “BMI 대신 BSA를 넣어주세요”라고 하면?\n\n# select()에서 변수 하나만 바꾸고 다시 실행 → 끝\nselect(Sex, Age_Tx, BSA, Primary, size_cm, TD, GTV_cc, Death)\n\n엑셀로 했으면 30분, R이면 30초.",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-2) Table 1 자동 생성"
+    ]
+  },
+  {
     "objectID": "part1/1_4_Packages.html",
     "href": "part1/1_4_Packages.html",
     "title": "4) 핵심 패키지 미리보기",
     "section": "",
-    "text": "Part 2~3에서 사용할 패키지를 미리 설치합니다.\n# 한 번만 실행하면 됩니다\ninstall.packages(c(\n  \"tidyverse\",    # 데이터 전처리 + 시각화\n  \"readxl\",       # 엑셀 파일 읽기\n  \"gtsummary\",    # Table 1 자동 생성\n  \"survival\",     # 생존분석\n  \"survminer\",    # KM curve 시각화\n  \"broom\",        # 통계 결과 → 데이터프레임\n  \"forestploter\"  # Forest plot\n))",
-    "crumbs": [
-      "Home",
-      "1. 환경 구축하기",
-      "4) 핵심 패키지 미리보기"
-    ]
-  },
-  {
-    "objectID": "part1/1_4_Packages.html#summary",
-    "href": "part1/1_4_Packages.html#summary",
-    "title": "4) 핵심 패키지 미리보기",
-    "section": "5) Summary",
-    "text": "5) Summary\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장\n\n다음 Part 2에서는 이 환경 위에서 실제 임상 데이터를 분석하는 파이프라인을 만들어봅니다.",
+    "text": "Part 2~3에서 사용할 패키지를 미리 설치합니다.\n\n# 한 번만 실행하면 됩니다\ninstall.packages(c(\n  \"tidyverse\",    # 데이터 전처리 + 시각화\n  \"readxl\",       # 엑셀 파일 읽기\n  \"gtsummary\",    # Table 1 자동 생성\n  \"survival\",     # 생존분석\n  \"survminer\",    # KM curve 시각화\n  \"broom\",        # 통계 결과 → 데이터프레임\n  \"forestploter\"  # Forest plot\n))\n\n\n\n\n\n\n\nNote설치가 안 될 때\n\n\n\n\n# R 관리자 권한으로 실행 후 재시도\n# 특정 패키지가 에러나면 하나씩 설치\ninstall.packages(\"gtsummary\")\n\n# 그래도 안 되면 버전 확인\nR.version.string\n# R 4.3 이상 권장\n\n\n\n\n\nSummary\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장\n\n다음 Part 2에서는 이 환경 위에서 실제 임상 데이터를 분석하는 파이프라인을 만들어봅니다.",
     "crumbs": [
       "Home",
       "1. 환경 구축하기",
@@ -98,11 +146,11 @@
     "text": "Part1. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\n\nR script 활용 파이프라인 구축?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\n✅ 휴먼 에러 최소화\n✅ 연구 효율성\n✅ Reproducibility\nR 프로젝트 파일 관리: 폴더 구조 체계화\n\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (+다른 곳에 백업)\nanalysis/: 단계별 분석 결과 저장\nresults/: 최종 Table 및 고해상도 Figure 정리"
   },
   {
-    "objectID": "index.html#part2.-r-script-활용-임상-분석-파이프라인-만들기",
-    "href": "index.html#part2.-r-script-활용-임상-분석-파이프라인-만들기",
+    "objectID": "index.html#part2.-r-script-활용-분석-파이프라인-이해",
+    "href": "index.html#part2.-r-script-활용-분석-파이프라인-이해",
     "title": "Rscript 활용하기",
-    "section": "Part2. R script 활용 임상 분석 파이프라인 만들기",
-    "text": "Part2. R script 활용 임상 분석 파이프라인 만들기\n\nCSV/xlsx 읽기 → 전처리 → Table 1 (gtsummary) → KM → Cox → forest plot\n데이터 전처리 (The Tidy Way): 엑셀에서 하던 필터링과 정렬을 dplyr 패키지로 자동화하며, 이 과정이 전체의 70%임을 공유합니다.\nTable 1 자동 생성 (tableone, gtsummary):\n\n연속형/범주형 변수를 자동 판별하고 p-value를 한 번에 계산하는 실습을 진행합니다.\nLabeling 기법: 변수명(sbp_v1)을 출력용 이름(Systolic BP)으로 자동 변환하여 ‘복사-붙여넣기’ 수작업을 생략합니다.\n\n바이브코딩으로 R 스크립트 만들기 - AI에게 프롬프트 → 코드 생성 → 실행 → 수정 사이클 - 좋은 프롬프트 작성법, AI가 틀리기 쉬운 통계적 함정"
+    "section": "Part2. R script 활용 분석 파이프라인 이해",
+    "text": "Part2. R script 활용 분석 파이프라인 이해\n\nCSV/xlsx 읽기 → 전처리 → Table 1 (gtsummary) → KM → Cox → forest plot\n데이터 전처리 (The Tidy Way): 엑셀에서 하던 필터링과 정렬을 dplyr 패키지로 자동화하며, 이 과정이 전체의 70%임을 공유합니다.\nTable 1 자동 생성 (tableone, gtsummary):\n\n연속형/범주형 변수를 자동 판별하고 p-value를 한 번에 계산하는 실습을 진행합니다.\nLabeling 기법: 변수명(sbp_v1)을 출력용 이름(Systolic BP)으로 자동 변환하여 ‘복사-붙여넣기’ 수작업을 생략합니다.\n\n바이브코딩으로 R 스크립트 만들기 - AI에게 프롬프트 → 코드 생성 → 실행 → 수정 사이클 - 좋은 프롬프트 작성법, AI가 틀리기 쉬운 통계적 함정"
   },
   {
     "objectID": "index.html#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리",
@@ -170,7 +218,7 @@
     "href": "part1/1_3_Rscript.html",
     "title": "3) R Script 작성 기본",
     "section": "",
-    "text": "스크립트 구조 템플릿\n모든 분석 스크립트의 기본 구조: 1) 파라미터 설정, 2) 패키지 로딩, 3) 데이터 읽기, 4) 분석, 5) 저장\n\n# ============================================================\n# 프로젝트: SBRT 간암 생존분석\n# 스크립트: 01_preprocessing.R\n# 작성자: 하은지\n# 최종수정: 2026-05-13\n# ============================================================\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nDATA_FILE &lt;- \"rawdata/clinical_data.xlsx\"\nTIME_VAR  &lt;- \"OS_months\"\nEVENT_VAR &lt;- \"OS_event\"\nGROUP_VAR &lt;- \"treatment\"\nAGE_CUT   &lt;- 65\n# =====================================\n\n# 1. 패키지 로딩 -----\nlibrary(tidyverse)\nlibrary(readxl)\n\n# 2. 데이터 읽기 -----\nraw &lt;- read_excel(DATA_FILE)\n\n# 3. 전처리 -----\ndf &lt;- raw %&gt;%\n  filter(!is.na(.data[[TIME_VAR]])) %&gt;%\n  mutate( age_group = ifelse(age &gt;= AGE_CUT, paste0(\"≥\", AGE_CUT), paste0(\"&lt;\", AGE_CUT)),\n          event = as.numeric(.data[[EVENT_VAR]] == 1)\n  )\n\n# 4. 결과 저장 -----\nsaveRDS(df, \"analysis/cleaned_data.rds\")\n\n\n\n\n\n\n\nTip왜 파라미터를 상단에 모아두는가?\n\n\n\n\n다른 데이터셋에 적용할 때 상단 5줄만 수정하면 됨\n스크립트 본문을 뒤질 필요 없음\n공동연구자에게 “위에 파일명이랑 변수명만 바꾸세요”라고 안내 가능\n\n\n\n\n\n\n\n\n\nNote고급: 커맨드라인에서 실행하기 (optparse)\n\n\n\n파라미터를 스크립트 밖에서 넘길 수도 있습니다. 익숙해지면 자동화에 유용합니다.\n\n# terminal에서: Rscript scripts/survival.R --data rawdata/my_data.xlsx --time OS_months\nlibrary(optparse)\noption_list &lt;- list(\n  make_option(\"--data\",  type = \"character\", help = \"데이터 파일 경로\"),\n  make_option(\"--time\",  type = \"character\", help = \"시간 변수명\"),\n  make_option(\"--event\", type = \"character\", help = \"이벤트 변수명\")\n)\nargs &lt;- parse_args(OptionParser(option_list = option_list))\n\n\n\n\n\n핵심 습관\n① 주석은 “왜” or “정보”을 적기\n\n# 나쁜 주석\nfilter(age &gt;= 18)  # 18세 이상 필터 (코드 보면 당연한 거)\n\n# 좋은 주석\nfilter(age &gt;= 18)  # IRB 승인 기준: 성인 환자만 포함\n\n2. 하드코딩 금지\n\n# 나쁜 예\ndf &lt;- read_excel(\"/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx\")\n\n# 좋은 예 (R Project + 상단 파라미터)\ndf &lt;- read_excel(DATA_FILE)\n\n3. 중간 결과 저장\n\n# 전처리가 오래 걸리면 .rds로 저장해두기\nsaveRDS(df_cleaned, \"analysis/cleaned_data.rds\")\n\n# 다음 스크립트에서 바로 불러오기\ndf &lt;- readRDS(\"analysis/cleaned_data.rds\")",
+    "text": "스크립트 구조 템플릿\n모든 분석 스크립트의 기본 구조: 1) 파라미터 설정, 2) 패키지 로딩, 3) 데이터 읽기, 4) 분석, 5) 저장\n\n# ============================================================\n# 프로젝트: SBRT 간암 생존분석\n# 스크립트: 01_preprocessing.R\n# 작성자: 하은지\n# 최종수정: 2026-05-13\n# ============================================================\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nDATA_FILE &lt;- \"rawdata/clinical_data.xlsx\"\nTIME_VAR  &lt;- \"OS_months\"\nEVENT_VAR &lt;- \"OS_event\"\nGROUP_VAR &lt;- \"treatment\"\nAGE_CUT   &lt;- 65\n# =====================================\n\n# 1. 패키지 로딩 -----\nlibrary(tidyverse)\nlibrary(readxl)\n\n# 2. 데이터 읽기 -----\nraw &lt;- read_excel(DATA_FILE)\n\n# 3. 전처리 -----\ndf &lt;- raw %&gt;%\n  filter(!is.na(.data[[TIME_VAR]])) %&gt;%\n  mutate( age_group = ifelse(age &gt;= AGE_CUT, paste0(\"≥\", AGE_CUT), paste0(\"&lt;\", AGE_CUT)),\n          event = as.numeric(.data[[EVENT_VAR]] == 1)\n  )\n\n# 4. 결과 저장 -----\nsaveRDS(df, \"analysis/cleaned_data.rds\")\n\n\n\n\n\n\n\nTip왜 파라미터를 상단에 모아두는가?\n\n\n\n\n다른 데이터셋에 적용할 때 상단 5줄만 수정하면 됨\n스크립트 본문을 뒤질 필요 없음\n공동연구자에게 “위에 파일명이랑 변수명만 바꾸세요”라고 안내 가능\n\n\n\n\n\n\n\n\n\nNote고급: 커맨드라인에서 실행하기 (optparse)\n\n\n\n파라미터를 스크립트 밖에서 넘길 수도 있습니다. 익숙해지면 자동화에 유용합니다.\n\n# terminal에서: Rscript scripts/survival.R --data rawdata/my_data.xlsx --time OS_months\nlibrary(optparse)\noption_list &lt;- list(\n  make_option(\"--data\",  type = \"character\", help = \"데이터 파일 경로\"),\n  make_option(\"--time\",  type = \"character\", help = \"시간 변수명\"),\n  make_option(\"--event\", type = \"character\", help = \"이벤트 변수명\")\n)\nargs &lt;- parse_args(OptionParser(option_list = option_list))\n\n\n\n\n\n핵심 습관\n1. 주석은 “왜” or “정보”을 적기\n\n# 나쁜 주석\nfilter(age &gt;= 18)  # 18세 이상 필터 (코드 보면 당연한 거)\n\n# 좋은 주석\nfilter(age &gt;= 18)  # IRB 승인 기준: 성인 환자만 포함\n\n2. 하드코딩 금지\n\n# 나쁜 예\ndf &lt;- read_excel(\"/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx\")\n\n# 좋은 예 (R Project + 상단 파라미터)\ndf &lt;- read_excel(DATA_FILE)\n\n3. 중간 결과 저장\n\n# 전처리가 오래 걸리면 .rds로 저장해두기\nsaveRDS(df_cleaned, \"analysis/cleaned_data.rds\")\n\n# 다음 스크립트에서 바로 불러오기\ndf &lt;- readRDS(\"analysis/cleaned_data.rds\")",
     "crumbs": [
       "Home",
       "1. 환경 구축하기",
@@ -178,51 +226,135 @@
     ]
   },
   {
-    "objectID": "part2/2_1_Rscript.html",
-    "href": "part2/2_1_Rscript.html",
-    "title": "Rscript",
+    "objectID": "part2/2_1_preprocessing.html",
+    "href": "part2/2_1_preprocessing.html",
+    "title": "2-1) 데이터 읽기 & 전처리",
     "section": "",
-    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "text": "library(tidyverse)\nlibrary(readxl)\n\ndf &lt;- read_excel(\"rawdata/clinical_data.xlsx\")\n\n# 데이터 확인\ndim(df)       # 76행 x 33열\nglimpse(df)   # 변수 타입 한눈에\nhead(df)\n\n\n\n\n\n\n\nTipglimpse() vs str()\n\n\n\nglimpse()는 tidyverse 버전의 str()입니다. 콘솔 너비에 맞춰 깔끔하게 보여줘서 더 편합니다.",
     "crumbs": [
       "Home",
       "2. R script 활용하기",
-      "Rscript"
+      "2-1) 데이터 읽기 & 전처리"
     ]
   },
   {
-    "objectID": "part2/2_1_Rscript.html#quarto",
-    "href": "part2/2_1_Rscript.html#quarto",
-    "title": "Rscript",
+    "objectID": "part2/2_1_preprocessing.html#데이터-읽기",
+    "href": "part2/2_1_preprocessing.html#데이터-읽기",
+    "title": "2-1) 데이터 읽기 & 전처리",
     "section": "",
-    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "text": "library(tidyverse)\nlibrary(readxl)\n\ndf &lt;- read_excel(\"rawdata/clinical_data.xlsx\")\n\n# 데이터 확인\ndim(df)       # 76행 x 33열\nglimpse(df)   # 변수 타입 한눈에\nhead(df)\n\n\n\n\n\n\n\nTipglimpse() vs str()\n\n\n\nglimpse()는 tidyverse 버전의 str()입니다. 콘솔 너비에 맞춰 깔끔하게 보여줘서 더 편합니다.",
     "crumbs": [
       "Home",
       "2. R script 활용하기",
-      "Rscript"
+      "2-1) 데이터 읽기 & 전처리"
     ]
   },
   {
-    "objectID": "part2/2_1_Rscript.html#running-code-되니",
-    "href": "part2/2_1_Rscript.html#running-code-되니",
-    "title": "Rscript",
-    "section": "Running Code 되니?",
-    "text": "Running Code 되니?\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\nYou can add options to executable code like this\nThe echo: false option disables the printing of code (only output is displayed).",
+    "objectID": "part2/2_1_preprocessing.html#데이터-구조-파악",
+    "href": "part2/2_1_preprocessing.html#데이터-구조-파악",
+    "title": "2-1) 데이터 읽기 & 전처리",
+    "section": "데이터 구조 파악",
+    "text": "데이터 구조 파악\n이 데이터는 환자-병변(lesion) 단위입니다. 한 환자가 여러 병변을 가질 수 있어요.\n\n# 환자 수 vs 병변 수\nn_distinct(df$Key_pt)      # 환자 수\nnrow(df)                    # 병변 수 (= 행 수)\n\n# 환자당 병변 수 확인\ndf %&gt;% count(Key_pt, sort = TRUE)\n\n\n\n\n\n\n\nWarning분석 단위 주의\n\n\n\n\n환자 단위 분석 (OS, Death) → IN_sur == 1인 행만 사용\n병변 단위 분석 (LF, LFFS) → 전체 행 사용",
     "crumbs": [
       "Home",
       "2. R script 활용하기",
-      "Rscript"
+      "2-1) 데이터 읽기 & 전처리"
     ]
   },
   {
-    "objectID": "part2/2_1_Rscript.html#dfdfdfd",
-    "href": "part2/2_1_Rscript.html#dfdfdfd",
-    "title": "Rscript",
-    "section": "dfdfdfd",
-    "text": "dfdfdfd\n\nsdsd\n\nsdsdsds\nsdsdsds\n\n\n/",
+    "objectID": "part2/2_1_preprocessing.html#전처리-the-tidy-way",
+    "href": "part2/2_1_preprocessing.html#전처리-the-tidy-way",
+    "title": "2-1) 데이터 읽기 & 전처리",
+    "section": "전처리: The Tidy Way",
+    "text": "전처리: The Tidy Way\n\n전체 분석 시간의 70%는 전처리에 쓰인다\n\n\n핵심 dplyr 함수 5개\n\n\n\n함수\n역할\nSQL 대응\n\n\n\n\nfilter()\n행 필터링\nWHERE\n\n\nselect()\n열 선택\nSELECT\n\n\nmutate()\n새 변수 생성\nAS\n\n\ngroup_by() + summarise()\n그룹별 요약\nGROUP BY\n\n\narrange()\n정렬\nORDER BY\n\n\n\n\n\nfilter: 행 필터링\n\n# 환자 단위 분석용: 환자당 1행만\ndf_pt &lt;- df %&gt;% filter(IN_sur == 1)\nnrow(df_pt)\n\n# 특정 조건 필터\ndf_pt %&gt;% filter(Age_Tx &gt;= 65, Sex == \"M\")\n\n# 여러 조건 조합\ndf_pt %&gt;% filter(Primary == \"Colon\" | Primary == \"Rectum\")\ndf_pt %&gt;% filter(Primary %in% c(\"Colon\", \"Rectum\"))  # 같은 결과, 더 깔끔\n\n\n\nselect: 열 선택\n\n# 필요한 열만\ndf_pt %&gt;% select(Key_pt, Sex, Age_Tx, Primary, Death, OS)\n\n# 특정 패턴 열 선택\ndf_pt %&gt;% select(starts_with(\"PTV\"))\ndf_pt %&gt;% select(Key_pt, Sex:Age_Tx, Death:LFFS)\n\n\n\nmutate: 새 변수 생성\n\ndf_pt &lt;- df_pt %&gt;%\n  mutate(\n    # 연령군\n    Age_group = ifelse(Age_Tx &gt;= 65, \"≥65\", \"&lt;65\"),\n    \n    # factor 변환 (Table 1에서 범주형으로 인식시키기 위해)\n    Sex = factor(Sex, levels = c(\"M\", \"F\"), labels = c(\"Male\", \"Female\")),\n    Death = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\")),\n    \n    # 연속형 변수 단위 변환\n    size_cm = size_mm / 10,\n    \n    # BED10 카테고리\n    BED_group = case_when(\n      PTVmean_BED10 &gt;= 100 ~ \"≥100 Gy\",\n      PTVmean_BED10 &gt;= 80  ~ \"80-99 Gy\",\n      TRUE                  ~ \"&lt;80 Gy\"\n    )\n  )\n\n\n\n\n\n\n\nTipifelse() vs case_when()\n\n\n\n\n조건이 2개 → ifelse()\n조건이 3개 이상 → case_when()\n\n\n\n\n\ngroup_by + summarise: 그룹별 요약\n\n# Primary별 환자 수, 중앙 나이\ndf_pt %&gt;%\n  group_by(Primary) %&gt;%\n  summarise(\n    n = n(),\n    median_age = median(Age_Tx),\n    death_rate = mean(Death == \"Dead\")\n  ) %&gt;%\n  arrange(desc(n))",
     "crumbs": [
       "Home",
       "2. R script 활용하기",
-      "Rscript"
+      "2-1) 데이터 읽기 & 전처리"
+    ]
+  },
+  {
+    "objectID": "part2/2_1_preprocessing.html#전처리-파이프라인-완성",
+    "href": "part2/2_1_preprocessing.html#전처리-파이프라인-완성",
+    "title": "2-1) 데이터 읽기 & 전처리",
+    "section": "전처리 파이프라인 완성",
+    "text": "전처리 파이프라인 완성\n위 과정을 하나의 스크립트로 정리하면:\n\n# ===== 파라미터 =====\nDATA_FILE &lt;- \"rawdata/clinical_data.xlsx\"\n# ====================\n\nlibrary(tidyverse)\nlibrary(readxl)\n\n# 1. 읽기\nraw &lt;- read_excel(DATA_FILE)\n\n# 2. 환자 단위 데이터\ndf_pt &lt;- raw %&gt;%\n  filter(IN_sur == 1) %&gt;%\n  mutate(\n    Age_group = ifelse(Age_Tx &gt;= 65, \"≥65\", \"&lt;65\"),\n    Sex = factor(Sex, levels = c(\"M\", \"F\"), labels = c(\"Male\", \"Female\")),\n    Multiplicity = factor(Multiplicity),\n    size_cm = size_mm / 10,\n    BED_group = case_when(\n      PTVmean_BED10 &gt;= 100 ~ \"≥100 Gy\",\n      PTVmean_BED10 &gt;= 80  ~ \"80-99 Gy\",\n      TRUE                  ~ \"&lt;80 Gy\"\n    )\n  )\n\n# 3. 병변 단위 데이터\ndf_lesion &lt;- raw %&gt;%\n  mutate(\n    size_cm = size_mm / 10,\n    LF = as.numeric(LF)\n  )\n\n# 4. 저장\nsaveRDS(df_pt, \"analysis/df_pt.rds\")\nsaveRDS(df_lesion, \"analysis/df_lesion.rds\")\n\n\n\n\n\n\n\nNote왜 .rds로 저장하나?\n\n\n\n\nfactor level, 변수 타입이 그대로 보존됨\ncsv로 저장하면 factor가 다시 문자열로 돌아감\n다음 스크립트에서 readRDS()로 바로 불러오면 전처리 반복 불필요",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-1) 데이터 읽기 & 전처리"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html",
+    "href": "part2/2_3_vibecoding.html",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "",
+    "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html#바이브코딩이란",
+    "href": "part2/2_3_vibecoding.html#바이브코딩이란",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "",
+    "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html#프롬프트의-3요소",
+    "href": "part2/2_3_vibecoding.html#프롬프트의-3요소",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "프롬프트의 3요소",
+    "text": "프롬프트의 3요소\n좋은 프롬프트 = 역할 + 맥락 + 구체적 요청\n\n나쁜 프롬프트\n통계 분석 해줘\n→ AI가 뭘 해야 할지 모름. 쓸모없는 결과가 나옴.\n\n\n좋은 프롬프트\n너는 임상통계 전문가야.\n\n나는 올리고전이 환자 대상 SBRT 논문을 쓰고 있어.\n데이터프레임 df_pt에 다음 변수가 있어:\n- Age_Tx: 치료 시 나이 (연속형)\n- Sex: 성별 (M/F)\n- Primary: 원발 부위 (Colon, Rectum, Lung 등)\n- Death: 사망 여부 (0/1)\n- OS: 전체 생존 기간 (개월)\n- size_cm: 종양 크기 (cm)\n- PTVmean_BED10: PTV 평균 BED10 (Gy)\n\n다음을 수행하는 R 코드를 작성해줘:\n1. gtsummary로 Table 1 생성 (Death 기준 그룹 비교, p-value 포함)\n2. 변수명은 논문용 라벨로 변환\n3. results/Table1.docx로 저장\n\n\n\n\n\n\nTip프롬프트 작성 팁\n\n\n\n\ncolnames(df) 결과를 붙여넣기 — AI가 변수명을 정확히 알아야 함\n변수 타입 명시 — 연속형/범주형/생존시간 구분\n원하는 출력 형태 지정 — “Word로 저장”, “tiff 300dpi”, “forest plot” 등\n패키지 지정 — “gtsummary로”, “survminer로” 등",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html#실전-예시-ai에게-생존분석-시키기",
+    "href": "part2/2_3_vibecoding.html#실전-예시-ai에게-생존분석-시키기",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "실전 예시: AI에게 생존분석 시키기",
+    "text": "실전 예시: AI에게 생존분석 시키기\n\nStep 1. 데이터 구조를 AI에게 알려주기\n\n# 이 결과를 복사해서 AI에게 붙여넣기\ncolnames(df_pt)\nstr(df_pt)\n\n\n\nStep 2. 프롬프트 작성\n위 데이터에서 생존분석을 해줘.\n\n- 환자 단위 (IN_sur == 1)\n- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교\n- Log-rank test p-value를 그래프에 표시\n- Risk table 포함\n- survminer 패키지 사용\n- 300 dpi tiff로 results/KM_OS.tiff에 저장\n\n\nStep 3. AI가 생성한 코드 (예시)\n\nlibrary(survival)\nlibrary(survminer)\n\ndf_pt &lt;- readRDS(\"analysis/df_pt.rds\")\n\n# Kaplan-Meier fit\nfit &lt;- survfit(Surv(OS, Death == \"Dead\") ~ Multiplicity, data = df_pt)\n\n# KM curve\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\n# 저장\ntiff(\"results/KM_OS.tiff\", width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n\n\nStep 4. 에러가 나면?\n에러 메시지를 그대로 복붙해서 AI에게 주면 됩니다.\n이 코드를 실행했더니 다음 에러가 났어:\n\nError in Surv(OS, Death == \"Dead\") : \n  invalid status value\n\n고쳐줘.\n→ AI가 Death가 factor라서 == \"Dead\" 비교가 안 되는 걸 잡아줌\n\n\n\n\n\n\nWarningAI가 틀리기 쉬운 통계적 함정\n\n\n\n\nReference level 방향 — relevel(factor, ref = \"baseline\")을 빠뜨리는 경우 많음\n환자 vs 병변 단위 혼동 — OS는 환자 단위, LFFS는 병변 단위\n다중비교 보정 누락 — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우\n결측치 처리 — 기본값이 na.rm = FALSE라 결과가 NA로 나올 수 있음\n생존 시간/이벤트 뒤바꿈 — Surv(time, event) 순서 주의\n\n이것들은 사람이 알아야 합니다. Part 1에서 Base R로 직접 해본 이유가 여기 있어요.",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html#실습-과제",
+    "href": "part2/2_3_vibecoding.html#실습-과제",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "실습 과제",
+    "text": "실습 과제\n\n\n\n\n\n\nImportant직접 해보기\n\n\n\nAI에게 프롬프트를 작성해서 다음 분석을 수행하는 R 코드를 만들어보세요.\n과제 1: Cox proportional hazard regression\n\n종속변수: OS, Death\n독립변수: Age_Tx, Sex, Primary, size_cm, PTVmean_BED10\nMultivariable model 결과를 forest plot으로 시각화\nresults/forest_OS.tiff로 저장\n\n과제 2: LFFS 분석 (병변 단위)\n\n종속변수: LFFS, LF\nBED10 ≥100 vs &lt;100으로 그룹 나누기\nKM curve + log-rank test\n\n힌트: colnames(df_pt) 결과와 변수 설명을 AI에게 같이 보내세요.",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/2_3_vibecoding.html#바이브코딩-체크리스트",
+    "href": "part2/2_3_vibecoding.html#바이브코딩-체크리스트",
+    "title": "2-3) 바이브코딩으로 R 스크립트 만들기",
+    "section": "바이브코딩 체크리스트",
+    "text": "바이브코딩 체크리스트\n✅ colnames()와 str() 결과를 AI에게 제공했는가?\n✅ 분석 단위(환자/병변)를 명시했는가?\n✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\n✅ 사용할 패키지를 지정했는가?\n✅ AI 결과의 reference level, 단위, p-value를 직접 확인했는가?",
+    "crumbs": [
+      "Home",
+      "2. R script 활용하기",
+      "2-3) 바이브코딩으로 R 스크립트 만들기"
     ]
   }
 ]
