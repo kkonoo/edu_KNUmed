@@ -13,30 +13,30 @@ h2 { color: #5B4D80; font-size: 1.6em; }
 h3 { color: #7A6A99; font-size: 1.4em; }
 h4 { color: #9A8DB5; font-size: 1.1em; }
 
-
-/* 언어 지정 없는 코드 블록 (``` 만 쓴 것) */
-pre.sourceCode:not([class*="language"]) code,
-pre:not(.sourceCode) code {
-  color: #555;
-  background: #f5f5f5;
-  border-radius: 6px;
-  padding: 1em;
-}
+/* 코드 공통 */
 code, pre code {
   font-family: 'D2Coding', 'Fira Code', monospace;
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
-/* R 코드 블록 */
-pre.sourceCode {
-  background: #f3f0f7;
+pre {
   border-radius: 6px;
   padding: 1em;
   border: none;
 }
-pre.sourceCode code {
+
+
+/* 일반 코드 블록 (``` 만 쓴 것) */
+pre:not(.sourceCode) code {
+  color: #555;
+  background: #f5f5f5;
+}
+
+/* R 코드 블록 */
+pre.sourceCode, pre.sourceCode code {
   background: #f3f0f7;
 }
+
 
 /* callout 박스 안 글씨체/크기 */
 .callout-body-container {
@@ -49,6 +49,7 @@ pre.sourceCode code {
 .callout-title-container {
   font-family: 'Pretendard', sans-serif;
   font-weight: 700;
+  font-size: 1.1em;
 }
 
 /* callout 컬러바 */
