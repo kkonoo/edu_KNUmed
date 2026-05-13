@@ -17,7 +17,7 @@ h4 { color: #9A8DB5; font-size: 1.1em; }
 /* 언어 지정 없는 코드 블록 (``` 만 쓴 것) */
 pre.sourceCode:not([class*="language"]) code,
 pre:not(.sourceCode) code {
-  color: #888;
+  color: #555;
   background: #f5f5f5;
   border-radius: 6px;
   padding: 1em;
@@ -39,7 +39,7 @@ pre.sourceCode {
 .callout-body-container {
   font-family: 'Pretendard', sans-serif;
   font-size: 0.95em;
-  color: #888;
+  color: #555;
 }
 
 /* callout 제목 글씨체 */
@@ -60,7 +60,7 @@ pre.sourceCode {
 /* definition */
 dd,
 .callout-body-container {
-  color: #888;
+  color: #555;
 }
 
 
