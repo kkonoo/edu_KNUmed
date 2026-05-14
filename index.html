@@ -103,11 +103,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">1. 환경 구축하기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part2/2_1_preprocessing.html"> 
+    <a class="nav-link" href="./part2/2_1_preprocessing.qmd"> 
 <span class="menu-text">2. R script 활용하기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part3/3_1_figure.html"> 
+    <a class="nav-link" href="./part3/3_1_figure.qmd"> 
 <span class="menu-text">3. 결과 및 마무리</span></a>
   </li>  
 </ul>
@@ -127,8 +127,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#part1.-연구-효율을-높이는-r-script-환경-구축" id="toc-part1.-연구-효율을-높이는-r-script-환경-구축" class="nav-link active" data-scroll-target="#part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</a></li>
-  <li><a href="#part2.-r-script-활용-분석-파이프라인-이해" id="toc-part2.-r-script-활용-분석-파이프라인-이해" class="nav-link" data-scroll-target="#part2.-r-script-활용-분석-파이프라인-이해">Part2. R script 활용 분석 파이프라인 이해</a></li>
-  <li><a href="#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" id="toc-part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" class="nav-link" data-scroll-target="#part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리">Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리</a></li>
+  <li><a href="#part2.-r-script-활용-분석-파이프라인" id="toc-part2.-r-script-활용-분석-파이프라인" class="nav-link" data-scroll-target="#part2.-r-script-활용-분석-파이프라인">Part2. R script 활용 분석 파이프라인</a></li>
+  <li><a href="#part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" id="toc-part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" class="nav-link" data-scroll-target="#part3.-바이브코딩으로-r-스크립트-파이프라인-만들기">Part3. 바이브코딩으로 R 스크립트 파이프라인 만들기</a></li>
   </ul>
 </nav>
     </div>
@@ -160,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 13, 2026</p>
+      <p class="date-modified">May 14, 2026</p>
     </div>
   </div>
     
@@ -177,47 +177,44 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</h2>
 <p>기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.</p>
 <ul>
-<li><p><strong>R script 활용 파이프라인 구축?</strong></p>
-<p>input: 연구 데이터 ➡️ <strong>R script</strong> ➡️ output: 논문용 표 &amp; 그래프📊📈</p>
+<li><p><strong>R script 활용 파이프라인이란?</strong></p>
+<p><strong>input</strong>: 연구 데이터 ➡️ <strong>R script</strong> ➡️ <strong>output</strong>: 논문용 표 &amp; 그래프📊📈</p>
 <p>✅ 휴먼 에러 최소화</p>
 <p>✅ 연구 효율성</p>
 <p>✅ Reproducibility</p></li>
-<li><p><strong>R 프로젝트 파일 관리</strong>: 폴더 구조 체계화</p>
+<li><p><strong>R project</strong>: 폴더 구조 체계화</p>
 <ul>
-<li><p><code>scripts/</code>: 전처리 및 분석용 스크립트 관리</p></li>
-<li><p><code>rawdata/</code>: 원본 데이터 (+다른 곳에 백업)</p></li>
-<li><p><code>analysis/</code>: 단계별 분석 결과 저장</p></li>
-<li><p><code>results/</code>: 최종 Table 및 고해상도 Figure 정리</p>
+<li><p><strong><code>scripts/</code></strong>: 전처리 및 분석용 스크립트 관리</p></li>
+<li><p><strong><code>rawdata/</code></strong>: 원본 데이터 (+다른 곳에 백업)</p></li>
+<li><p><strong><code>analysis/</code></strong>: 중간 산물 저장 (<code>1_df_pt.rds</code>, <code>2_table1.rds</code>, …)</p></li>
+<li><p><strong><code>results/</code></strong>: 최종 Table 및 고해상도 Figure 정리</p>
 <p><img src="images/clipboard-3256079201.png" class="img-fluid" width="337"></p></li>
 </ul></li>
+<li><p><strong>R script</strong> 구조 템플릿</p>
+<ol type="1">
+<li><strong><code>parameters / arguments</code></strong>: 디렉토리(<code>indir</code>, <code>outdir</code>, <code>resdir</code>), 파일명, 분석 옵션</li>
+<li><strong><code>데이터 로드</code></strong>: <code>readRDS(paste0(indir, "1_df_pt.rds"))</code></li>
+<li><strong><code>전처리 및 분석</code></strong>: dplyr 파이프라인</li>
+<li><strong><code>결과 저장</code></strong>: 중간 산물은 <code>.rds</code>, 최종본은 <code>.docx</code> / <code>.csv</code> / <code>.tiff</code></li>
+</ol></li>
 </ul>
 </section>
-<section id="part2.-r-script-활용-분석-파이프라인-이해" class="level2">
-<h2 class="anchored" data-anchor-id="part2.-r-script-활용-분석-파이프라인-이해">Part2. R script 활용 분석 파이프라인 이해</h2>
+<section id="part2.-r-script-활용-분석-파이프라인" class="level2">
+<h2 class="anchored" data-anchor-id="part2.-r-script-활용-분석-파이프라인">Part2. R script 활용 분석 파이프라인</h2>
+<p>예제 데이터를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.</p>
 <ul>
-<li>CSV/xlsx 읽기 → 전처리 → Table 1 (gtsummary) → KM → Cox → forest plot</li>
-<li><strong>데이터 전처리 (The Tidy Way)</strong>: 엑셀에서 하던 필터링과 정렬을 <code>dplyr</code> 패키지로 자동화하며, 이 과정이 전체의 70%임을 공유합니다.</li>
-<li><strong>Table 1 자동 생성 (<code>tableone</code>, <code>gtsummary</code>)</strong>:
-<ul>
-<li>연속형/범주형 변수를 자동 판별하고 p-value를 한 번에 계산하는 실습을 진행합니다.</li>
-<li><strong>Labeling 기법</strong>: 변수명(<code>sbp_v1</code>)을 출력용 이름(<code>Systolic BP</code>)으로 자동 변환하여 ‘복사-붙여넣기’ 수작업을 생략합니다.</li>
-</ul></li>
-<li><strong>바이브코딩으로 R 스크립트 만들기</strong> - AI에게 프롬프트 → 코드 생성 → 실행 → 수정 사이클 - 좋은 프롬프트 작성법, AI가 틀리기 쉬운 통계적 함정</li>
+<li><p><strong>데이터 읽기 &amp; Table 1</strong>: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기</p></li>
+<li><p><strong>전처리 스크립트</strong>: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리</p></li>
+<li><p><strong>핵심 Figure 그리기</strong>: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)</p></li>
 </ul>
 </section>
-<section id="part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리" class="level2">
-<h2 class="anchored" data-anchor-id="part3.-결과-시각화-및-전문-리포팅-참가자-실습-마무리">Part3. 결과 시각화 및 전문 리포팅 / 참가자 실습 + 마무리</h2>
+<section id="part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" class="level2">
+<h2 class="anchored" data-anchor-id="part3.-바이브코딩으로-r-스크립트-파이프라인-만들기">Part3. 바이브코딩으로 R 스크립트 파이프라인 만들기</h2>
 <ul>
-<li><strong>핵심 Figure 그리기</strong>: 논문의 퀄리티를 결정짓는 <strong>Kaplan-Meier Curve</strong>나 <strong>Forest Plot</strong>을 생성</li>
-<li><strong>통계 수치 자동 추출</strong>: p-value, HR, CI 등을 직접 타이핑하지 않고 <code>broom</code> 패키지를 통해 오타 없이 데이터프레임으로 추출</li>
-<li><strong>Quarto를 활용한 ‘원클릭 보고서’</strong>: 분석 코드와 해석이 포함된 문서를 PDF/Word/HTML로 즉시 출력하여 PI 보고용 자료를 완성</li>
-<li>R Markdown으로 재현 가능한 리포트</li>
-<li><strong>맞춤형 템플릿 제공</strong>: 생존분석(Survival Analysis)이나 성향점수 매칭(PSM) 등 실제 연구 주제에 맞춘 <strong>“Ready-to-use”</strong> 스크립트를 배포하여 즉시 활용 가능하게 합니다.</li>
-<li><strong>성공 경험 중심</strong>: 이론 설명은 10% 이내로 줄이고, <strong>“데이터 넣기 → 코드 실행 → 결과 확인”</strong> 과정을 반복하여 효용을 직접 느끼게 하는 것이 중요합니다.</li>
+<li><strong>프롬프트 작성법</strong>: 역할 + 맥락(<code>colnames</code>, <code>str</code>) + 구체적 요청</li>
+<li><strong>실전 워크플로우</strong>: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 <code>.R</code> 파일로 저장</li>
+<li><strong>AI가 틀리기 쉬운 통계적 함정</strong>: reference level, 분석 단위, 다중비교 보정 등</li>
 </ul>
-<blockquote class="blockquote">
-<p><strong>AI 활용 가이드 (Magic Prompt)</strong>: “나는 간암 환자 200명의 생존 분석을 하고 있어. 데이터프레임 <code>df</code>를 사용해서 Kaplan-Meier 곡선을 그려주고, Risk Table과 Log-rank test p-value를 포함해줘</p>
-</blockquote>
 
 
 </section>
