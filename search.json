@@ -1,62 +1,62 @@
 [
   {
-    "objectID": "part3/3_3_practice.html",
-    "href": "part3/3_3_practice.html",
-    "title": "3-3) 실습 과제 + 마무리",
+    "objectID": "part3/3_2_summary.html",
+    "href": "part3/3_2_summary.html",
+    "title": "3-2) 실습 과제 + 마무리",
     "section": "",
     "text": "Important목표\n\n\n\nAI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, 직접 실행해보세요.\n\n\n\n\n조건:\n\n데이터: clinical_data.xlsx 전체 행 (병변 단위)\n종속변수: LFFS (시간), LF (이벤트)\n그룹 변수: BED_group (PTVmean_BED10 ≥100 vs &lt;100)\n출력: KM curve + log-rank p-value + risk table\n\n프롬프트 힌트:\nrawdata/clinical_data.xlsx를 읽어서 병변 단위 생존분석을 해줘.\n\n변수 설명:\n- LFFS: local failure-free survival (months)\n- LF: local failure event (0/1)\n- PTVmean_BED10: PTV mean BED10 (Gy)\n\nPTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,\nKM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.\n\n\n\n\n조건:\n\n환자 단위 (IN_sur == 1)\n각 subgroup별로 OS에 대한 univariable Cox regression:\n\nAge (&lt;65 vs ≥65)\nSex (M vs F)\nMultiplicity (single vs multiple)\nTumor size (&lt;3cm vs ≥3cm)\nBED10 (&lt;100 vs ≥100)\n\n각 HR + 95% CI를 forest plot으로 시각화\n\n프롬프트 힌트:\n위 데이터에서 subgroup별 univariable Cox regression을 수행해줘.\n\n환자 단위 (IN_sur == 1), 종속변수는 OS/Death.\n\nSubgroup 정의:\n- Age_Tx: 65 기준으로 이분\n- Sex: M vs F\n- Multiplicity: single vs multiple\n- size_mm: 30mm 기준으로 이분\n- PTVmean_BED10: 100 기준으로 이분\n\n각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.\nbroom::tidy()로 결과를 추출하고 ggplot으로 시각화.\n\n\n\n\n조건:\n\n새 .qmd 파일 생성\nTable 1 + KM curve + Cox regression 결과를 하나의 문서에\nformat: html로 Render\n인라인 코드로 환자 수, median OS 등 본문에 삽입",
     "crumbs": [
       "Home",
       "3. 결과 및 마무리",
-      "3-3) 실습 과제 + 마무리"
+      "3-2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_3_practice.html#실습-과제",
-    "href": "part3/3_3_practice.html#실습-과제",
-    "title": "3-3) 실습 과제 + 마무리",
+    "objectID": "part3/3_2_summary.html#실습-과제",
+    "href": "part3/3_2_summary.html#실습-과제",
+    "title": "3-2) 실습 과제 + 마무리",
     "section": "",
     "text": "Important목표\n\n\n\nAI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, 직접 실행해보세요.\n\n\n\n\n조건:\n\n데이터: clinical_data.xlsx 전체 행 (병변 단위)\n종속변수: LFFS (시간), LF (이벤트)\n그룹 변수: BED_group (PTVmean_BED10 ≥100 vs &lt;100)\n출력: KM curve + log-rank p-value + risk table\n\n프롬프트 힌트:\nrawdata/clinical_data.xlsx를 읽어서 병변 단위 생존분석을 해줘.\n\n변수 설명:\n- LFFS: local failure-free survival (months)\n- LF: local failure event (0/1)\n- PTVmean_BED10: PTV mean BED10 (Gy)\n\nPTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,\nKM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.\n\n\n\n\n조건:\n\n환자 단위 (IN_sur == 1)\n각 subgroup별로 OS에 대한 univariable Cox regression:\n\nAge (&lt;65 vs ≥65)\nSex (M vs F)\nMultiplicity (single vs multiple)\nTumor size (&lt;3cm vs ≥3cm)\nBED10 (&lt;100 vs ≥100)\n\n각 HR + 95% CI를 forest plot으로 시각화\n\n프롬프트 힌트:\n위 데이터에서 subgroup별 univariable Cox regression을 수행해줘.\n\n환자 단위 (IN_sur == 1), 종속변수는 OS/Death.\n\nSubgroup 정의:\n- Age_Tx: 65 기준으로 이분\n- Sex: M vs F\n- Multiplicity: single vs multiple\n- size_mm: 30mm 기준으로 이분\n- PTVmean_BED10: 100 기준으로 이분\n\n각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.\nbroom::tidy()로 결과를 추출하고 ggplot으로 시각화.\n\n\n\n\n조건:\n\n새 .qmd 파일 생성\nTable 1 + KM curve + Cox regression 결과를 하나의 문서에\nformat: html로 Render\n인라인 코드로 환자 수, median OS 등 본문에 삽입",
     "crumbs": [
       "Home",
       "3. 결과 및 마무리",
-      "3-3) 실습 과제 + 마무리"
+      "3-2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_3_practice.html#체크리스트",
-    "href": "part3/3_3_practice.html#체크리스트",
-    "title": "3-3) 실습 과제 + 마무리",
+    "objectID": "part3/3_2_summary.html#체크리스트",
+    "href": "part3/3_2_summary.html#체크리스트",
+    "title": "3-2) 실습 과제 + 마무리",
     "section": "체크리스트",
     "text": "체크리스트\nAI에게 코드를 받은 후 반드시 확인할 것:\n□ 분석 단위가 맞는가? (환자 vs 병변)\n□ 이벤트 변수 방향이 맞는가? (Death=1이 사망)\n□ Factor의 reference level이 의도한 대로인가?\n□ p-value 해석이 맞는가? (다중비교 고려)\n□ 그래프 축 라벨과 범례가 정확한가?",
     "crumbs": [
       "Home",
       "3. 결과 및 마무리",
-      "3-3) 실습 과제 + 마무리"
+      "3-2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_3_practice.html#ready-to-use-템플릿",
-    "href": "part3/3_3_practice.html#ready-to-use-템플릿",
-    "title": "3-3) 실습 과제 + 마무리",
+    "objectID": "part3/3_2_summary.html#ready-to-use-템플릿",
+    "href": "part3/3_2_summary.html#ready-to-use-템플릿",
+    "title": "3-2) 실습 과제 + 마무리",
     "section": "Ready-to-Use 템플릿",
     "text": "Ready-to-Use 템플릿\n강의 후 바로 활용할 수 있는 템플릿을 제공합니다.\n\n생존분석 템플릿\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nDATA_FILE  &lt;- \"rawdata/your_data.xlsx\"\nTIME_VAR   &lt;- \"OS\"\nEVENT_VAR  &lt;- \"Death\"\nGROUP_VAR  &lt;- \"treatment_group\"\nCOVARIATES &lt;- c(\"age\", \"sex\", \"stage\", \"tumor_size\")\n# =====================================\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(survival)\nlibrary(survminer)\nlibrary(gtsummary)\nlibrary(broom)\n\n# 데이터 읽기\ndf &lt;- read_excel(DATA_FILE)\n\n# KM curve\nfit &lt;- survfit(\n  as.formula(paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \", GROUP_VAR)),\n  data = df\n)\nggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE)\n\n# Cox regression\ncox_formula &lt;- as.formula(\n  paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \",\n         paste(COVARIATES, collapse = \" + \"))\n)\ncox_model &lt;- coxph(cox_formula, data = df)\ntidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n\n\n\n\n\n\nNote사용법\n\n\n\n\n파라미터 5줄만 본인 데이터에 맞게 수정\n스크립트 전체 실행\nKM curve + Cox 결과 확인",
     "crumbs": [
       "Home",
       "3. 결과 및 마무리",
-      "3-3) 실습 과제 + 마무리"
+      "3-2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_3_practice.html#마무리",
-    "href": "part3/3_3_practice.html#마무리",
-    "title": "3-3) 실습 과제 + 마무리",
+    "objectID": "part3/3_2_summary.html#마무리",
+    "href": "part3/3_2_summary.html#마무리",
+    "title": "3-2) 실습 과제 + 마무리",
     "section": "마무리",
-    "text": "마무리\n\n오늘 배운 것\n\n\n\nPart\n핵심\n\n\n\n\n1. 환경 구축\nR Project + 폴더 구조 + 파라미터 패턴\n\n\n2. 분석 파이프라인\n전처리(dplyr) → Table 1(gtsummary) → 바이브코딩\n\n\n3. 시각화 & 리포팅\nKM curve + Forest plot + Quarto 보고서\n\n\n\n\n\n추천 리소스\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\nQuarto 공식 가이드\n\nhttps://quarto.org/docs/guide/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요!",
+    "text": "마무리\n\n오늘 배운 것\n\n\n\n\n\n\n\nPart\n핵심\n\n\n\n\n1. 환경 구축\nR Project + 폴더 구조 + 파라미터 패턴\n\n\n2. 분석 파이프라인\n전처리(dplyr) → Table 1(gtsummary) → 바이브코딩\n\n\n3. 시각화 & 리포팅\nKM curve + Forest plot + Quarto 보고서\n\n\n\n\n\n추천 리소스\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\nQuarto 공식 가이드\n\nhttps://quarto.org/docs/guide/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요!",
     "crumbs": [
       "Home",
       "3. 결과 및 마무리",
-      "3-3) 실습 과제 + 마무리"
+      "3-2) 실습 과제 + 마무리"
     ]
   },
   {
