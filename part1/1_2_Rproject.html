@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2) R 프로젝트 파일 관리: 폴더 구조 체계화</title>
+<title>2) R project: 폴더 구조 체계화</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#왜-r-project를-써야-하는가" id="toc-왜-r-project를-써야-하는가" class="nav-link active" data-scroll-target="#왜-r-project를-써야-하는가">왜 R Project를 써야 하는가</a></li>
+  <li><a href="#r-project란" id="toc-r-project란" class="nav-link active" data-scroll-target="#r-project란">R project란?</a></li>
   <li><a href="#권장-폴더-구조" id="toc-권장-폴더-구조" class="nav-link" data-scroll-target="#권장-폴더-구조">권장 폴더 구조</a></li>
   <li><a href="#r-project-만들어보기" id="toc-r-project-만들어보기" class="nav-link" data-scroll-target="#r-project-만들어보기">R Project 만들어보기</a></li>
   </ul>
@@ -275,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/1_1_env.html">1. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part1/1_2_Rproject.html">2) R project: 폴더 구조 체계화</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">2) R 프로젝트 파일 관리: 폴더 구조 체계화</h1>
+<h1 class="title">2) R project: 폴더 구조 체계화</h1>
 </div>
 
 
@@ -298,8 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="왜-r-project를-써야-하는가" class="level3">
-<h3 class="anchored" data-anchor-id="왜-r-project를-써야-하는가">왜 R Project를 써야 하는가</h3>
+<section id="r-project란" class="level3">
+<h3 class="anchored" data-anchor-id="r-project란">R project란?</h3>
 <p>R Project(<code>.Rproj</code>)를 쓰면:</p>
 <ul>
 <li><strong>작업 디렉토리가 자동 설정</strong></li>
@@ -349,25 +349,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 → 프로젝트 이름 입력 (예: "SBRT_survival")
 → Create Project</code></pre>
 <p><img src="images/R project.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3965964054.png" class="img-fluid" width="696"></p>
 <p>그 다음 콘솔에서 폴더 생성:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 폴더 구조 한 번에 만들기</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"scripts"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create("scripts"): 'scripts' already exists</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"rawdata"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create("rawdata"): 'rawdata' already exists</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"analysis"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create("analysis"): 'analysis' already exists</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"results"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create("results"): 'results' already exists</code></pre>
-</div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"scripts"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"rawdata"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"analysis"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"results"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3-2) 실습 과제 + 마무리</title>
+<title>2) 실습 과제 + 마무리</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -268,7 +268,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#과제-1-lffs-분석-병변-단위" id="toc-과제-1-lffs-분석-병변-단위" class="nav-link" data-scroll-target="#과제-1-lffs-분석-병변-단위">과제 1: LFFS 분석 (병변 단위)</a></li>
   <li><a href="#과제-2-subgroup-forest-plot" id="toc-과제-2-subgroup-forest-plot" class="nav-link" data-scroll-target="#과제-2-subgroup-forest-plot">과제 2: Subgroup Forest Plot</a></li>
-  <li><a href="#과제-3-자동-보고서-만들기" id="toc-과제-3-자동-보고서-만들기" class="nav-link" data-scroll-target="#과제-3-자동-보고서-만들기">과제 3: 자동 보고서 만들기</a></li>
   </ul></li>
   <li><a href="#체크리스트" id="toc-체크리스트" class="nav-link" data-scroll-target="#체크리스트">체크리스트</a></li>
   <li><a href="#ready-to-use-템플릿" id="toc-ready-to-use-템플릿" class="nav-link" data-scroll-target="#ready-to-use-템플릿">Ready-to-Use 템플릿</a>
@@ -289,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part3/3_1_vibecoding.html">3. 결과 및 마무리</a></li><li class="breadcrumb-item"><a href="../part3/3_2_summary.html">2) 실습 과제 + 마무리</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">3-2) 실습 과제 + 마무리</h1>
+<h1 class="title">2) 실습 과제 + 마무리</h1>
 </div>
 
 
@@ -301,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 13, 2026</p>
+      <p class="date-modified">May 15, 2026</p>
     </div>
   </div>
     
@@ -324,20 +323,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>AI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, 직접 실행해보세요.</p>
+<p>AI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 <code>.R</code> 파일로 저장합니다.</p>
 </div>
 </div>
 <section id="과제-1-lffs-분석-병변-단위" class="level3">
 <h3 class="anchored" data-anchor-id="과제-1-lffs-분석-병변-단위">과제 1: LFFS 분석 (병변 단위)</h3>
 <p><strong>조건</strong>:</p>
 <ul>
-<li>데이터: <code>clinical_data.xlsx</code> 전체 행 (병변 단위)</li>
+<li>데이터: <code>analysis/1_df_lesion.rds</code> (병변 단위)</li>
 <li>종속변수: <code>LFFS</code> (시간), <code>LF</code> (이벤트)</li>
-<li>그룹 변수: <code>BED_group</code> (PTVmean_BED10 ≥100 vs &lt;100)</li>
+<li>그룹 변수: PTVmean_BED10 ≥100 vs &lt;100</li>
 <li>출력: KM curve + log-rank p-value + risk table</li>
+<li>저장: <code>results/KM_LFFS.tiff</code> (300 dpi)</li>
 </ul>
 <p><strong>프롬프트 힌트</strong>:</p>
-<pre><code>rawdata/clinical_data.xlsx를 읽어서 병변 단위 생존분석을 해줘.
+<pre><code>analysis/1_df_lesion.rds를 readRDS로 로드해서 병변 단위 생존분석을 해줘.
 
 변수 설명:
 - LFFS: local failure-free survival (months)
@@ -345,14 +345,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 - PTVmean_BED10: PTV mean BED10 (Gy)
 
 PTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,
-KM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.</code></pre>
+KM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.
+results/ 폴더에 tiff 300dpi로 저장.</code></pre>
 <hr>
 </section>
 <section id="과제-2-subgroup-forest-plot" class="level3">
 <h3 class="anchored" data-anchor-id="과제-2-subgroup-forest-plot">과제 2: Subgroup Forest Plot</h3>
 <p><strong>조건</strong>:</p>
 <ul>
-<li>환자 단위 (<code>IN_sur == 1</code>)</li>
+<li>데이터: <code>analysis/2_df_pt_processed.rds</code> (환자 단위)</li>
 <li>각 subgroup별로 OS에 대한 univariable Cox regression:
 <ul>
 <li>Age (&lt;65 vs ≥65)</li>
@@ -364,9 +365,10 @@ KM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.<
 <li>각 HR + 95% CI를 forest plot으로 시각화</li>
 </ul>
 <p><strong>프롬프트 힌트</strong>:</p>
-<pre><code>위 데이터에서 subgroup별 univariable Cox regression을 수행해줘.
+<pre><code>analysis/2_df_pt_processed.rds를 readRDS로 로드해서
+subgroup별 univariable Cox regression을 수행해줘.
 
-환자 단위 (IN_sur == 1), 종속변수는 OS/Death.
+종속변수는 OS/Death.
 
 Subgroup 정의:
 - Age_Tx: 65 기준으로 이분
@@ -376,18 +378,8 @@ Subgroup 정의:
 - PTVmean_BED10: 100 기준으로 이분
 
 각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.
-broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
-<hr>
-</section>
-<section id="과제-3-자동-보고서-만들기" class="level3">
-<h3 class="anchored" data-anchor-id="과제-3-자동-보고서-만들기">과제 3: 자동 보고서 만들기</h3>
-<p><strong>조건</strong>:</p>
-<ul>
-<li>새 <code>.qmd</code> 파일 생성</li>
-<li>Table 1 + KM curve + Cox regression 결과를 하나의 문서에</li>
-<li><code>format: html</code>로 Render</li>
-<li>인라인 코드로 환자 수, median OS 등 본문에 삽입</li>
-</ul>
+broom::tidy()로 결과를 추출하고 ggplot으로 시각화.
+results/ 폴더에 저장.</code></pre>
 <hr>
 </section>
 </section>
@@ -398,7 +390,9 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 □ 이벤트 변수 방향이 맞는가? (Death=1이 사망)
 □ Factor의 reference level이 의도한 대로인가?
 □ p-value 해석이 맞는가? (다중비교 고려)
-□ 그래프 축 라벨과 범례가 정확한가?</code></pre>
+□ 그래프 축 라벨과 범례가 정확한가?
+□ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?
+□ 스크립트 상단에 Input/Output을 명시했는가?</code></pre>
 <hr>
 </section>
 <section id="ready-to-use-템플릿" class="level2">
@@ -407,38 +401,54 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 <section id="생존분석-템플릿" class="level3">
 <h3 class="anchored" data-anchor-id="생존분석-템플릿">생존분석 템플릿</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 파라미터: 여기만 바꾸세요 =====</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>DATA_FILE  <span class="ot">&lt;-</span> <span class="st">"rawdata/your_data.xlsx"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>TIME_VAR   <span class="ot">&lt;-</span> <span class="st">"OS"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>EVENT_VAR  <span class="ot">&lt;-</span> <span class="st">"Death"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>GROUP_VAR  <span class="ot">&lt;-</span> <span class="st">"treatment_group"</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>COVARIATES <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"stage"</span>, <span class="st">"tumor_size"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 읽기</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">"Surv("</span>, TIME_VAR, <span class="st">","</span>, EVENT_VAR, <span class="st">") ~ "</span>, GROUP_VAR)),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> df, <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">risk.table =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Cox regression</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>cox_formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">"Surv("</span>, TIME_VAR, <span class="st">","</span>, EVENT_VAR, <span class="st">") ~ "</span>,</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste</span>(COVARIATES, <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(cox_formula, <span class="at">data =</span> df)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(cox_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== survival_analysis.R =====</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Input:  analysis/your_data.rds</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: results/KM_plot.tiff, results/cox_result.csv</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 디렉토리 &amp; 파라미터: 여기만 바꾸세요 =====</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>indir      <span class="ot">&lt;-</span> <span class="st">"analysis/"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>resdir     <span class="ot">&lt;-</span> <span class="st">"results/"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>DATA_FILE  <span class="ot">&lt;-</span> <span class="fu">paste0</span>(indir, <span class="st">"your_data.rds"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>TIME_VAR   <span class="ot">&lt;-</span> <span class="st">"OS"</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>EVENT_VAR  <span class="ot">&lt;-</span> <span class="st">"Death"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>GROUP_VAR  <span class="ot">&lt;-</span> <span class="st">"treatment_group"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>COVARIATES <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"stage"</span>, <span class="st">"tumor_size"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># =================================================</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 로드</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(DATA_FILE)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># KM curve</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">"Surv("</span>, TIME_VAR, <span class="st">","</span>, EVENT_VAR, <span class="st">") ~ "</span>, GROUP_VAR)),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(fit, <span class="at">data =</span> df, <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_classic</span>())</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="fu">paste0</span>(resdir, <span class="st">"KM_plot.tiff"</span>), <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Cox regression</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>cox_formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">"Surv("</span>, TIME_VAR, <span class="st">","</span>, EVENT_VAR, <span class="st">") ~ "</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>         <span class="fu">paste</span>(COVARIATES, <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(cox_formula, <span class="at">data =</span> df)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>cox_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(cox_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Cox 결과 저장</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(cox_tidy, <span class="fu">paste0</span>(resdir, <span class="st">"cox_result.csv"</span>), <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Done!</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -451,9 +461,9 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>파라미터 5줄만 본인 데이터에 맞게 수정</li>
-<li>스크립트 전체 실행</li>
-<li>KM curve + Cox 결과 확인</li>
+<li>파라미터 블록만 본인 데이터에 맞게 수정</li>
+<li>RStudio 콘솔에서 실행하며 중간 결과 확인</li>
+<li>동작 확인되면 <code>Rscript survival_analysis.R</code>로 실행</li>
 </ol>
 </div>
 </div>
@@ -466,8 +476,8 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 <h3 class="anchored" data-anchor-id="오늘-배운-것">오늘 배운 것</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 70%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -478,15 +488,15 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 <tbody>
 <tr class="odd">
 <td>1. 환경 구축</td>
-<td>R Project + 폴더 구조 + 파라미터 패턴</td>
+<td>R Project + 폴더 구조(<code>rawdata/</code>, <code>analysis/</code>, <code>results/</code>) + <code>paste0()</code> 경로 관리</td>
 </tr>
 <tr class="even">
 <td>2. 분석 파이프라인</td>
-<td>전처리(dplyr) → Table 1(gtsummary) → 바이브코딩</td>
+<td>Table 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot</td>
 </tr>
 <tr class="odd">
-<td>3. 시각화 &amp; 리포팅</td>
-<td>KM curve + Forest plot + Quarto 보고서</td>
+<td>3. 바이브코딩</td>
+<td>프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → <code>.R</code> 파일로 저장</td>
 </tr>
 </tbody>
 </table>
@@ -494,6 +504,14 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 <section id="추천-리소스" class="level3">
 <h3 class="anchored" data-anchor-id="추천-리소스">추천 리소스</h3>
 <dl>
+<dt>R graph gallery</dt>
+<dd>
+<p><a href="https://r-graph-gallery.com/" class="uri">https://r-graph-gallery.com/</a></p>
+</dd>
+<dt>R statistics</dt>
+<dd>
+<p><a href="https://r-statistics.co/" class="uri">https://r-statistics.co/</a></p>
+</dd>
 <dt>R for Data Science (2e)</dt>
 <dd>
 <p><a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a></p>
@@ -506,15 +524,11 @@ broom::tidy()로 결과를 추출하고 ggplot으로 시각화.</code></pre>
 <dd>
 <p><a href="https://www.danieldsjoberg.com/gtsummary/" class="uri">https://www.danieldsjoberg.com/gtsummary/</a></p>
 </dd>
-<dt>Quarto 공식 가이드</dt>
-<dd>
-<p><a href="https://quarto.org/docs/guide/" class="uri">https://quarto.org/docs/guide/</a></p>
-</dd>
 </dl>
 </section>
 <section id="qa" class="level3">
 <h3 class="anchored" data-anchor-id="qa">Q&amp;A</h3>
-<p>궁금한 점이 있으면 질문해주세요!</p>
+<p>궁금한 점이 있으면 질문해주세요! (<a href="mailto:eha@knu.ac.kr" class="email">eha@knu.ac.kr</a>)</p>
 
 
 </section>
