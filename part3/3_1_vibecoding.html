@@ -272,11 +272,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#실전-워크플로우" id="toc-실전-워크플로우" class="nav-link" data-scroll-target="#실전-워크플로우">실전 워크플로우</a>
   <ul class="collapse">
-  <li><a href="#step-1.-rstudio에서-데이터-로드-구조-파악" id="toc-step-1.-rstudio에서-데이터-로드-구조-파악" class="nav-link" data-scroll-target="#step-1.-rstudio에서-데이터-로드-구조-파악">Step 1. RStudio에서 데이터 로드 &amp; 구조 파악</a></li>
-  <li><a href="#step-2.-ai에게-프롬프트-작성" id="toc-step-2.-ai에게-프롬프트-작성" class="nav-link" data-scroll-target="#step-2.-ai에게-프롬프트-작성">Step 2. AI에게 프롬프트 작성</a></li>
-  <li><a href="#step-3.-ai가-준-코드를-콘솔에서-실행" id="toc-step-3.-ai가-준-코드를-콘솔에서-실행" class="nav-link" data-scroll-target="#step-3.-ai가-준-코드를-콘솔에서-실행">Step 3. AI가 준 코드를 콘솔에서 실행</a></li>
-  <li><a href="#step-4.-에러가-나면" id="toc-step-4.-에러가-나면" class="nav-link" data-scroll-target="#step-4.-에러가-나면">Step 4. 에러가 나면?</a></li>
-  <li><a href="#step-5.-동작-확인되면-스크립트로-저장" id="toc-step-5.-동작-확인되면-스크립트로-저장" class="nav-link" data-scroll-target="#step-5.-동작-확인되면-스크립트로-저장">Step 5. 동작 확인되면 스크립트로 저장</a></li>
+  <li><a href="#rstudio에서-데이터-로드-구조-파악" id="toc-rstudio에서-데이터-로드-구조-파악" class="nav-link" data-scroll-target="#rstudio에서-데이터-로드-구조-파악">① RStudio에서 데이터 로드 &amp; 구조 파악</a></li>
+  <li><a href="#ai에게-프롬프트-작성" id="toc-ai에게-프롬프트-작성" class="nav-link" data-scroll-target="#ai에게-프롬프트-작성">② AI에게 프롬프트 작성</a></li>
+  <li><a href="#ai가-준-코드를-콘솔에서-실행" id="toc-ai가-준-코드를-콘솔에서-실행" class="nav-link" data-scroll-target="#ai가-준-코드를-콘솔에서-실행">③ AI가 준 코드를 콘솔에서 실행</a></li>
+  <li><a href="#에러가-나면" id="toc-에러가-나면" class="nav-link" data-scroll-target="#에러가-나면">④ 에러가 나면?</a></li>
+  <li><a href="#동작-확인되면-스크립트로-저장" id="toc-동작-확인되면-스크립트로-저장" class="nav-link" data-scroll-target="#동작-확인되면-스크립트로-저장">⑤ 동작 확인되면 스크립트로 저장</a></li>
   </ul></li>
   <li><a href="#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유" id="toc-ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유" class="nav-link" data-scroll-target="#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유">AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)</a></li>
   <li><a href="#바이브코딩-체크리스트" id="toc-바이브코딩-체크리스트" class="nav-link" data-scroll-target="#바이브코딩-체크리스트">바이브코딩 체크리스트</a></li>
@@ -377,8 +377,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6. input → output 구조의 스크립트 완성</code></pre>
 <p>핵심은 <strong>처음부터 완벽한 스크립트를 만들려 하지 않는 것</strong>입니다. RStudio 콘솔에서 한 줄씩 돌려보고, 중간 과정을 계속 트러블슈팅해서 최종적으로 동작하는 코드가 완성되면 그때 파일로 저장합니다.</p>
 <hr>
-<section id="step-1.-rstudio에서-데이터-로드-구조-파악" class="level3">
-<h3 class="anchored" data-anchor-id="step-1.-rstudio에서-데이터-로드-구조-파악">Step 1. RStudio에서 데이터 로드 &amp; 구조 파악</h3>
+<section id="rstudio에서-데이터-로드-구조-파악" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio에서-데이터-로드-구조-파악">① RStudio에서 데이터 로드 &amp; 구조 파악</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -445,8 +445,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="step-2.-ai에게-프롬프트-작성" class="level3">
-<h3 class="anchored" data-anchor-id="step-2.-ai에게-프롬프트-작성">Step 2. AI에게 프롬프트 작성</h3>
+<section id="ai에게-프롬프트-작성" class="level3">
+<h3 class="anchored" data-anchor-id="ai에게-프롬프트-작성">② AI에게 프롬프트 작성</h3>
 <p><code>colnames()</code>과 <code>str()</code> 결과를 붙여넣고, 원하는 분석을 요청합니다.</p>
 <pre><code>위 데이터에서 생존분석을 해줘.
 
@@ -456,8 +456,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 - survminer 패키지 사용
 - 300 dpi tiff로 저장</code></pre>
 </section>
-<section id="step-3.-ai가-준-코드를-콘솔에서-실행" class="level3">
-<h3 class="anchored" data-anchor-id="step-3.-ai가-준-코드를-콘솔에서-실행">Step 3. AI가 준 코드를 콘솔에서 실행</h3>
+<section id="ai가-준-코드를-콘솔에서-실행" class="level3">
+<h3 class="anchored" data-anchor-id="ai가-준-코드를-콘솔에서-실행">③ AI가 준 코드를 콘솔에서 실행</h3>
 <p>AI가 생성한 코드를 <strong>한 블록씩</strong> RStudio 콘솔에 붙여넣어 실행합니다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
@@ -488,8 +488,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="step-4.-에러가-나면" class="level3">
-<h3 class="anchored" data-anchor-id="step-4.-에러가-나면">Step 4. 에러가 나면?</h3>
+<section id="에러가-나면" class="level3">
+<h3 class="anchored" data-anchor-id="에러가-나면">④ 에러가 나면?</h3>
 <p>에러 메시지를 <strong>그대로 복붙</strong>해서 AI에게 주면 됩니다.</p>
 <pre><code>이 코드를 실행했더니 다음 에러가 났어:
 
@@ -557,8 +557,8 @@ numeric vector를 받는 것 같은데,
 </div>
 </div>
 </section>
-<section id="step-5.-동작-확인되면-스크립트로-저장" class="level3">
-<h3 class="anchored" data-anchor-id="step-5.-동작-확인되면-스크립트로-저장">Step 5. 동작 확인되면 스크립트로 저장</h3>
+<section id="동작-확인되면-스크립트로-저장" class="level3">
+<h3 class="anchored" data-anchor-id="동작-확인되면-스크립트로-저장">⑤ 동작 확인되면 스크립트로 저장</h3>
 <p>콘솔에서 다 돌아가는 걸 확인했으면, 코드를 모아서 <code>.R</code> 파일로 저장합니다. 이때 상단에 <strong>input/output을 명시</strong>하고, 경로를 <code>paste0()</code>로 정리합니다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 03_KM_plot.R =====</span></span>
