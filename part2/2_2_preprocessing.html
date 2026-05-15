@@ -272,6 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#select-열-선택" id="toc-select-열-선택" class="nav-link" data-scroll-target="#select-열-선택">select: 열 선택</a></li>
   <li><a href="#mutate-새-변수-생성" id="toc-mutate-새-변수-생성" class="nav-link" data-scroll-target="#mutate-새-변수-생성">mutate: 새 변수 생성</a></li>
   <li><a href="#group_by-summarise-그룹별-요약" id="toc-group_by-summarise-그룹별-요약" class="nav-link" data-scroll-target="#group_by-summarise-그룹별-요약">group_by + summarise: 그룹별 요약</a></li>
+  <li><a href="#arrange-정렬" id="toc-arrange-정렬" class="nav-link" data-scroll-target="#arrange-정렬">arrange: 정렬</a></li>
   </ul></li>
   <li><a href="#저장" id="toc-저장" class="nav-link" data-scroll-target="#저장">③ 저장</a></li>
   <li><a href="#rscript-완성본" id="toc-rscript-완성본" class="nav-link" data-scroll-target="#rscript-완성본">④ Rscript 완성본</a></li>
@@ -564,17 +565,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 Colon      23       74            0</code></pre>
 </div>
 </div>
+</section>
+<section id="arrange-정렬" class="level3">
+<h3 class="anchored" data-anchor-id="arrange-정렬">arrange: 정렬</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나이 오름차순</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Age_Tx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 37
+   Key_pt Key_lesion  IN_sur IN_lesion Sex    Age_Tx OMD_Type  OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;  
+ 1     51 liver 51-1       1         1 Female     27 Induced … oligomet… liver  
+ 2     81 lung 81-2        1         1 Female     33 Repeat o… oligopro… lung   
+ 3     52 lung 52-1        1         1 Female     50 Repeat o… oligomet… lung   
+ 4     89 lung 89-1        1         1 Male       51 Metachro… oligomet… lung   
+ 5    115 liver 115-1      1         1 Male       52 Repeat o… oligopro… liver  
+ 6     58 lung 58-1        1         1 Female     53 Repeat o… oligomet… lung   
+ 7    111 lung 111-1       1         1 Male       54 Metachro… oligomet… lung   
+ 8      7 liver 7-1        1         1 Female     55 Induced … oligomet… liver  
+ 9     39 lung 39-1        1         1 Male       57 Metachro… oligomet… lung   
+10     54 liver 54-1       1         1 Female     57 Induced … oligomet… liver  
+# ℹ 45 more rows
+# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 내림차순</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Age_Tx))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 37
+   Key_pt Key_lesion IN_sur IN_lesion Sex    Age_Tx OMD_Type   OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  
+ 1    114 lung 114-1      1         1 Female     91 Repeat ol… oligomet… lung   
+ 2    107 lung 107-1      1         1 Female     85 Metachron… oligomet… lung   
+ 3     67 lung 67-1       1         1 Female     84 Induced o… oligomet… lung   
+ 4     20 lung 20-1       1         1 Male       83 Metachron… oligomet… lung   
+ 5    102 lung 102-1      1         1 Male       83 Synchrono… oligomet… lung   
+ 6    113 lung 113-1      1         1 Female     82 Metachron… oligomet… lung   
+ 7     95 lung 95-1       1         1 Male       80 Synchrono… oligomet… lung   
+ 8     74 lung 74-1       1         1 Male       79 Metachron… oligomet… lung   
+ 9     84 lung 84-1       1         1 Female     79 Repeat ol… oligomet… lung   
+10     75 lung 75-1       1         1 Female     78 Repeat ol… oligopro… lung   
+# ℹ 45 more rows
+# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 기준: Primary 먼저, 그 안에서 나이순</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Primary, Age_Tx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 37
+   Key_pt Key_lesion  IN_sur IN_lesion Sex    Age_Tx OMD_Type  OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;  
+ 1     51 liver 51-1       1         1 Female     27 Induced … oligomet… liver  
+ 2    115 liver 115-1      1         1 Male       52 Repeat o… oligopro… liver  
+ 3     58 lung 58-1        1         1 Female     53 Repeat o… oligomet… lung   
+ 4     39 lung 39-1        1         1 Male       57 Metachro… oligomet… lung   
+ 5     54 liver 54-1       1         1 Female     57 Induced … oligomet… liver  
+ 6     63 lung 63-1        1         1 Male       65 Metachro… oligomet… lung   
+ 7     76 lung 76-1        1         1 Male       65 Repeat o… oligopro… lung   
+ 8      9 lung 9-1         1         1 Female     68 Induced … oligopro… lung   
+ 9     80 lung 80-1        1         1 Male       69 Repeat o… oligopro… lung   
+10     61 liver 61-1       1         1 Male       70 Repeat o… oligomet… liver  
+# ℹ 45 more rows
+# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
 <section id="저장" class="level2">
 <h2 class="anchored" data-anchor-id="저장">③ 저장</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 추가 전처리된 데이터를 2_ 접두사로 저장</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="fu">paste0</span>(outdir, <span class="st">"2_df_pt_processed.rds"</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 최종 결과물: csv (공유/기록용) — 필요시</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(df_pt, paste0(resdir, "cleaned_patient_data.csv"), row.names = FALSE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 추가 전처리된 데이터를 2_ 접두사로 저장</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="fu">paste0</span>(outdir, <span class="st">"2_df_pt_processed.rds"</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 최종 결과물: csv (공유/기록용) — 필요시</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(df_pt, paste0(resdir, "cleaned_patient_data.csv"), row.names = FALSE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -599,41 +677,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="rscript-완성본">④ Rscript 완성본</h2>
 <p>위 과정을 <code>.R</code> 파일 하나로 정리하면, 터미널에서 바로 실행할 수 있습니다.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 02_preprocessing.R =====</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- 디렉토리 &amp; 파라미터 -----</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>indir  <span class="ot">&lt;-</span> <span class="st">"analysis/"</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="st">"analysis/"</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>AGE_CUT <span class="ot">&lt;-</span> <span class="dv">65</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 데이터 로드 (2_1에서 저장한 rds)</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(indir, <span class="st">"1_df_pt.rds"</span>))</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 전처리</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df_pt <span class="sc">%&gt;%</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> AGE_CUT, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death =</span> <span class="fu">as.numeric</span>(Death),</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death_f =</span> <span class="fu">factor</span>(Death, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Alive"</span>, <span class="st">"Dead"</span>)),</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Multiplicity =</span> <span class="fu">factor</span>(Multiplicity),</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 저장</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="fu">paste0</span>(outdir, <span class="st">"2_df_pt_processed.rds"</span>))</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Preprocessing done:"</span>, <span class="fu">nrow</span>(df_pt), <span class="st">"patients</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 02_preprocessing.R =====</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----- 디렉토리 &amp; 파라미터 -----</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>indir  <span class="ot">&lt;-</span> <span class="st">"analysis/"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="st">"analysis/"</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>AGE_CUT <span class="ot">&lt;-</span> <span class="dv">65</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 데이터 로드 (2_1에서 저장한 rds)</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(indir, <span class="st">"1_df_pt.rds"</span>))</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 전처리</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> df_pt <span class="sc">%&gt;%</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> AGE_CUT, <span class="st">"≥65"</span>, <span class="st">"&lt;65"</span>),</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death =</span> <span class="fu">as.numeric</span>(Death),</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Death_f =</span> <span class="fu">factor</span>(Death, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Alive"</span>, <span class="st">"Dead"</span>)),</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Multiplicity =</span> <span class="fu">factor</span>(Multiplicity),</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">size_cm =</span> size_mm <span class="sc">/</span> <span class="dv">10</span>,</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">BED_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"≥100 Gy"</span>,</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>      PTVmean_BED10 <span class="sc">&gt;=</span> <span class="dv">80</span>  <span class="sc">~</span> <span class="st">"80-99 Gy"</span>,</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"&lt;80 Gy"</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 저장</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_pt, <span class="fu">paste0</span>(outdir, <span class="st">"2_df_pt_processed.rds"</span>))</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"✅ Preprocessing done:"</span>, <span class="fu">nrow</span>(df_pt), <span class="st">"patients</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 터미널에서 실행</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> 02_preprocessing.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 터미널에서 실행</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> 02_preprocessing.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
