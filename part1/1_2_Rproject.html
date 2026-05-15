@@ -312,17 +312,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>my_research_project/
 ├── my_research_project.Rproj
 ├── scripts/          # 분석 스크립트 (.R 파일)
-│   ├── 01_preprocessing.R
-│   ├── 02_table1.R
-│   └── 03_survival.R
+│   ├── 1_table1.R
+│   ├── 2_preprocessing.R
+│   └── 3_figure.R
 ├── rawdata/          # 원본 데이터 (절대 수정 금지!)
 │   └── clinical_data.xlsx
 ├── analysis/         # 중간 분석 결과
-│   └── cleaned_data.rds
+│   ├── 1_cleaned_data.rds
+│   ├── 1_df_pt.rds
+│   ├── 1_table1.rds
+│   ├── 2_df_pt_processed.rds
+│   ├── 3_cox_model.rds
+│   ├── 3_cox_tidy.rds
 └── results/          # 최종 산출물
     ├── Table1.docx
-    ├── KM_curve.tiff
-    └── forest_plot.tiff</code></pre>
+    ├── KM_OS.tiff
+    └── forest_OS.tiff</code></pre>
 <p><img src="images/folder_structure.png" class="img-fluid"></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
