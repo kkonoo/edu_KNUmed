@@ -617,23 +617,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
 #   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 기준: Primary 먼저, 그 안에서 나이순</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Primary, Age_Tx) <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Primary, Age_Tx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 기준: 성별 먼저, 그 안에서 나이순</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_pt <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Sex, Age_Tx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 55 × 3
-   Key_pt Primary Age_Tx
-    &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
- 1     51 Colon       27
- 2    115 Colon       52
- 3     58 Colon       53
- 4     39 Colon       57
- 5     54 Colon       57
- 6     63 Colon       65
- 7     76 Colon       65
- 8      9 Colon       68
- 9     80 Colon       69
-10     61 Colon       70
-# ℹ 45 more rows</code></pre>
+<pre><code># A tibble: 55 × 37
+   Key_pt Key_lesion  IN_sur IN_lesion Sex   Age_Tx OMD_Type   OMD_class Tx_site
+    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  
+ 1     89 lung 89-1        1         1 Male      51 Metachron… oligomet… lung   
+ 2    115 liver 115-1      1         1 Male      52 Repeat ol… oligopro… liver  
+ 3    111 lung 111-1       1         1 Male      54 Metachron… oligomet… lung   
+ 4     39 lung 39-1        1         1 Male      57 Metachron… oligomet… lung   
+ 5     44 lung 44-2        1         1 Male      58 Repeat ol… oligopro… lung   
+ 6     97 lung 97-1        1         1 Male      58 Repeat ol… oligomet… lung   
+ 7     93 liver 93-1       1         1 Male      59 Induced o… oligopro… liver  
+ 8     19 lung 19-1        1         1 Male      64 Repeat ol… oligopro… lung   
+ 9     82 lung 82-1        1         1 Male      64 Induced o… oligopro… lung   
+10     36 lung 36-1        1         1 Male      65 Repeat ol… oligopro… lung   
+# ℹ 45 more rows
+# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,
+#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,
+#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,
+#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,
+#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,
+#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …</code></pre>
 </div>
 </div>
 <hr>
