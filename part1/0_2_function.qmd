@@ -9,7 +9,7 @@ date: last-modified
 같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\
 함수로 만들면 **한 번 작성, 여러 번 재사용**할 수 있습니다.
 
-## 1. 함수 기본 구조
+## ① 함수 기본 구조
 
 ```{r}
 #| eval: false
@@ -42,7 +42,7 @@ power(3)       # 3^2 = 9
 power(3, 3)    # 3^3 = 27
 ```
 
-## 2. 여러 값을 반환하기
+## ② 여러 값을 반환하기
 
 R 함수는 `return()`으로 하나만 반환합니다. 여러 값이 필요하면 **리스트**로 묶습니다.
 
@@ -62,7 +62,7 @@ res$mean
 res$sd
 ```
 
-## 3. 함수 + `for` 조합
+## ③ 함수 + `for` 조합
 
 함수를 만들어두면 `for`로 반복 호출할 수 있습니다.
 
@@ -93,7 +93,7 @@ for (name in names(data_list)) {
 }
 ```
 
-## 4. Claude가 만드는 코드 구조: 함수 + main
+## ④ Claude가 만드는 코드 구조: 함수 + main
 
 Claude에게 분석을 요청하면 대부분 이런 구조로 코드를 줍니다:
 
@@ -142,8 +142,8 @@ main()
 ::: callout-tip
 ## 지금은 구조만 눈에 익혀두세요
 
-실제로 이 구조가 어떻게 쓰이는지는 [Part 2](../part2/2_1_table1.html)에서 Table 1, Figure를 만들면서 직접 보게 됩니다.\
-[Part 3](../part3/3_1_vibecoding.html)에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.
+실제로 이 구조가 어떻게 쓰이는지는 [Part 3](../part3/2_1_table1.html)에서 Table 1, Figure를 만들면서 직접 보게 됩니다.\
+[Part 4](../part4/3_1_vibecoding.html)에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.
 :::
 
 ## 정리
@@ -155,7 +155,7 @@ main()
 ```
 
 ::: callout-note
-## 다음: Part 1
+## 다음: Part 2
 
-프로그래밍 기본기를 익혔으니, [Part 1](../part1/1_1_env.html)에서 실제 R project 환경을 구축합니다.
+프로그래밍 기본기를 익혔으니, [Part 2](../part2/1_1_env.html)에서 실제 R project 환경을 구축합니다.
 :::

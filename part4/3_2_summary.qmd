@@ -1,6 +1,6 @@
 ---
 title: "2) 실습 과제 + 마무리"
-date-modified: 2026.05.15
+date: last-modified
 format: html
 editor: visual
 ---
