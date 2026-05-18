@@ -14,67 +14,57 @@ categories: [의학연구, R]
 
 단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다.
 
-Part1. 프로그래밍 기본기
+## Part1. 프로그래밍 기본기
 
-R 기초 문법은 배웠지만, 프로그래밍 구조(for, if, 함수)는 아직 낯선 분들을 위한 파트입니다.
+R 기초 문법은 배웠지만, **프로그래밍 구조**(`for`, `if`, 함수)는 아직 낯선 분들을 위한 파트입니다.
 
-기본 문법: if/else로 조건 분기, for로 반복 자동화, while로 조건부 반복
+-   **기본 문법**: `if/else`로 조건 분기, `for`로 반복 자동화, `while`로 조건부 반복
+-   **함수 만들기**: 반복되는 분석을 함수로 묶어 재사용
+-   **Claude 코드 구조 이해하기**: AI가 생성하는 **함수 정의 → `main()` 호출** 패턴을 읽고 디버깅하는 법
 
-함수 만들기: 반복되는 분석을 함수로 묶어 재사용
-
-Claude 코드 구조 이해하기: AI가 생성하는 함수 정의 → main() 호출 패턴을 읽고 디버깅하는 법
-
-Part2. 연구 효율을 높이는 R script 환경 구축
+## Part2. 연구 효율을 높이는 R script 환경 구축
 
 기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.
 
-R script 활용 파이프라인이란?
+-   **R script 활용 파이프라인이란?**
 
-input: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈
+    **input**: 연구 데이터 ➡️ **R script** ➡️ **output**: 논문용 표 & 그래프📊📈
 
-✅ 휴먼 에러 최소화
+    ✅ 휴먼 에러 최소화
 
-✅ 연구 효율성
+    ✅ 연구 효율성
 
-✅ Reproducibility
+    ✅ Reproducibility
 
-R project: 폴더 구조 체계화
+-   **R project**: 폴더 구조 체계화
 
-scripts/: 전처리 및 분석용 스크립트 관리
+    -   **`scripts/`**: 전처리 및 분석용 스크립트 관리
 
-rawdata/: 원본 데이터 (+다른 곳에 백업)
+    -   **`rawdata/`**: 원본 데이터 (+다른 곳에 백업)
 
-analysis/: 중간 산물 저장 (1_df_pt.rds, 2_table1.rds, ...)
+    -   **`analysis/`**: 중간 산물 저장 (`1_df_pt.rds`, `2_table1.rds`, ...)
 
-results/: 최종 Table 및 고해상도 Figure 정리
+    -   **`results/`**: 최종 Table 및 고해상도 Figure 정리
 
+        ![](images/clipboard-3256079201.png){width="337"}
 
+-   **R script** 구조 템플릿
 
-R script 구조 템플릿
+    1.  **`parameters / arguments`**: 디렉토리(`indir`, `outdir`, `resdir`), 파일명, 분석 옵션
+    2.  **`데이터 로드`**: `readRDS(paste0(indir, "1_df_pt.rds"))`
+    3.  **`전처리 및 분석`**: dplyr 파이프라인
+    4.  **`결과 저장`**: 중간 산물은 `.rds`, 최종본은 `.docx` / `.csv` / `.tiff`
 
-parameters / arguments: 디렉토리(indir, outdir, resdir), 파일명, 분석 옵션
-
-데이터 로드: readRDS(paste0(indir, "1_df_pt.rds"))
-
-전처리 및 분석: dplyr 파이프라인
-
-결과 저장: 중간 산물은 .rds, 최종본은 .docx / .csv / .tiff
-
-Part3. R script 활용 분석 파이프라인
+## Part3. R script 활용 분석 파이프라인
 
 예제 데이터를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.
 
-데이터 읽기 & Table 1: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기
+-   **데이터 읽기 & Table 1**: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기
+-   **전처리 스크립트**: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리
+-   **핵심 Figure 그리기**: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)
 
-전처리 스크립트: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리
+## Part4. 바이브코딩으로 R 스크립트 파이프라인 만들기
 
-핵심 Figure 그리기: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)
-
-Part4. 바이브코딩으로 R 스크립트 파이프라인 만들기
-
-프롬프트 작성법: 역할 + 맥락(colnames, str) + 구체적 요청
-
-실전 워크플로우: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 .R 파일로 저장
-
-AI가 틀리기 쉬운 통계적 함정: reference level, 분석 단위, 다중비교 보정 등
-
+-   **프롬프트 작성법**: 역할 + 맥락(`colnames`, `str`) + 구체적 요청
+-   **실전 워크플로우**: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 `.R` 파일로 저장
+-   **AI가 틀리기 쉬운 통계적 함정**: reference level, 분석 단위, 다중비교 보정 등
