@@ -1,6 +1,6 @@
 ---
 title: "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
-date-modified: 2026.05.14
+date: last-modified
 format: html
 editor: visual
 ---
@@ -10,6 +10,90 @@ editor: visual
 > AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복
 
 코드를 "외우는" 것이 아니라, **AI에게 잘 시키는 법**을 배우는 것입니다.
+
+------------------------------------------------------------------------
+
+## Claude가 만드는 코드의 구조
+
+바이브코딩을 시작하기 전에, AI가 어떤 **패턴**으로 코드를 만드는지 알아야 합니다.
+
+[Part 0](../part0/0_2_function.html)에서 **함수 정의 → main() 호출** 구조를 봤습니다. Claude에게 실제 분석을 요청하면 이 구조가 그대로 적용됩니다:
+
+```{r}
+#| eval: false
+
+# ============================================================
+# 0. 라이브러리
+# ============================================================
+library(dplyr)
+library(survival)
+library(gtsummary)
+
+# ============================================================
+# 1. 함수 정의
+# ============================================================
+load_data <- function(filepath) {
+  df <- readxl::read_excel(filepath)
+  df <- df |>
+    mutate(
+      age_group = ifelse(Age_Tx >= 65, "elderly", "non-elderly"),
+      Death = as.numeric(Death)
+    )
+  return(df)
+}
+
+make_table1 <- function(df, by_var) {
+  df |>
+    tbl_summary(by = all_of(by_var), missing = "no") |>
+    add_p() |>
+    bold_p()
+}
+
+run_survival <- function(df, time_var, event_var, group_var) {
+  formula <- as.formula(
+    paste0("Surv(", time_var, ", ", event_var, ") ~ ", group_var)
+  )
+  fit <- survfit(formula, data = df)
+  return(fit)
+}
+
+save_results <- function(tbl, fit, resdir) {
+  tbl |> as_flex_table() |>
+    flextable::save_as_docx(path = file.path(resdir, "table1.docx"))
+
+  p <- survminer::ggsurvplot(fit, pval = TRUE, risk.table = TRUE)
+  tiff(file.path(resdir, "KM_OS.tiff"), width = 7, height = 5,
+       units = "in", res = 300)
+  print(p)
+  dev.off()
+}
+
+# ============================================================
+# 2. Main
+# ============================================================
+main <- function() {
+  indir  <- "rawdata/"
+  resdir <- "results/"
+
+  df  <- load_data(file.path(indir, "patient_data.xlsx"))
+  tbl <- make_table1(df, by_var = "Multiplicity")
+  fit <- run_survival(df, "OS", "Death", "Multiplicity")
+  save_results(tbl, fit, resdir)
+
+  cat("Done!\n")
+}
+
+main()
+```
+
+::: callout-tip
+## AI 코드를 받으면 이렇게 읽으세요
+
+1.  **`main()` 먼저** → 전체 흐름 파악 (데이터 로드 → Table 1 → 생존분석 → 저장)
+2.  **각 함수의 input/output** → 인자와 `return`값 확인
+3.  **함수 하나씩 실행** → RStudio 콘솔에서 `load_data()`부터 순서대로
+4.  **에러나면 해당 함수만 디버깅** → 전체를 다시 돌릴 필요 없음
+:::
 
 ------------------------------------------------------------------------
 
@@ -107,6 +191,9 @@ str(df_pt)
 ### ③ AI가 준 코드를 콘솔에서 실행
 
 AI가 생성한 코드를 **한 블록씩** RStudio 콘솔에 붙여넣어 실행합니다.
+
+이때 위에서 본 **함수 + main 구조**로 코드가 올 가능성이 높습니다.\
+그 경우 `main()`을 바로 실행하지 말고, **함수 정의부를 먼저 실행**한 뒤 함수를 하나씩 테스트하세요.
 
 ```{r}
 library(survival)

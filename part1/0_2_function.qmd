@@ -1,0 +1,161 @@
+---
+title: "함수 만들기"
+author: "Eunji Ha"
+date: last-modified
+---
+
+## Why 함수?
+
+같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\
+함수로 만들면 **한 번 작성, 여러 번 재사용**할 수 있습니다.
+
+## 1. 함수 기본 구조
+
+```{r}
+#| eval: false
+
+함수이름 <- function(인자1, 인자2 = 기본값) {
+  결과 <- 인자1 + 인자2
+  return(결과)
+}
+```
+
+**예제: 제곱 함수**
+
+```{r}
+square <- function(x) {
+  return(x^2)
+}
+
+square(3)
+square(7)
+```
+
+**예제: 기본값이 있는 함수**
+
+```{r}
+power <- function(x, n = 2) {
+  return(x^n)
+}
+
+power(3)       # 3^2 = 9
+power(3, 3)    # 3^3 = 27
+```
+
+## 2. 여러 값을 반환하기
+
+R 함수는 `return()`으로 하나만 반환합니다. 여러 값이 필요하면 **리스트**로 묶습니다.
+
+```{r}
+summarize_vec <- function(x) {
+  result <- list(
+    mean = mean(x),
+    sd   = sd(x),
+    n    = length(x)
+  )
+  return(result)
+}
+
+vals <- c(10, 20, 30, 40, 50)
+res <- summarize_vec(vals)
+res$mean
+res$sd
+```
+
+## 3. 함수 + `for` 조합
+
+함수를 만들어두면 `for`로 반복 호출할 수 있습니다.
+
+```{r}
+greet <- function(name) {
+  msg <- paste0("안녕하세요, ", name, " 교수님!")
+  return(msg)
+}
+
+names <- c("김", "이", "박")
+for (n in names) {
+  print(greet(n))
+}
+```
+
+**실전 느낌의 예제: 여러 숫자 벡터의 요약 통계**
+
+```{r}
+data_list <- list(
+  group_A = c(120, 135, 128, 142),
+  group_B = c(110, 105, 118, 122),
+  group_C = c(130, 145, 138, 150)
+)
+
+for (name in names(data_list)) {
+  res <- summarize_vec(data_list[[name]])
+  cat(name, ": mean =", res$mean, ", sd =", round(res$sd, 1), "\n")
+}
+```
+
+## 4. Claude가 만드는 코드 구조: 함수 + main
+
+Claude에게 분석을 요청하면 대부분 이런 구조로 코드를 줍니다:
+
+```{r}
+#| eval: false
+
+# ============================================================
+# 1. 함수 정의
+# ============================================================
+load_data <- function(filepath) {
+  # 데이터 읽기 & 전처리
+  return(df)
+}
+
+run_analysis <- function(df) {
+  # 분석 수행
+  return(result)
+}
+
+save_results <- function(result, outdir) {
+  # 결과 저장
+}
+
+# ============================================================
+# 2. Main: 함수 호출
+# ============================================================
+main <- function() {
+  df     <- load_data("rawdata/data.xlsx")
+  result <- run_analysis(df)
+  save_results(result, "results/")
+  cat("Done!\n")
+}
+
+main()
+```
+
+### 이 구조의 장점
+
+| 장점          | 설명                                                |
+|---------------|-----------------------------------------------------|
+| **가독성**    | `main()`만 읽으면 전체 흐름이 보임                  |
+| **디버깅**    | 함수 단위로 테스트 가능 (`load_data()`만 따로 실행) |
+| **재사용**    | 함수를 다른 프로젝트에 복사해서 바로 사용           |
+| **수정 용이** | 전처리 바꾸고 싶으면 `load_data()`만 수정           |
+
+::: callout-tip
+## 지금은 구조만 눈에 익혀두세요
+
+실제로 이 구조가 어떻게 쓰이는지는 [Part 2](../part2/2_1_table1.html)에서 Table 1, Figure를 만들면서 직접 보게 됩니다.\
+[Part 3](../part3/3_1_vibecoding.html)에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.
+:::
+
+## 정리
+
+```         
+복붙 반복          →  함수로 묶기
+긴 스크립트 통째로  →  함수 정의 + main()
+에러 어디인지 모름  →  함수 단위 디버깅
+```
+
+::: callout-note
+## 다음: Part 1
+
+프로그래밍 기본기를 익혔으니, [Part 1](../part1/1_1_env.html)에서 실제 R project 환경을 구축합니다.
+:::

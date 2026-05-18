@@ -8,22 +8,26 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: part1/1_1_env.qmd
-        text: 1. 환경 구축하기
-      - href: part2/2_1_table1.qmd
-        text: 2. R script 활용하기
-      - href: part3/3_1_vibecoding.qmd
-        text: 3. 결과 및 마무리
+      - href: part1/3_1_vibecoding.qmd
+        text: 1. 프로그래밍 기본기
+      - href: part2/1_1_env.qmd
+        text: 2. 환경 구축하기
+      - href: part3/2_1_table1.qmd
+        text: 3. R script 활용하기
+      - href: part4/3_1_vibecoding.qmd
+        text: 4. 결과 및 마무리
  
   sidebar:
     style: docked
     contents:
-      - section: "1. 환경 구축하기"
+      - section: "1. 프로그래밍 기본기"
         contents: "part1/*.qmd"
-      - section: "2. R script 활용하기"
+      - section: "2. 환경 구축하기"
         contents: "part2/*.qmd"
-      - section: "3. 결과 및 마무리"
+      - section: "3. R script 활용하기"
         contents: "part3/*.qmd"
+      - section: "4. 결과 및 마무리"
+        contents: "part4/*.qmd"
  
   page-footer:
     left: "Copyright 2026, Eunji"
