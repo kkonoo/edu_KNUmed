@@ -316,7 +316,35 @@
     "href": "index.html",
     "title": "Rscript 활용하기",
     "section": "",
-    "text": "본 강의에서는 “배운 R 기초를 어떻게 실제 논문 작성에 써먹는가”에 집중하고자 합니다.\n단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다.\nPart1. 프로그래밍 기본기\nR 기초 문법은 배웠지만, 프로그래밍 구조(for, if, 함수)는 아직 낯선 분들을 위한 파트입니다.\n기본 문법: if/else로 조건 분기, for로 반복 자동화, while로 조건부 반복\n함수 만들기: 반복되는 분석을 함수로 묶어 재사용\nClaude 코드 구조 이해하기: AI가 생성하는 함수 정의 → main() 호출 패턴을 읽고 디버깅하는 법\nPart2. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\nR script 활용 파이프라인이란?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\n✅ 휴먼 에러 최소화\n✅ 연구 효율성\n✅ Reproducibility\nR project: 폴더 구조 체계화\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (+다른 곳에 백업)\nanalysis/: 중간 산물 저장 (1_df_pt.rds, 2_table1.rds, …)\nresults/: 최종 Table 및 고해상도 Figure 정리\nR script 구조 템플릿\nparameters / arguments: 디렉토리(indir, outdir, resdir), 파일명, 분석 옵션\n데이터 로드: readRDS(paste0(indir, “1_df_pt.rds”))\n전처리 및 분석: dplyr 파이프라인\n결과 저장: 중간 산물은 .rds, 최종본은 .docx / .csv / .tiff\nPart3. R script 활용 분석 파이프라인\n예제 데이터를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.\n데이터 읽기 & Table 1: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기\n전처리 스크립트: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리\n핵심 Figure 그리기: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)\nPart4. 바이브코딩으로 R 스크립트 파이프라인 만들기\n프롬프트 작성법: 역할 + 맥락(colnames, str) + 구체적 요청\n실전 워크플로우: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 .R 파일로 저장\nAI가 틀리기 쉬운 통계적 함정: reference level, 분석 단위, 다중비교 보정 등"
+    "text": "본 강의에서는 “배운 R 기초를 어떻게 실제 논문 작성에 써먹는가”에 집중하고자 합니다.\n단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다."
+  },
+  {
+    "objectID": "index.html#part1.-프로그래밍-기본기",
+    "href": "index.html#part1.-프로그래밍-기본기",
+    "title": "Rscript 활용하기",
+    "section": "Part1. 프로그래밍 기본기",
+    "text": "Part1. 프로그래밍 기본기\nR 기초 문법은 배웠지만, 프로그래밍 구조(for, if, 함수)는 아직 낯선 분들을 위한 파트입니다.\n\n기본 문법: if/else로 조건 분기, for로 반복 자동화, while로 조건부 반복\n함수 만들기: 반복되는 분석을 함수로 묶어 재사용\nClaude 코드 구조 이해하기: AI가 생성하는 함수 정의 → main() 호출 패턴을 읽고 디버깅하는 법"
+  },
+  {
+    "objectID": "index.html#part2.-연구-효율을-높이는-r-script-환경-구축",
+    "href": "index.html#part2.-연구-효율을-높이는-r-script-환경-구축",
+    "title": "Rscript 활용하기",
+    "section": "Part2. 연구 효율을 높이는 R script 환경 구축",
+    "text": "Part2. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\n\nR script 활용 파이프라인이란?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\n✅ 휴먼 에러 최소화\n✅ 연구 효율성\n✅ Reproducibility\nR project: 폴더 구조 체계화\n\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (+다른 곳에 백업)\nanalysis/: 중간 산물 저장 (1_df_pt.rds, 2_table1.rds, …)\nresults/: 최종 Table 및 고해상도 Figure 정리\n\n\nR script 구조 템플릿\n\nparameters / arguments: 디렉토리(indir, outdir, resdir), 파일명, 분석 옵션\n데이터 로드: readRDS(paste0(indir, \"1_df_pt.rds\"))\n전처리 및 분석: dplyr 파이프라인\n결과 저장: 중간 산물은 .rds, 최종본은 .docx / .csv / .tiff"
+  },
+  {
+    "objectID": "index.html#part3.-r-script-활용-분석-파이프라인",
+    "href": "index.html#part3.-r-script-활용-분석-파이프라인",
+    "title": "Rscript 활용하기",
+    "section": "Part3. R script 활용 분석 파이프라인",
+    "text": "Part3. R script 활용 분석 파이프라인\n예제 데이터를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.\n\n데이터 읽기 & Table 1: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기\n전처리 스크립트: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리\n핵심 Figure 그리기: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)"
+  },
+  {
+    "objectID": "index.html#part4.-바이브코딩으로-r-스크립트-파이프라인-만들기",
+    "href": "index.html#part4.-바이브코딩으로-r-스크립트-파이프라인-만들기",
+    "title": "Rscript 활용하기",
+    "section": "Part4. 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "text": "Part4. 바이브코딩으로 R 스크립트 파이프라인 만들기\n\n프롬프트 작성법: 역할 + 맥락(colnames, str) + 구체적 요청\n실전 워크플로우: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 .R 파일로 저장\nAI가 틀리기 쉬운 통계적 함정: reference level, 분석 단위, 다중비교 보정 등"
   },
   {
     "objectID": "part1/0_2_function.html",
