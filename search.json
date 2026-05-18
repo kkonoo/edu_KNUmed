@@ -52,7 +52,7 @@
     "href": "part4/3_2_summary.html#마무리",
     "title": "2) 실습 과제 + 마무리",
     "section": "마무리",
-    "text": "마무리\n\n오늘 배운 것\n\n\n\n\n\n\n\nPart\n핵심\n\n\n\n\n0. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n1. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n2. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n3. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n\n추천 리소스\n\nR graph gallery\n\nhttps://r-graph-gallery.com/\n\nR statistics\n\nhttps://r-statistics.co/\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요! (eha@knu.ac.kr)",
+    "text": "마무리\n\n오늘 배운 것\n\n\n\n\n\n\n\nPart\n핵심\n\n\n\n\n1. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n2. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n3. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n4. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n\n추천 리소스\n\nR graph gallery\n\nhttps://r-graph-gallery.com/\n\nR statistics\n\nhttps://r-statistics.co/\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요! (eha@knu.ac.kr)",
     "crumbs": [
       "Home",
       "4. 결과 및 마무리",
