@@ -342,85 +342,85 @@
   {
     "objectID": "part1/0_2_function.html",
     "href": "part1/0_2_function.html",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "",
     "text": "같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\n함수로 만들면 한 번 작성, 여러 번 재사용할 수 있습니다.",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#why-함수",
     "href": "part1/0_2_function.html#why-함수",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "",
     "text": "같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\n함수로 만들면 한 번 작성, 여러 번 재사용할 수 있습니다.",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#함수-기본-구조",
     "href": "part1/0_2_function.html#함수-기본-구조",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "1. 함수 기본 구조",
     "text": "1. 함수 기본 구조\n\n함수이름 &lt;- function(인자1, 인자2 = 기본값) {\n  결과 &lt;- 인자1 + 인자2\n  return(결과)\n}\n\n예제: 제곱 함수\n\nsquare &lt;- function(x) {\n  return(x^2)\n}\n\nsquare(3)\n\n[1] 9\n\nsquare(7)\n\n[1] 49\n\n\n예제: 기본값이 있는 함수\n\npower &lt;- function(x, n = 2) {\n  return(x^n)\n}\n\npower(3)       # 3^2 = 9\n\n[1] 9\n\npower(3, 3)    # 3^3 = 27\n\n[1] 27",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#여러-값을-반환하기",
     "href": "part1/0_2_function.html#여러-값을-반환하기",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "2. 여러 값을 반환하기",
     "text": "2. 여러 값을 반환하기\nR 함수는 return()으로 하나만 반환합니다. 여러 값이 필요하면 리스트로 묶습니다.\n\nsummarize_vec &lt;- function(x) {\n  result &lt;- list(\n    mean = mean(x),\n    sd   = sd(x),\n    n    = length(x)\n  )\n  return(result)\n}\n\nvals &lt;- c(10, 20, 30, 40, 50)\nres &lt;- summarize_vec(vals)\nres$mean\n\n[1] 30\n\nres$sd\n\n[1] 15.81139",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#함수-for-조합",
     "href": "part1/0_2_function.html#함수-for-조합",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "3. 함수 + for 조합",
     "text": "3. 함수 + for 조합\n함수를 만들어두면 for로 반복 호출할 수 있습니다.\n\ngreet &lt;- function(name) {\n  msg &lt;- paste0(\"안녕하세요, \", name, \" 교수님!\")\n  return(msg)\n}\n\nnames &lt;- c(\"김\", \"이\", \"박\")\nfor (n in names) {\n  print(greet(n))\n}\n\n[1] \"안녕하세요, 김 교수님!\"\n[1] \"안녕하세요, 이 교수님!\"\n[1] \"안녕하세요, 박 교수님!\"\n\n\n실전 느낌의 예제: 여러 숫자 벡터의 요약 통계\n\ndata_list &lt;- list(\n  group_A = c(120, 135, 128, 142),\n  group_B = c(110, 105, 118, 122),\n  group_C = c(130, 145, 138, 150)\n)\n\nfor (name in names(data_list)) {\n  res &lt;- summarize_vec(data_list[[name]])\n  cat(name, \": mean =\", res$mean, \", sd =\", round(res$sd, 1), \"\\n\")\n}\n\ngroup_A : mean = 131.25 , sd = 9.4 \ngroup_B : mean = 113.75 , sd = 7.7 \ngroup_C : mean = 140.75 , sd = 8.7",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#claude가-만드는-코드-구조-함수-main",
     "href": "part1/0_2_function.html#claude가-만드는-코드-구조-함수-main",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "4. Claude가 만드는 코드 구조: 함수 + main",
     "text": "4. Claude가 만드는 코드 구조: 함수 + main\nClaude에게 분석을 요청하면 대부분 이런 구조로 코드를 줍니다:\n\n# ============================================================\n# 1. 함수 정의\n# ============================================================\nload_data &lt;- function(filepath) {\n  # 데이터 읽기 & 전처리\n  return(df)\n}\n\nrun_analysis &lt;- function(df) {\n  # 분석 수행\n  return(result)\n}\n\nsave_results &lt;- function(result, outdir) {\n  # 결과 저장\n}\n\n# ============================================================\n# 2. Main: 함수 호출\n# ============================================================\nmain &lt;- function() {\n  df     &lt;- load_data(\"rawdata/data.xlsx\")\n  result &lt;- run_analysis(df)\n  save_results(result, \"results/\")\n  cat(\"Done!\\n\")\n}\n\nmain()\n\n\n이 구조의 장점\n\n\n\n장점\n설명\n\n\n\n\n가독성\nmain()만 읽으면 전체 흐름이 보임\n\n\n디버깅\n함수 단위로 테스트 가능 (load_data()만 따로 실행)\n\n\n재사용\n함수를 다른 프로젝트에 복사해서 바로 사용\n\n\n수정 용이\n전처리 바꾸고 싶으면 load_data()만 수정\n\n\n\n\n\n\n\n\n\nTip지금은 구조만 눈에 익혀두세요\n\n\n\n실제로 이 구조가 어떻게 쓰이는지는 Part 2에서 Table 1, Figure를 만들면서 직접 보게 됩니다.\nPart 3에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
     "objectID": "part1/0_2_function.html#정리",
     "href": "part1/0_2_function.html#정리",
-    "title": "함수 만들기",
+    "title": "2) 함수 만들기",
     "section": "정리",
     "text": "정리\n복붙 반복          →  함수로 묶기\n긴 스크립트 통째로  →  함수 정의 + main()\n에러 어디인지 모름  →  함수 단위 디버깅\n\n\n\n\n\n\nNote다음: Part 1\n\n\n\n프로그래밍 기본기를 익혔으니, Part 1에서 실제 R project 환경을 구축합니다.",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
-      "함수 만들기"
+      "2) 함수 만들기"
     ]
   },
   {
