@@ -1,6 +1,6 @@
 ---
 title: "2) 데이터 전처리"
-date-modified: 2026.05.15
+date: last-modified
 format: html
 editor: visual
 ---

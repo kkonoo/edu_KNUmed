@@ -1,6 +1,6 @@
 ---
 title: "3) 핵심 Figure 그리기"
-date-modified: 2026.05.14
+date: last-modified
 format: html
 editor: visual
 ---

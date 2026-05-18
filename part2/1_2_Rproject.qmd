@@ -1,6 +1,6 @@
 ---
 title: "2) R project: 폴더 구조 체계화"
-date-modified: 2026.05.13
+date: last-modified
 format: html
 editor: visual
 ---

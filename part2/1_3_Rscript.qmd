@@ -1,6 +1,6 @@
 ---
 title: "3) R Script 작성 기본"
-date-modified: 2026.05.15
+date: last-modified
 format: html
 editor: visual
 ---

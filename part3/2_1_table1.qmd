@@ -1,6 +1,6 @@
 ---
 title: "1) 데이터 읽기 & Table 1 만들기"
-date-modified: 2026.05.14
+date: last-modified
 format: html
 editor: visual
 ---

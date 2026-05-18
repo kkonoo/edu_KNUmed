@@ -1,6 +1,6 @@
 ---
 title: "4) 핵심 패키지 미리보기"
-date-modified: 2026.05.13
+date: last-modified
 format: html
 editor: visual
 ---

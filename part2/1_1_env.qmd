@@ -1,6 +1,6 @@
 ---
 title: "1) 왜 R Script인가"
-date-modified: 2026.05.13
+date: last-modified
 format: html
 editor: visual
 ---

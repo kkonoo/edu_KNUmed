@@ -13,6 +13,35 @@ editor: visual
 AI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 `.R` 파일로 저장합니다.
 :::
 
+### 과제 0: 함수 만들기 워밍업
+
+**조건**:
+
+-   `BMI_category(bmi)` 함수를 작성하세요
+-   BMI \< 18.5 → "저체중", 18.5\~24.9 → "정상", 25\~29.9 → "과체중", ≥30 → "비만" 반환
+-   벡터 `c(17, 22, 27, 33)`에 `for`문으로 적용하여 결과 출력
+
+**프롬프트 없이 직접 해보기** — Part 0에서 배운 `if/else`와 함수 만들기를 복습하는 과제입니다.
+
+::: callout-tip
+## 힌트
+
+``` r
+BMI_category <- function(bmi) {
+  if (bmi < 18.5) {
+    return(???)
+  } else if ...
+}
+
+test_bmis <- c(17, 22, 27, 33)
+for (b in test_bmis) {
+  cat("BMI", b, "→", BMI_category(b), "\n")
+}
+```
+:::
+
+------------------------------------------------------------------------
+
 ### 과제 1: LFFS 분석 (병변 단위)
 
 **조건**:
@@ -104,7 +133,7 @@ AI에게 코드를 받은 후 반드시 확인할 것:
 # Input:  analysis/your_data.rds
 # Output: results/KM_plot.tiff, results/cox_result.csv
 
-# ===== 디렉토리 & 파라미터: 여기만 바꾸세요 =====
+# ===== 파라미터: 여기만 바꾸세요 =====
 indir      <- "analysis/"
 resdir     <- "results/"
 DATA_FILE  <- paste0(indir, "your_data.rds")
@@ -112,17 +141,17 @@ TIME_VAR   <- "OS"
 EVENT_VAR  <- "Death"
 GROUP_VAR  <- "treatment_group"
 COVARIATES <- c("age", "sex", "stage", "tumor_size")
-# =================================================
+# =====================================
 
 library(tidyverse)
 library(survival)
 library(survminer)
 library(broom)
 
-# 데이터 로드
+# 1. 데이터 로드
 df <- readRDS(DATA_FILE)
 
-# KM curve
+# 2. KM curve
 fit <- survfit(
   as.formula(paste0("Surv(", TIME_VAR, ",", EVENT_VAR, ") ~ ", GROUP_VAR)),
   data = df
@@ -131,12 +160,12 @@ fit <- survfit(
 p <- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,
                 ggtheme = theme_classic())
 
-# 저장
+# 3. KM 저장
 tiff(paste0(resdir, "KM_plot.tiff"), width = 7, height = 5, units = "in", res = 300)
 print(p)
 dev.off()
 
-# Cox regression
+# 4. Cox regression
 cox_formula <- as.formula(
   paste0("Surv(", TIME_VAR, ",", EVENT_VAR, ") ~ ",
          paste(COVARIATES, collapse = " + "))
@@ -144,7 +173,7 @@ cox_formula <- as.formula(
 cox_model <- coxph(cox_formula, data = df)
 cox_tidy <- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)
 
-# Cox 결과 저장
+# 5. Cox 결과 저장
 write.csv(cox_tidy, paste0(resdir, "cox_result.csv"), row.names = FALSE)
 
 cat("✅ Done!\n")
@@ -158,6 +187,12 @@ cat("✅ Done!\n")
 3.  동작 확인되면 `Rscript survival_analysis.R`로 실행
 :::
 
+::: callout-tip
+## Claude에게 시키면 function + main 구조로 올 수 있습니다
+
+위 템플릿은 위에서 아래로 읽기 쉬운 flat script입니다. 하지만 Claude에게 바이브코딩으로 분석을 시키면 `load_data()`, `run_km()` 같은 **함수를 정의하고 `main()`에서 호출하는 구조**로 코드를 줄 가능성이 높습니다. 같은 분석을 하는 코드이니 당황하지 마세요 — [Part 0](../part0/0_2_function.html)에서 배운 구조입니다.
+:::
+
 ------------------------------------------------------------------------
 
 ## 마무리
@@ -165,7 +200,8 @@ cat("✅ Done!\n")
 ### 오늘 배운 것
 
 | Part | 핵심 |
-|------------------------------------|------------------------------------|
+|----|----|
+| 0\. 프로그래밍 기본기 | `if/else`, `for`, `while` + 함수 만들기 + Claude의 함수+main 구조 |
 | 1\. 환경 구축 | R Project + 폴더 구조(`rawdata/`, `analysis/`, `results/`) + `paste0()` 경로 관리 |
 | 2\. 분석 파이프라인 | Table 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot |
 | 3\. 바이브코딩 | 프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → `.R` 파일로 저장 |
