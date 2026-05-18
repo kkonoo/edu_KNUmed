@@ -1,242 +1,314 @@
 [
   {
-    "objectID": "part3/3_2_summary.html",
-    "href": "part3/3_2_summary.html",
+    "objectID": "part4/3_2_summary.html",
+    "href": "part4/3_2_summary.html",
     "title": "2) 실습 과제 + 마무리",
     "section": "",
     "text": "Important목표\n\n\n\nAI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 .R 파일로 저장합니다.\n\n\n\n\n조건:\n\n데이터: analysis/1_df_lesion.rds (병변 단위)\n종속변수: LFFS (시간), LF (이벤트)\n그룹 변수: PTVmean_BED10 ≥100 vs &lt;100\n출력: KM curve + log-rank p-value + risk table\n저장: results/KM_LFFS.tiff (300 dpi)\n\n프롬프트 힌트:\nanalysis/1_df_lesion.rds를 readRDS로 로드해서 병변 단위 생존분석을 해줘.\n\n변수 설명:\n- LFFS: local failure-free survival (months)\n- LF: local failure event (0/1)\n- PTVmean_BED10: PTV mean BED10 (Gy)\n\nPTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,\nKM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.\nresults/ 폴더에 tiff 300dpi로 저장.\n\n\n\n\n조건:\n\n데이터: analysis/2_df_pt_processed.rds (환자 단위)\n각 subgroup별로 OS에 대한 univariable Cox regression:\n\nAge (&lt;65 vs ≥65)\nSex (M vs F)\nMultiplicity (single vs multiple)\nTumor size (&lt;3cm vs ≥3cm)\nBED10 (&lt;100 vs ≥100)\n\n각 HR + 95% CI를 forest plot으로 시각화\n\n프롬프트 힌트:\nanalysis/2_df_pt_processed.rds를 readRDS로 로드해서\nsubgroup별 univariable Cox regression을 수행해줘.\n\n종속변수는 OS/Death.\n\nSubgroup 정의:\n- Age_Tx: 65 기준으로 이분\n- Sex: M vs F\n- Multiplicity: single vs multiple\n- size_mm: 30mm 기준으로 이분\n- PTVmean_BED10: 100 기준으로 이분\n\n각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.\nbroom::tidy()로 결과를 추출하고 ggplot으로 시각화.\nresults/ 폴더에 저장.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_2_summary.html#실습-과제",
-    "href": "part3/3_2_summary.html#실습-과제",
+    "objectID": "part4/3_2_summary.html#실습-과제",
+    "href": "part4/3_2_summary.html#실습-과제",
     "title": "2) 실습 과제 + 마무리",
     "section": "",
     "text": "Important목표\n\n\n\nAI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 .R 파일로 저장합니다.\n\n\n\n\n조건:\n\n데이터: analysis/1_df_lesion.rds (병변 단위)\n종속변수: LFFS (시간), LF (이벤트)\n그룹 변수: PTVmean_BED10 ≥100 vs &lt;100\n출력: KM curve + log-rank p-value + risk table\n저장: results/KM_LFFS.tiff (300 dpi)\n\n프롬프트 힌트:\nanalysis/1_df_lesion.rds를 readRDS로 로드해서 병변 단위 생존분석을 해줘.\n\n변수 설명:\n- LFFS: local failure-free survival (months)\n- LF: local failure event (0/1)\n- PTVmean_BED10: PTV mean BED10 (Gy)\n\nPTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,\nKM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.\nresults/ 폴더에 tiff 300dpi로 저장.\n\n\n\n\n조건:\n\n데이터: analysis/2_df_pt_processed.rds (환자 단위)\n각 subgroup별로 OS에 대한 univariable Cox regression:\n\nAge (&lt;65 vs ≥65)\nSex (M vs F)\nMultiplicity (single vs multiple)\nTumor size (&lt;3cm vs ≥3cm)\nBED10 (&lt;100 vs ≥100)\n\n각 HR + 95% CI를 forest plot으로 시각화\n\n프롬프트 힌트:\nanalysis/2_df_pt_processed.rds를 readRDS로 로드해서\nsubgroup별 univariable Cox regression을 수행해줘.\n\n종속변수는 OS/Death.\n\nSubgroup 정의:\n- Age_Tx: 65 기준으로 이분\n- Sex: M vs F\n- Multiplicity: single vs multiple\n- size_mm: 30mm 기준으로 이분\n- PTVmean_BED10: 100 기준으로 이분\n\n각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.\nbroom::tidy()로 결과를 추출하고 ggplot으로 시각화.\nresults/ 폴더에 저장.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_2_summary.html#체크리스트",
-    "href": "part3/3_2_summary.html#체크리스트",
+    "objectID": "part4/3_2_summary.html#체크리스트",
+    "href": "part4/3_2_summary.html#체크리스트",
     "title": "2) 실습 과제 + 마무리",
     "section": "체크리스트",
     "text": "체크리스트\nAI에게 코드를 받은 후 반드시 확인할 것:\n✅ 분석 단위가 맞는가? (환자 vs 병변)\n✅ 이벤트 변수 방향이 맞는가? (Death=1이 사망)\n✅ Factor의 reference level이 의도한 대로인가?\n✅ p-value 해석이 맞는가? (다중비교 고려)\n✅ 그래프 축 라벨과 범례가 정확한가?\n✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\n✅ 스크립트 상단에 Input/Output을 명시했는가?",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_2_summary.html#ready-to-use-템플릿",
-    "href": "part3/3_2_summary.html#ready-to-use-템플릿",
+    "objectID": "part4/3_2_summary.html#ready-to-use-템플릿",
+    "href": "part4/3_2_summary.html#ready-to-use-템플릿",
     "title": "2) 실습 과제 + 마무리",
     "section": "Ready-to-Use 템플릿",
     "text": "Ready-to-Use 템플릿\n강의 후 바로 활용할 수 있는 템플릿을 제공합니다.\n\n생존분석 템플릿\n\n# ===== survival_analysis.R =====\n# Input:  analysis/your_data.rds\n# Output: results/KM_plot.tiff, results/cox_result.csv\n\n# ===== 디렉토리 & 파라미터: 여기만 바꾸세요 =====\nindir      &lt;- \"analysis/\"\nresdir     &lt;- \"results/\"\nDATA_FILE  &lt;- paste0(indir, \"your_data.rds\")\nTIME_VAR   &lt;- \"OS\"\nEVENT_VAR  &lt;- \"Death\"\nGROUP_VAR  &lt;- \"treatment_group\"\nCOVARIATES &lt;- c(\"age\", \"sex\", \"stage\", \"tumor_size\")\n# =================================================\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# 데이터 로드\ndf &lt;- readRDS(DATA_FILE)\n\n# KM curve\nfit &lt;- survfit(\n  as.formula(paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \", GROUP_VAR)),\n  data = df\n)\n\np &lt;- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,\n                ggtheme = theme_classic())\n\n# 저장\ntiff(paste0(resdir, \"KM_plot.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n# Cox regression\ncox_formula &lt;- as.formula(\n  paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \",\n         paste(COVARIATES, collapse = \" + \"))\n)\ncox_model &lt;- coxph(cox_formula, data = df)\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n# Cox 결과 저장\nwrite.csv(cox_tidy, paste0(resdir, \"cox_result.csv\"), row.names = FALSE)\n\ncat(\"✅ Done!\\n\")\n\n\n\n\n\n\n\nNote사용법\n\n\n\n\n파라미터 블록만 본인 데이터에 맞게 수정\nRStudio 콘솔에서 실행하며 중간 결과 확인\n동작 확인되면 Rscript survival_analysis.R로 실행",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part3/3_2_summary.html#마무리",
-    "href": "part3/3_2_summary.html#마무리",
+    "objectID": "part4/3_2_summary.html#마무리",
+    "href": "part4/3_2_summary.html#마무리",
     "title": "2) 실습 과제 + 마무리",
     "section": "마무리",
     "text": "마무리\n\n오늘 배운 것\n\n\n\n\n\n\n\nPart\n핵심\n\n\n\n\n1. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n2. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n3. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n\n추천 리소스\n\nR graph gallery\n\nhttps://r-graph-gallery.com/\n\nR statistics\n\nhttps://r-statistics.co/\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요! (eha@knu.ac.kr)",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "2) 실습 과제 + 마무리"
     ]
   },
   {
-    "objectID": "part2/2_3_figure.html",
-    "href": "part2/2_3_figure.html",
+    "objectID": "part3/2_3_figure.html",
+    "href": "part3/2_3_figure.html",
     "title": "3) 핵심 Figure 그리기",
     "section": "",
     "text": "library(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# ===== 디렉토리 설정 =====\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\n# ===== 데이터 로드 (2_2에서 저장한 rds) =====\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "3) 핵심 Figure 그리기"
     ]
   },
   {
-    "objectID": "part2/2_3_figure.html#kaplan-meier-curve",
-    "href": "part2/2_3_figure.html#kaplan-meier-curve",
+    "objectID": "part3/2_3_figure.html#kaplan-meier-curve",
+    "href": "part3/2_3_figure.html#kaplan-meier-curve",
     "title": "3) 핵심 Figure 그리기",
     "section": "① Kaplan-Meier Curve",
     "text": "① Kaplan-Meier Curve\n\n기본 KM curve\n\n# 1. survfit 객체 만들기\nfit &lt;- survfit(Surv(OS, Death) ~ 1, data = df_pt)\n\n# 2. 그리기\nggsurvplot(fit, data = df_pt)\n\n\n\n\n\n\n\n\n\n\n그룹 비교 KM curve\n\nfit_mult &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\nggsurvplot(\n  fit_mult,\n  data = df_pt,\n  pval = TRUE,                    # log-rank p-value\n  risk.table = TRUE,              # risk table\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival probability\",\n  palette = c(\"#5B4D80\", \"#E07A5F\"),\n  legend.title = \"Multiplicity\",\n  legend.labs = c(\"Single\", \"Multiple\"),\n  ggtheme = theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip자주 쓰는 옵션\n\n\n\n\n\n\n옵션\n설명\n\n\n\n\npval = TRUE\nlog-rank p-value 표시\n\n\nconf.int = TRUE\n95% CI 표시\n\n\nrisk.table = TRUE\n하단 risk table\n\n\nsurv.median.line = \"hv\"\nmedian survival 선\n\n\nbreak.time.by = 12\nx축 간격 (12개월)\n\n\nxlim = c(0, 60)\nx축 범위\n\n\n\n\n\n\n\n논문용 KM curve\nR에서는 통계적으로 정확한 그래프까지만. 세부 꾸미기는 PPT에서.\n\nfit_bed &lt;- survfit(Surv(OS, Death) ~ BED_group, data = df_pt)\n\np &lt;- ggsurvplot(\n  fit_bed,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  break.time.by = 12,\n  palette = c(\"#5B4D80\", \"#E07A5F\"),\n  ggtheme = theme_classic()\n)\n\nprint(p)\n\n\n\n\n\n\n\n\n이 정도면 알맹이는 충분합니다. 축 라벨 폰트, 범례 위치, 주석 등은 저장 후 PPT에서 마무리하세요.\n\n\n저장\n\n# tiff (논문 투고용)\ntiff(paste0(resdir, \"KM_OS.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n# pdf (벡터 포맷)\nggsave(paste0(resdir, \"KM_OS.pdf\"), plot = print(p), width = 7, height = 5)",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "3) 핵심 Figure 그리기"
     ]
   },
   {
-    "objectID": "part2/2_3_figure.html#forest-plot",
-    "href": "part2/2_3_figure.html#forest-plot",
+    "objectID": "part3/2_3_figure.html#forest-plot",
+    "href": "part3/2_3_figure.html#forest-plot",
     "title": "3) 핵심 Figure 그리기",
     "section": "② Forest Plot",
     "text": "② Forest Plot\n\nCox regression 실행\n\n# Multivariable Cox\ncox_model &lt;- coxph(\n  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_cm + PTVmean_BED10,\n  data = df_pt\n)\n\nsummary(cox_model)\n\nCall:\ncoxph(formula = Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + \n    size_cm + PTVmean_BED10, data = df_pt)\n\n  n= 55, number of events= 31 \n\n                       coef exp(coef) se(coef)     z Pr(&gt;|z|)  \nAge_Tx             0.005504  1.005519 0.017416 0.316   0.7520  \nSexFemale          0.938781  2.556864 0.374875 2.504   0.0123 *\nMultiplicitysingle 0.030896  1.031378 0.415717 0.074   0.9408  \nsize_cm            0.191956  1.211618 0.220416 0.871   0.3838  \nPTVmean_BED10      0.006047  1.006066 0.011160 0.542   0.5879  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n                   exp(coef) exp(-coef) lower .95 upper .95\nAge_Tx                 1.006     0.9945    0.9718     1.040\nSexFemale              2.557     0.3911    1.2263     5.331\nMultiplicitysingle     1.031     0.9696    0.4566     2.330\nsize_cm                1.212     0.8253    0.7866     1.866\nPTVmean_BED10          1.006     0.9940    0.9843     1.028\n\nConcordance= 0.671  (se = 0.05 )\nLikelihood ratio test= 9.02  on 5 df,   p=0.1\nWald test            = 9.12  on 5 df,   p=0.1\nScore (logrank) test = 9.89  on 5 df,   p=0.08\n\n\n\n\nbroom으로 결과 추출\n\n# 통계 수치를 데이터프레임으로\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\ncox_tidy\n\n# A tibble: 5 × 7\n  term               estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 Age_Tx                 1.01    0.0174    0.316   0.752     0.972      1.04\n2 SexFemale              2.56    0.375     2.50    0.0123    1.23       5.33\n3 Multiplicitysingle     1.03    0.416     0.0743  0.941     0.457      2.33\n4 size_cm                1.21    0.220     0.871   0.384     0.787      1.87\n5 PTVmean_BED10          1.01    0.0112    0.542   0.588     0.984      1.03\n\n\n\n\n\n\n\n\nTipbroom의 장점\n\n\n\ntidy(exponentiate = TRUE) → HR, 95% CI, p-value가 바로 데이터프레임으로 나옴. 직접 타이핑할 필요 없어서 오타 위험 제로.\n\n\n\n\nForest plot 그리기\n\n# 변수 라벨 매핑\ncox_tidy &lt;- cox_tidy %&gt;%\n  mutate(\n    label = case_when(\n      term == \"Age_Tx\"                  ~ \"Age\",\n      term == \"SexM\"                    ~ \"Sex (Male)\",\n      term == \"Multiplicitymultiple\"    ~ \"Multiplicity (Multiple)\",\n      term == \"size_cm\"                 ~ \"Tumor size (cm)\",\n      term == \"PTVmean_BED10\"           ~ \"PTV mean BED10\",\n      TRUE                              ~ term\n    )\n  )\n\n# ggplot으로 forest plot\nggplot(cox_tidy, aes(x = estimate, y = reorder(label, estimate))) +\n  geom_point(size = 3, color = \"#5B4D80\") +\n  geom_errorbarh(\n    aes(xmin = conf.low, xmax = conf.high),\n    height = 0.2,\n    color = \"#5B4D80\"\n  ) +\n  geom_vline(xintercept = 1, linetype = \"dashed\", color = \"gray50\") +\n  scale_x_log10() +\n  labs(\n    x = \"Hazard Ratio (95% CI)\",\n    y = NULL,\n    title = \"Multivariable Cox Regression: Overall Survival\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 13, face = \"bold\"),\n    axis.text = element_text(size = 11)\n  )\n\n\n\n\n\n\n\n\n\n\n저장\n\nggsave(paste0(resdir, \"forest_OS.tiff\"), width = 8, height = 4, dpi = 300)\nggsave(paste0(resdir, \"forest_OS.pdf\"), width = 8, height = 4)",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "3) 핵심 Figure 그리기"
     ]
   },
   {
-    "objectID": "part2/2_3_figure.html#중간-산물-저장",
-    "href": "part2/2_3_figure.html#중간-산물-저장",
+    "objectID": "part3/2_3_figure.html#중간-산물-저장",
+    "href": "part3/2_3_figure.html#중간-산물-저장",
     "title": "3) 핵심 Figure 그리기",
     "section": "③ 중간 산물 저장",
     "text": "③ 중간 산물 저장\n다음 스크립트에서 cox 결과를 재사용하려면 rds로 저장해두세요.\n\nsaveRDS(cox_model, paste0(outdir, \"3_cox_model.rds\"))\nsaveRDS(cox_tidy,  paste0(outdir, \"3_cox_tidy.rds\"))",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "3) 핵심 Figure 그리기"
     ]
   },
   {
-    "objectID": "part2/2_3_figure.html#정리",
-    "href": "part2/2_3_figure.html#정리",
+    "objectID": "part3/2_3_figure.html#정리",
+    "href": "part3/2_3_figure.html#정리",
     "title": "3) 핵심 Figure 그리기",
     "section": "정리",
     "text": "정리\n✅ KM curve: survfit() → ggsurvplot()\n✅ Forest plot: coxph() → tidy() → ggplot()\n✅ broom::tidy()로 통계 수치 자동 추출 \n✅ tiff 300dpi로 저장 → 논문 투고 가능",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "3) 핵심 Figure 그리기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html",
-    "href": "part2/2_1_table1.html",
+    "objectID": "part3/2_1_table1.html",
+    "href": "part3/2_1_table1.html",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "",
     "text": "논문의 첫 번째 표. 연구 대상의 기본 특성(baseline characteristics)을 요약합니다.\n엑셀로 만들면:\n\n연속형은 median(range) 직접 계산 → 복붙\n범주형은 n(%) 직접 계산 → 복붙\np-value 따로 계산 → 복붙\n변수 하나 바뀌면? 처음부터 다시\n\nR로 만들면: 코드 한 번 실행 → 끝",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#table-1이란",
-    "href": "part2/2_1_table1.html#table-1이란",
+    "objectID": "part3/2_1_table1.html#table-1이란",
+    "href": "part3/2_1_table1.html#table-1이란",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "",
     "text": "논문의 첫 번째 표. 연구 대상의 기본 특성(baseline characteristics)을 요약합니다.\n엑셀로 만들면:\n\n연속형은 median(range) 직접 계산 → 복붙\n범주형은 n(%) 직접 계산 → 복붙\np-value 따로 계산 → 복붙\n변수 하나 바뀌면? 처음부터 다시\n\nR로 만들면: 코드 한 번 실행 → 끝",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#파라미터-설정-패키지-로드",
-    "href": "part2/2_1_table1.html#파라미터-설정-패키지-로드",
+    "objectID": "part3/2_1_table1.html#파라미터-설정-패키지-로드",
+    "href": "part3/2_1_table1.html#파라미터-설정-패키지-로드",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "① 파라미터 설정 & 패키지 로드",
     "text": "① 파라미터 설정 & 패키지 로드\n\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(gtsummary)\nlibrary(flextable)\n\n# ===== 디렉토리 설정 =====\nindir  &lt;- \"rawdata/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\n# ===== 파라미터 =====\nDATA_FILE &lt;- paste0(indir, \"clinical_data.xlsx\")\nGROUP_VAR &lt;- \"Death\"\n\n\n\n\n\n\n\nTip경로 관리: paste0()\n\n\n\n파일 경로를 하드코딩하면 디렉토리가 바뀔 때 일일이 수정해야 합니다. indir, outdir, resdir을 상단에서 한 번만 정의하고, 이후엔 paste0()로 조합하세요.\n# ❌ 하드코딩\ndf &lt;- read_excel(\"rawdata/clinical_data.xlsx\")\n\n# ✅ paste0 활용\ndf &lt;- read_excel(paste0(indir, \"clinical_data.xlsx\"))\n디렉토리 구조가 바뀌어도 상단 3줄만 고치면 됩니다.",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#데이터-읽기-구조-파악",
-    "href": "part2/2_1_table1.html#데이터-읽기-구조-파악",
+    "objectID": "part3/2_1_table1.html#데이터-읽기-구조-파악",
+    "href": "part3/2_1_table1.html#데이터-읽기-구조-파악",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "② 데이터 읽기 & 구조 파악",
     "text": "② 데이터 읽기 & 구조 파악\n\ndf &lt;- read_excel(DATA_FILE)\n\n# 데이터 확인\ndim(df)     # 76행 x 33열\n\n[1] 75 33\n\nstr(df)     # 변수 타입 한눈에\n\ntibble [75 × 33] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:75] 2 6 6 7 9 9 10 15 17 18 ...\n $ Key_lesion     : chr [1:75] \"liver 2-1\" \"lung 6-1\" \"lung 6-2\" \"liver 7-1\" ...\n $ IN_sur         : num [1:75] 1 1 0 1 1 0 1 1 1 1 ...\n $ IN_lesion      : num [1:75] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : chr [1:75] \"M\" \"F\" \"F\" \"F\" ...\n $ Age_Tx         : num [1:75] 76 76 76 55 68 68 77 63 77 76 ...\n $ OMD_Type       : chr [1:75] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" ...\n $ OMD_class      : chr [1:75] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" ...\n $ Tx_site        : chr [1:75] \"liver\" \"lung\" \"lung\" \"liver\" ...\n $ Primary        : chr [1:75] \"Colon\" \"Colon\" \"Colon\" \"Rectum\" ...\n $ Bx_primary     : chr [1:75] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:75] \"mod\" \"mod\" \"mod\" \"well\" ...\n $ Multiplicity   : chr [1:75] \"single\" \"multiple\" \"multiple\" \"single\" ...\n $ OMD_no         : num [1:75] 1 3 3 1 2 2 1 1 1 2 ...\n $ size_mm        : num [1:75] 15 25 7 42 5 6 27.5 19 16.7 4 ...\n $ DD             : num [1:75] 1600 1200 1200 1000 1800 1800 1250 1800 1200 1300 ...\n $ fr             : num [1:75] 3 4 4 5 3 3 4 3 4 4 ...\n $ TD             : num [1:75] 4800 4800 4800 5000 5400 5400 5000 5400 4800 5200 ...\n $ GTV_cc         : num [1:75] 5.839 5.8 0.3 25.904 0.097 ...\n $ ITV_cc         : num [1:75] 8.544 9.7 0.7 25.904 0.221 ...\n $ PTV_cc         : num [1:75] 18.87 33.9 7.5 53.89 3.93 ...\n $ Death          : num [1:75] 1 1 1 1 1 1 1 0 1 0 ...\n $ OS             : num [1:75] 20.7 34.5 34.5 26.6 11.7 ...\n $ LF             : num [1:75] 1 0 0 0 0 0 0 1 0 0 ...\n $ LFFS           : num [1:75] 9.23 33.51 33.51 24.51 6.51 ...\n $ CTxAfterRT     : num [1:75] 0 0 0 0 0 0 0 1 0 0 ...\n $ CTxBeforeRT    : num [1:75] 0 1 1 1 1 1 0 1 1 1 ...\n $ bCTx_Line      : num [1:75] 0 3 3 3 2 2 0 2 1 1 ...\n $ PTVmean_BED10  : num [1:75] 149 124 127 114 178 ...\n $ PTV_D2_BED10   : num [1:75] 162 142 153 116 207 ...\n $ PTV_D5_BED10   : num [1:75] 161 141 151 115 203 ...\n $ PTV_D95_BED10  : num [1:75] 120.5 103.7 98.1 95.9 148.6 ...\n $ PTV_D98_BED10  : num [1:75] 113.5 97 92.2 86.8 143.3 ...\n\nnames(df)   # 변수 이름\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"  \n\nhead(df)    # 앞만 출력\n\n# A tibble: 6 × 33\n  Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type     OMD_class Tx_site\n   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;  \n1      2 liver 2-1       1         1 M         76 Metachronou… oligomet… liver  \n2      6 lung 6-1        1         1 F         76 Repeat olig… oligomet… lung   \n3      6 lung 6-2        0         1 F         76 Repeat olig… oligomet… lung   \n4      7 liver 7-1       1         1 F         55 Induced oli… oligomet… liver  \n5      9 lung 9-1        1         1 F         68 Induced oli… oligopro… lung   \n6      9 lung 9-2        0         1 F         68 Induced oli… oligopro… lung   \n# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;\n\n\n\n데이터 구조 파악\n이 데이터는 환자-병변(lesion) pair입니다. 한 환자가 여러 병변을 가질 수 있어요.\n\n# 환자 수 vs 병변 수\nn_distinct(df$Key_pt)       # 환자 수\n\n[1] 55\n\nnrow(df)                    # 병변 수 (= 행 수)\n\n[1] 75\n\n# 환자당 병변 수 확인\ndf %&gt;% count(Key_pt, sort = TRUE)\n\n# A tibble: 55 × 2\n   Key_pt     n\n    &lt;dbl&gt; &lt;int&gt;\n 1     89     4\n 2     61     3\n 3      6     2\n 4      9     2\n 5     18     2\n 6     19     2\n 7     22     2\n 8     39     2\n 9     50     2\n10     52     2\n# ℹ 45 more rows\n\n\n\n\n\n\n\n\nWarning분석 단위 주의\n\n\n\n\n환자 단위 분석 (OS, Death) → IN_sur == 1인 행만 사용\n병변 단위 분석 (LF, LFFS) → 전체 행 사용\n\n\n\n\n# 환자 단위: 환자당 1행만 남기기\ndf_pt &lt;- df %&gt;% filter(IN_sur == 1)\nnrow(df_pt)\n\n[1] 55",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#필요한-column-select",
-    "href": "part2/2_1_table1.html#필요한-column-select",
+    "objectID": "part3/2_1_table1.html#필요한-column-select",
+    "href": "part3/2_1_table1.html#필요한-column-select",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "③ 필요한 column select",
     "text": "③ 필요한 column select\nTable 1에 넣을 변수만 골라냅니다. select()로 필요한 열만 뽑으세요.\n\ndf_tbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, Primary, Multiplicity, size_mm, TD, GTV_cc, PTVmean_BED10, Death)\n\nnames(df_pt)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"  \n\n\n\n# 유용한 select 패턴들\ndf_pt %&gt;% select(starts_with(\"PTV\"))           # PTV로 시작하는 모든 columns\n\n# A tibble: 55 × 6\n   PTV_cc PTVmean_BED10 PTV_D2_BED10 PTV_D5_BED10 PTV_D95_BED10 PTV_D98_BED10\n    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;\n 1  18.9           149.         162.         161.         120.          113. \n 2  33.9           124.         142.         141.         104.           97.0\n 3  53.9           114.         116.         115.          95.9          86.8\n 4   3.93          178.         207.         203.         149.          143. \n 5  26.7           135.         158.         156.         111.          106. \n 6  20.3           167.         183.         181.         151.          146. \n 7  11.2           131.         157.         154.         106.          100. \n 8   9.61          149.         181.         177.         120.          112. \n 9   6.91          130.         169.         162.         106.          101. \n10  12.3           142.         172.         168.         108.          101. \n# ℹ 45 more rows\n\ndf_pt %&gt;% select(Key_pt, Sex:OMD_Type)         # Sex에서 OMD_Type까지 선택\n\n# A tibble: 55 × 4\n   Key_pt Sex   Age_Tx OMD_Type                    \n    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;                       \n 1      2 M         76 Metachronous oligorecurrence\n 2      6 F         76 Repeat oligorecurrence      \n 3      7 F         55 Induced oligorecurrence     \n 4      9 F         68 Induced oligoprogression    \n 5     10 M         77 Metachronous oligorecurrence\n 6     15 F         63 Repeat oligoprogression     \n 7     17 F         77 Metachronous oligorecurrence\n 8     18 M         76 Synchronous oligometastatic \n 9     19 M         64 Repeat oligoprogression     \n10     20 M         83 Metachronous oligorecurrence\n# ℹ 45 more rows\n\n\n\n가장 간단한 Table 1\n\ndf_tbl %&gt;%\n  tbl_summary()\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nN = 551\n\n\n\n\nSex\n\n\n\n\n    F\n20 (36%)\n\n\n    M\n35 (64%)\n\n\nAge_Tx\n71 (63, 76)\n\n\nPrimary\n\n\n\n\n    Colon\n23 (42%)\n\n\n    Rectum\n32 (58%)\n\n\nMultiplicity\n\n\n\n\n    multiple\n21 (38%)\n\n\n    single\n34 (62%)\n\n\nsize_mm\n13 (8, 17)\n\n\nTD\n\n\n\n\n    4500\n1 (1.8%)\n\n\n    4800\n14 (25%)\n\n\n    5000\n20 (36%)\n\n\n    5100\n1 (1.8%)\n\n\n    5200\n12 (22%)\n\n\n    5400\n4 (7.3%)\n\n\n    6000\n3 (5.5%)\n\n\nGTV_cc\n1.5 (0.4, 5.4)\n\n\nPTVmean_BED10\n136 (125, 146)\n\n\nDeath\n31 (56%)\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n\n\n\n\n\n\n이것만으로도:\n\n연속형 → median (IQR) 자동 계산\n범주형 → n (%) 자동 계산\n결측치 자동 표시",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#그룹별-비교-p-value",
-    "href": "part2/2_1_table1.html#그룹별-비교-p-value",
+    "objectID": "part3/2_1_table1.html#그룹별-비교-p-value",
+    "href": "part3/2_1_table1.html#그룹별-비교-p-value",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "④ 그룹별 비교 + p-value",
     "text": "④ 그룹별 비교 + p-value\n\ntbl &lt;- df_tbl %&gt;%\n  tbl_summary(\n    by = Death,                          # 그룹 변수\n    statistic = list(\n      all_continuous() ~ \"{median} ({p25}, {p75})\",\n      all_categorical() ~ \"{n} ({p}%)\"\n    ),\n    digits = list(\n      all_continuous() ~ 1,\n      all_categorical() ~ c(0, 1)\n    )\n  ) %&gt;%\n  add_p() %&gt;%                            # p-value 자동 계산\n  add_overall() %&gt;%                      # Overall 컬럼 추가\n  bold_labels()\n\ntbl\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOverall\nN = 551\n0\nN = 241\n1\nN = 311\np-value2\n\n\n\n\nSex\n\n\n\n\n\n\n0.001\n\n\n    F\n20 (36.4%)\n3 (12.5%)\n17 (54.8%)\n\n\n\n\n    M\n35 (63.6%)\n21 (87.5%)\n14 (45.2%)\n\n\n\n\nAge_Tx\n71.0 (63.0, 76.0)\n68.0 (60.5, 76.0)\n74.0 (64.0, 77.0)\n0.3\n\n\nPrimary\n\n\n\n\n\n\n&gt;0.9\n\n\n    Colon\n23 (41.8%)\n10 (41.7%)\n13 (41.9%)\n\n\n\n\n    Rectum\n32 (58.2%)\n14 (58.3%)\n18 (58.1%)\n\n\n\n\nMultiplicity\n\n\n\n\n\n\n0.6\n\n\n    multiple\n21 (38.2%)\n10 (41.7%)\n11 (35.5%)\n\n\n\n\n    single\n34 (61.8%)\n14 (58.3%)\n20 (64.5%)\n\n\n\n\nsize_mm\n12.8 (8.0, 17.0)\n10.0 (7.0, 13.7)\n16.0 (8.0, 20.0)\n0.028\n\n\nTD\n\n\n\n\n\n\n0.067\n\n\n    4500\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    4800\n14 (25.5%)\n4 (16.7%)\n10 (32.3%)\n\n\n\n\n    5000\n20 (36.4%)\n10 (41.7%)\n10 (32.3%)\n\n\n\n\n    5100\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    5200\n12 (21.8%)\n9 (37.5%)\n3 (9.7%)\n\n\n\n\n    5400\n4 (7.3%)\n1 (4.2%)\n3 (9.7%)\n\n\n\n\n    6000\n3 (5.5%)\n0 (0.0%)\n3 (9.7%)\n\n\n\n\nGTV_cc\n1.5 (0.4, 5.4)\n0.6 (0.3, 1.7)\n3.3 (0.8, 6.7)\n0.006\n\n\nPTVmean_BED10\n135.7 (125.4, 146.4)\n139.0 (128.8, 143.9)\n133.8 (123.9, 149.0)\n0.9\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Pearson’s Chi-squared test; Wilcoxon rank sum test; Fisher’s exact test; Wilcoxon rank sum exact test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipp-value 자동 선택\n\n\n\nadd_p()는 변수 타입에 따라 알아서 검정법을 선택합니다:\n\n범주형 → chi-squared test (기대빈도 &lt; 5이면 Fisher’s exact)\n연속형 → Wilcoxon rank-sum test\n\n검정법을 직접 지정하려면:\n\nadd_p(test = list(\n  all_continuous() ~ \"t.test\",\n  all_categorical() ~ \"fisher.test\"\n))",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#변수명-정리-labeling",
-    "href": "part2/2_1_table1.html#변수명-정리-labeling",
+    "objectID": "part3/2_1_table1.html#변수명-정리-labeling",
+    "href": "part3/2_1_table1.html#변수명-정리-labeling",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "⑤ 변수명 정리 (Labeling)",
     "text": "⑤ 변수명 정리 (Labeling)\n코드에서는 Age_Tx, size_mm이지만, 논문에서는 Age at treatment, Tumor size (mm)로 나와야 합니다.\n\n# 변수-라벨 매핑을 한 곳에서 관리\nmy_labels &lt;- list(\n  Age_Tx        ~ \"Age at treatment\",\n  Sex           ~ \"Sex\",\n  Primary       ~ \"Primary site\",\n  Multiplicity  ~ \"Multiplicity\",\n  size_mm       ~ \"Tumor size (mm)\",\n  TD            ~ \"Total dose (cGy)\",\n  GTV_cc        ~ \"GTV volume (cc)\",\n  PTVmean_BED10 ~ \"PTV mean BED₁₀ (Gy)\"\n)\n\ntbl &lt;- df_tbl %&gt;%\n    mutate(\n    Death = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\"))\n  ) %&gt;%\n  tbl_summary(\n    by = Death,\n    label = my_labels,\n    statistic = list(\n      all_continuous() ~ \"{median} ({p25}, {p75})\",\n      all_categorical() ~ \"{n} ({p}%)\"\n    ),\n    digits = list(\n      all_continuous() ~ 1,\n      all_categorical() ~ c(0, 1)\n    )\n  ) %&gt;%\n  add_p() %&gt;%\n  add_overall() %&gt;%\n  bold_labels()\n\ntbl\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOverall\nN = 551\nAlive\nN = 241\nDead\nN = 311\np-value2\n\n\n\n\nSex\n\n\n\n\n\n\n0.001\n\n\n    F\n20 (36.4%)\n3 (12.5%)\n17 (54.8%)\n\n\n\n\n    M\n35 (63.6%)\n21 (87.5%)\n14 (45.2%)\n\n\n\n\nAge at treatment\n71.0 (63.0, 76.0)\n68.0 (60.5, 76.0)\n74.0 (64.0, 77.0)\n0.3\n\n\nPrimary site\n\n\n\n\n\n\n&gt;0.9\n\n\n    Colon\n23 (41.8%)\n10 (41.7%)\n13 (41.9%)\n\n\n\n\n    Rectum\n32 (58.2%)\n14 (58.3%)\n18 (58.1%)\n\n\n\n\nMultiplicity\n\n\n\n\n\n\n0.6\n\n\n    multiple\n21 (38.2%)\n10 (41.7%)\n11 (35.5%)\n\n\n\n\n    single\n34 (61.8%)\n14 (58.3%)\n20 (64.5%)\n\n\n\n\nTumor size (mm)\n12.8 (8.0, 17.0)\n10.0 (7.0, 13.7)\n16.0 (8.0, 20.0)\n0.028\n\n\nTotal dose (cGy)\n\n\n\n\n\n\n0.067\n\n\n    4500\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    4800\n14 (25.5%)\n4 (16.7%)\n10 (32.3%)\n\n\n\n\n    5000\n20 (36.4%)\n10 (41.7%)\n10 (32.3%)\n\n\n\n\n    5100\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    5200\n12 (21.8%)\n9 (37.5%)\n3 (9.7%)\n\n\n\n\n    5400\n4 (7.3%)\n1 (4.2%)\n3 (9.7%)\n\n\n\n\n    6000\n3 (5.5%)\n0 (0.0%)\n3 (9.7%)\n\n\n\n\nGTV volume (cc)\n1.5 (0.4, 5.4)\n0.6 (0.3, 1.7)\n3.3 (0.8, 6.7)\n0.006\n\n\nPTV mean BED₁₀ (Gy)\n135.7 (125.4, 146.4)\n139.0 (128.8, 143.9)\n133.8 (123.9, 149.0)\n0.9\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Pearson’s Chi-squared test; Wilcoxon rank sum test; Fisher’s exact test; Wilcoxon rank sum exact test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote팁: label 재사용\n\n\n\nmy_labels를 한 번 정의해두면, 이후 Table 2, 3 등 여러 테이블에서 label = my_labels로 재사용할 수 있습니다.",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part2/2_1_table1.html#내보내기",
-    "href": "part2/2_1_table1.html#내보내기",
+    "objectID": "part3/2_1_table1.html#내보내기",
+    "href": "part3/2_1_table1.html#내보내기",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "⑥ 내보내기",
     "text": "⑥ 내보내기\n\n중간 산물 → .rds\n분석 파이프라인 중간에 생기는 데이터는 .rds로 저장합니다. 파일명 앞에 1_, 2_ 같은 번호를 붙이면 분석 순서를 한눈에 파악할 수 있습니다.\n\n# 전처리된 데이터 저장 (다음 스크립트에서 재사용)\nsaveRDS(df_pt, paste0(outdir, \"1_df_pt.rds\"))\n\n# gtsummary 객체 저장 (나중에 합치거나 수정 가능)\nsaveRDS(tbl, paste0(outdir, \"1_table1.rds\"))\n\n\n\n\n최종 결과물 → Word / CSV\n\n# Word 파일 (논문 투고용)\ntbl %&gt;%\n  as_flex_table() %&gt;%\n  flextable::save_as_docx(path = paste0(resdir, \"Table1.docx\"))\n\n# CSV (공유/기록용)\ntbl %&gt;%\n  as_tibble() %&gt;%\n  write_csv(paste0(resdir, \"Table1.csv\"))\n\n\n\n\n\n\n\n\nNote저장 포맷 가이드\n\n\n\n\n\n\n\n\n\n\n\n상황\n포맷\n이유\n\n\n\n\n다음 스크립트에서 이어 쓸 중간 데이터\n.rds\nfactor level, 타입 보존\n\n\n공동연구자에게 공유\n.xlsx\n비 R 사용자도 열 수 있음\n\n\n다른 프로그램(Python 등)과 호환\n.csv\n범용 포맷\n\n\n\n파일 번호 예시: 1_df_pt.rds → 1_table1.rds → 2_km_result.rds\n\n\n\n\n\n\n\n\nImportant핵심 포인트\n\n\n\n리뷰어가 “BMI 대신 BSA를 넣어주세요”라고 하면?\n\n# select()에서 변수 하나만 바꾸고 다시 실행 → 끝\ndf_tbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, BSA, Primary, size_mm, TD, GTV_cc, PTVmean_BED10, Death)\n\n엑셀로 했으면 30분, R이면 30초.",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "1) 데이터 읽기 & Table 1 만들기"
     ]
   },
   {
-    "objectID": "part1/1_3_Rscript.html",
-    "href": "part1/1_3_Rscript.html",
+    "objectID": "part2/1_3_Rscript.html",
+    "href": "part2/1_3_Rscript.html",
     "title": "3) R Script 작성 기본",
     "section": "",
     "text": "R script 구조 템플릿\n모든 분석 스크립트의 기본 구조: 1) 파라미터 설정, 2) 패키지 로딩, 3) 데이터 읽기, 4) 분석, 5) 저장\n\n# ============================================================\n# 프로젝트: SBRT 간암 생존분석\n# 스크립트: 01_preprocessing.R\n# 작성자: 하은지\n# 최종수정: 2026-05-13\n# ============================================================\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nDATA_FILE &lt;- \"rawdata/clinical_data.xlsx\"\nTIME_VAR  &lt;- \"OS\"\nEVENT_VAR &lt;- \"Death\"\nGROUP_VAR &lt;- \"Multiplicity\"\nAGE_CUT   &lt;- 65\nOUTPUT &lt;- 'analysis/1_cleaned_data.rds'\n# =====================================\n\n# 1. 패키지 로딩 -----\nlibrary(readxl)\nlibrary(tidyverse)\n\n\n# 2. 데이터 읽기 -----\nraw &lt;- read_excel(DATA_FILE)\nnames(raw)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"  \n\nraw %&gt;% select(Key_pt, Key_lesion, Age_Tx) %&gt;% head\n\n# A tibble: 6 × 3\n  Key_pt Key_lesion Age_Tx\n   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;\n1      2 liver 2-1      76\n2      6 lung 6-1       76\n3      6 lung 6-2       76\n4      7 liver 7-1      55\n5      9 lung 9-1       68\n6      9 lung 9-2       68\n\n# 3. 전처리 -----\ndf &lt;- raw %&gt;%\n  filter(!is.na(.data[[TIME_VAR]])) %&gt;%\n  mutate( age_group = ifelse(Age_Tx &gt;= AGE_CUT, paste0(\"≥\", AGE_CUT), paste0(\"&lt;\", AGE_CUT)),\n          event = as.numeric(.data[[EVENT_VAR]] == 1)\n  )\ndf %&gt;% select(Key_pt, Key_lesion, Age_Tx, age_group, event) %&gt;% head\n\n# A tibble: 6 × 5\n  Key_pt Key_lesion Age_Tx age_group event\n   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n1      2 liver 2-1      76 ≥65           1\n2      6 lung 6-1       76 ≥65           1\n3      6 lung 6-2       76 ≥65           1\n4      7 liver 7-1      55 &lt;65           1\n5      9 lung 9-1       68 ≥65           1\n6      9 lung 9-2       68 ≥65           1\n\n# 4. 결과 저장 -----\nsaveRDS(df, OUTPUT)\n\n\n\n\n\n\n\nTip왜 파라미터를 상단에 모아두는가?\n\n\n\n\n다른 데이터셋에 적용할 때 상단 5줄만 수정하면 됨\n스크립트 본문을 뒤질 필요 없음\n공동연구자에게 “위에 파일명이랑 변수명만 바꾸세요”라고 안내 가능\n\n\n\n\n\n\n\n\n\nNote고급: 커맨드라인에서 실행하기 (optparse)\n\n\n\n파라미터를 스크립트 밖에서 넘길 수도 있습니다. 익숙해지면 자동화에 유용합니다.\n\n# terminal에서: Rscript scripts/survival.R --data rawdata/my_data.xlsx --time OS_months\nlibrary(optparse)\noption_list &lt;- list(\n  make_option(\"--data\",  type = \"character\", help = \"데이터 파일 경로\"),\n  make_option(\"--time\",  type = \"character\", help = \"시간 변수명\"),\n  make_option(\"--event\", type = \"character\", help = \"이벤트 변수명\")\n)\nargs &lt;- parse_args(OptionParser(option_list = option_list))\n\n\n\n\n\n핵심 습관\n1. 주석은 “왜” or “정보”을 적기\n\n# 나쁜 주석\nfilter(Age_Tx &gt;= 18)  # 18세 이상 필터 (코드 보면 당연한 거)\n\n# 좋은 주석\nfilter(Age_Tx &gt;= 18)  # IRB 승인 기준: 성인 환자만 포함\n\n2. 하드코딩 금지\n\n# 나쁜 예\ndf &lt;- read_excel(\"/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx\")\n\n# 좋은 예 (R Project + 상단 파라미터)\ndf &lt;- read_excel(DATA_FILE)\n\n3. 중간 결과 저장\n\nOUTPUT &lt;- 'analysis/1_cleaned_data.rds'\n\n# 전처리가 오래 걸리면 .rds로 저장해두기\nsaveRDS(df_cleaned, OUTPUT)\n\n# 다음 스크립트에서 바로 불러오기\ndf &lt;- readRDS(OUTPUT)",
     "crumbs": [
       "Home",
-      "1. 환경 구축하기",
+      "2. 환경 구축하기",
       "3) R Script 작성 기본"
     ]
   },
   {
-    "objectID": "part1/1_1_env.html",
-    "href": "part1/1_1_env.html",
+    "objectID": "part2/1_1_env.html",
+    "href": "part2/1_1_env.html",
     "title": "1) 왜 R Script인가",
     "section": "",
     "text": "현재 많은 연구자의 워크플로우(?)\nExcel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...\n\n\n\n\n\n\nWarning이 과정에서 생기는 문제들\n\n\n\n\n데이터 수정 → 표/그래프 전부 수작업으로 다시 만들기\n“이 p-value 어디서 나온 거였지?” → 추적 어려움\n공동연구자에게 분석 과정 전달 → 구두 설명 or 스크린샷\n\n\n\n\n\nR Script 파이프라인이란\n\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프 📊📈\n스크립트 = 분석 기록\n\n\n\n\n\n\n\n\n\n\n기존 방식 (SPSS/Excel)\nR Script 파이프라인\n\n\n\n\n데이터 수정 시\n표/그래프 전부 다시\n스크립트 재실행 (n초)\n\n\n분석 과정 공유\n구두 설명, 스크린샷\n.R 파일 전달\n\n\n리뷰어 수정 요청\n처음부터 다시\n해당 줄만 수정 후 재실행\n\n\n휴먼 에러\n복붙 실수, 오타\n코드가 동일하면 결과도 동일\n\n\nReproducibility\n❌\n✅\n\n\n\n\n\n\n\n\n\nTip실제 시나리오\n\n\n\n리뷰어: “Table 1에서 BMI 대신 BSA를 써주세요”\n\nSPSS: 변수 바꾸고 → 분석 다시 돌리고 → 표 다시 만들고 → Word에 다시 붙이고…\nR Script: 변수명 한 줄 수정 → 스크립트 실행 → 끝",
     "crumbs": [
       "Home",
-      "1. 환경 구축하기",
+      "2. 환경 구축하기",
       "1) 왜 R Script인가"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html",
+    "href": "part1/0_1_programming.html",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "",
+    "text": "R 기초 문법(dplyr, ggplot2)만으로도 분석은 가능합니다.\n하지만 반복 작업 자동화와 AI가 생성하는 코드 이해를 위해 프로그래밍 기본 구조를 알아야 합니다.\n\n\n\n\n\n\nTip바이브코딩과의 연결\n\n\n\nClaude는 코드를 짤 때 for, if, 함수를 적극적으로 사용합니다.\n이 구조를 이해하면 AI가 만든 코드를 읽고, 수정하고, 디버깅할 수 있습니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html#why-프로그래밍-문법",
+    "href": "part1/0_1_programming.html#why-프로그래밍-문법",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "",
+    "text": "R 기초 문법(dplyr, ggplot2)만으로도 분석은 가능합니다.\n하지만 반복 작업 자동화와 AI가 생성하는 코드 이해를 위해 프로그래밍 기본 구조를 알아야 합니다.\n\n\n\n\n\n\nTip바이브코딩과의 연결\n\n\n\nClaude는 코드를 짤 때 for, if, 함수를 적극적으로 사용합니다.\n이 구조를 이해하면 AI가 만든 코드를 읽고, 수정하고, 디버깅할 수 있습니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html#조건문-if-else-if-else",
+    "href": "part1/0_1_programming.html#조건문-if-else-if-else",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "1. 조건문: if / else if / else",
+    "text": "1. 조건문: if / else if / else\n조건에 따라 다른 코드를 실행합니다.\n\n# 기본 구조\nif (조건) {\n  # 조건이 TRUE일 때 실행\n} else {\n  # 조건이 FALSE일 때 실행\n}\n\n예제: p-value에 따라 유의성 판단\n\np_value &lt;- 0.03\n\nif (p_value &lt; 0.001) {\n  sig &lt;- \"***\"\n} else if (p_value &lt; 0.01) {\n  sig &lt;- \"**\"\n} else if (p_value &lt; 0.05) {\n  sig &lt;- \"*\"\n} else {\n  sig &lt;- \"ns\"\n}\n\nprint(sig)\n\n[1] \"*\"\n\n\n\n\n\n\n\n\nNoteifelse() — 벡터 전체에 조건 적용\n\n\n\nif는 값 1개, ifelse()는 벡터 전체에 작동합니다.\n\ndf$age_group &lt;- ifelse(df$age &gt;= 65, \"elderly\", \"non-elderly\")\n\ndplyr::case_when()도 같은 용도이며, 조건이 3개 이상이면 더 깔끔합니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html#반복문-for",
+    "href": "part1/0_1_programming.html#반복문-for",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "2. 반복문: for",
+    "text": "2. 반복문: for\n같은 작업을 여러 번 반복합니다.\n\nfor (변수 in 벡터) {\n  # 반복 실행할 코드\n}\n\n예제: 여러 변수에 대해 t-test 반복\n\nvars &lt;- c(\"BMI\", \"SBP\", \"DBP\", \"HbA1c\")\nresults &lt;- list()\n\nfor (v in vars) {\n  formula &lt;- as.formula(paste(v, \"~ group\"))\n  results[[v]] &lt;- t.test(formula, data = df)\n}\n\n# 결과 확인\nresults[[\"BMI\"]]\n\n\n\n\n\n\n\nTip실전 패턴: 여러 파일 한번에 읽기\n\n\n\n\nfiles &lt;- list.files(\"rawdata/\", pattern = \"\\\\.csv$\", full.names = TRUE)\ndf_list &lt;- list()\n\nfor (f in files) {\n  df_list[[f]] &lt;- read.csv(f)\n}\n\ndf_all &lt;- do.call(rbind, df_list)",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html#반복문-while",
+    "href": "part1/0_1_programming.html#반복문-while",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "3. 반복문: while",
+    "text": "3. 반복문: while\n조건이 TRUE인 동안 반복합니다. for보다 사용 빈도가 낮지만, AI 생성 코드에서 종종 등장합니다.\n\nwhile (조건) {\n  # 반복 실행\n  # ⚠️ 조건을 FALSE로 만드는 코드가 반드시 있어야 함 (무한루프 방지)\n}\n\n예제: 수렴할 때까지 반복 (iteration)\n\ndiff &lt;- Inf\ntol &lt;- 1e-6\nprev &lt;- 0\niter &lt;- 0\n\nwhile (diff &gt; tol) {\n  current &lt;- some_update_function(prev)\n  diff &lt;- abs(current - prev)\n  prev &lt;- current\n  iter &lt;- iter + 1\n}\n\ncat(\"Converged after\", iter, \"iterations\\n\")",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
+    ]
+  },
+  {
+    "objectID": "part1/0_1_programming.html#정리",
+    "href": "part1/0_1_programming.html#정리",
+    "title": "1) 프로그래밍 기본 문법",
+    "section": "정리",
+    "text": "정리\n\n\n\n문법\n용도\n의학연구 활용 예시\n\n\n\n\nif/else\n조건 분기\np-value 유의성 표시, 이상치 처리\n\n\nfor\n정해진 횟수 반복\n여러 변수 분석, 파일 일괄 처리\n\n\nwhile\n조건 충족까지 반복\n수렴 알고리즘, AI 생성 코드 이해\n\n\n\n\n\n\n\n\n\nImportant다음 장에서는\n\n\n\n이 문법들을 함수(function)로 묶어서 재사용하는 법을 배웁니다.\n→ 이것이 AI가 코드를 구조화하는 핵심 방식입니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "프로그래밍 기본 문법"
     ]
   },
   {
@@ -268,170 +340,266 @@
     "text": "Part3. 바이브코딩으로 R 스크립트 파이프라인 만들기\n\n프롬프트 작성법: 역할 + 맥락(colnames, str) + 구체적 요청\n실전 워크플로우: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 .R 파일로 저장\nAI가 틀리기 쉬운 통계적 함정: reference level, 분석 단위, 다중비교 보정 등"
   },
   {
-    "objectID": "part1/1_2_Rproject.html",
-    "href": "part1/1_2_Rproject.html",
+    "objectID": "part1/0_2_function.html",
+    "href": "part1/0_2_function.html",
+    "title": "함수 만들기",
+    "section": "",
+    "text": "같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\n함수로 만들면 한 번 작성, 여러 번 재사용할 수 있습니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#why-함수",
+    "href": "part1/0_2_function.html#why-함수",
+    "title": "함수 만들기",
+    "section": "",
+    "text": "같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.\n함수로 만들면 한 번 작성, 여러 번 재사용할 수 있습니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#함수-기본-구조",
+    "href": "part1/0_2_function.html#함수-기본-구조",
+    "title": "함수 만들기",
+    "section": "1. 함수 기본 구조",
+    "text": "1. 함수 기본 구조\n\n함수이름 &lt;- function(인자1, 인자2 = 기본값) {\n  결과 &lt;- 인자1 + 인자2\n  return(결과)\n}\n\n예제: 제곱 함수\n\nsquare &lt;- function(x) {\n  return(x^2)\n}\n\nsquare(3)\n\n[1] 9\n\nsquare(7)\n\n[1] 49\n\n\n예제: 기본값이 있는 함수\n\npower &lt;- function(x, n = 2) {\n  return(x^n)\n}\n\npower(3)       # 3^2 = 9\n\n[1] 9\n\npower(3, 3)    # 3^3 = 27\n\n[1] 27",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#여러-값을-반환하기",
+    "href": "part1/0_2_function.html#여러-값을-반환하기",
+    "title": "함수 만들기",
+    "section": "2. 여러 값을 반환하기",
+    "text": "2. 여러 값을 반환하기\nR 함수는 return()으로 하나만 반환합니다. 여러 값이 필요하면 리스트로 묶습니다.\n\nsummarize_vec &lt;- function(x) {\n  result &lt;- list(\n    mean = mean(x),\n    sd   = sd(x),\n    n    = length(x)\n  )\n  return(result)\n}\n\nvals &lt;- c(10, 20, 30, 40, 50)\nres &lt;- summarize_vec(vals)\nres$mean\n\n[1] 30\n\nres$sd\n\n[1] 15.81139",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#함수-for-조합",
+    "href": "part1/0_2_function.html#함수-for-조합",
+    "title": "함수 만들기",
+    "section": "3. 함수 + for 조합",
+    "text": "3. 함수 + for 조합\n함수를 만들어두면 for로 반복 호출할 수 있습니다.\n\ngreet &lt;- function(name) {\n  msg &lt;- paste0(\"안녕하세요, \", name, \" 교수님!\")\n  return(msg)\n}\n\nnames &lt;- c(\"김\", \"이\", \"박\")\nfor (n in names) {\n  print(greet(n))\n}\n\n[1] \"안녕하세요, 김 교수님!\"\n[1] \"안녕하세요, 이 교수님!\"\n[1] \"안녕하세요, 박 교수님!\"\n\n\n실전 느낌의 예제: 여러 숫자 벡터의 요약 통계\n\ndata_list &lt;- list(\n  group_A = c(120, 135, 128, 142),\n  group_B = c(110, 105, 118, 122),\n  group_C = c(130, 145, 138, 150)\n)\n\nfor (name in names(data_list)) {\n  res &lt;- summarize_vec(data_list[[name]])\n  cat(name, \": mean =\", res$mean, \", sd =\", round(res$sd, 1), \"\\n\")\n}\n\ngroup_A : mean = 131.25 , sd = 9.4 \ngroup_B : mean = 113.75 , sd = 7.7 \ngroup_C : mean = 140.75 , sd = 8.7",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#claude가-만드는-코드-구조-함수-main",
+    "href": "part1/0_2_function.html#claude가-만드는-코드-구조-함수-main",
+    "title": "함수 만들기",
+    "section": "4. Claude가 만드는 코드 구조: 함수 + main",
+    "text": "4. Claude가 만드는 코드 구조: 함수 + main\nClaude에게 분석을 요청하면 대부분 이런 구조로 코드를 줍니다:\n\n# ============================================================\n# 1. 함수 정의\n# ============================================================\nload_data &lt;- function(filepath) {\n  # 데이터 읽기 & 전처리\n  return(df)\n}\n\nrun_analysis &lt;- function(df) {\n  # 분석 수행\n  return(result)\n}\n\nsave_results &lt;- function(result, outdir) {\n  # 결과 저장\n}\n\n# ============================================================\n# 2. Main: 함수 호출\n# ============================================================\nmain &lt;- function() {\n  df     &lt;- load_data(\"rawdata/data.xlsx\")\n  result &lt;- run_analysis(df)\n  save_results(result, \"results/\")\n  cat(\"Done!\\n\")\n}\n\nmain()\n\n\n이 구조의 장점\n\n\n\n장점\n설명\n\n\n\n\n가독성\nmain()만 읽으면 전체 흐름이 보임\n\n\n디버깅\n함수 단위로 테스트 가능 (load_data()만 따로 실행)\n\n\n재사용\n함수를 다른 프로젝트에 복사해서 바로 사용\n\n\n수정 용이\n전처리 바꾸고 싶으면 load_data()만 수정\n\n\n\n\n\n\n\n\n\nTip지금은 구조만 눈에 익혀두세요\n\n\n\n실제로 이 구조가 어떻게 쓰이는지는 Part 2에서 Table 1, Figure를 만들면서 직접 보게 됩니다.\nPart 3에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part1/0_2_function.html#정리",
+    "href": "part1/0_2_function.html#정리",
+    "title": "함수 만들기",
+    "section": "정리",
+    "text": "정리\n복붙 반복          →  함수로 묶기\n긴 스크립트 통째로  →  함수 정의 + main()\n에러 어디인지 모름  →  함수 단위 디버깅\n\n\n\n\n\n\nNote다음: Part 1\n\n\n\n프로그래밍 기본기를 익혔으니, Part 1에서 실제 R project 환경을 구축합니다.",
+    "crumbs": [
+      "Home",
+      "1. 프로그래밍 기본기",
+      "함수 만들기"
+    ]
+  },
+  {
+    "objectID": "part2/1_2_Rproject.html",
+    "href": "part2/1_2_Rproject.html",
     "title": "2) R project: 폴더 구조 체계화",
     "section": "",
     "text": "R project란?\nR Project(.Rproj)를 쓰면:\n\n작업 디렉토리가 자동 설정\n프로젝트별로 독립된 환경 유지\n다른 컴퓨터에서 열어도 경로 문제 없음\n\n\n\n권장 폴더 구조\nmy_research_project/\n├── my_research_project.Rproj\n├── scripts/          # 분석 스크립트 (.R 파일)\n│   ├── 1_table1.R\n│   ├── 2_preprocessing.R\n│   └── 3_figure.R\n├── rawdata/          # 원본 데이터 (절대 수정 금지!)\n│   └── clinical_data.xlsx\n├── analysis/         # 중간 분석 결과\n│   ├── 1_cleaned_data.rds\n│   ├── 1_df_pt.rds\n│   ├── 1_table1.rds\n│   ├── 2_df_pt_processed.rds\n│   ├── 3_cox_model.rds\n│   ├── 3_cox_tidy.rds\n└── results/          # 최종 산출물\n    ├── Table1.docx\n    ├── KM_OS.tiff\n    └── forest_OS.tiff\n\n\n\n\n\n\n\nImportant핵심 원칙\n\n\n\n\nrawdata는 절대 건드리지 않는다 — 원본은 읽기만 하고, 전처리 결과는 analysis/에 저장\n스크립트에 번호를 붙인다 — 실행 순서가 명확해짐\nresults에는 최종본만 — 논문에 바로 들어갈 표와 그림\n\n\n\n\n\nR Project 만들어보기\nRStudio에서:\nFile → New Project → New Directory → New Project\n→ 프로젝트 이름 입력 (예: \"SBRT_survival\")\n→ Create Project\n\n\n그 다음 콘솔에서 폴더 생성:\n\n# 폴더 구조 한 번에 만들기\ndir.create(\"scripts\")\ndir.create(\"rawdata\")\ndir.create(\"analysis\")\ndir.create(\"results\")",
     "crumbs": [
       "Home",
-      "1. 환경 구축하기",
+      "2. 환경 구축하기",
       "2) R project: 폴더 구조 체계화"
     ]
   },
   {
-    "objectID": "part1/1_4_Packages.html",
-    "href": "part1/1_4_Packages.html",
+    "objectID": "part2/1_4_Packages.html",
+    "href": "part2/1_4_Packages.html",
     "title": "4) 핵심 패키지 미리보기",
     "section": "",
     "text": "Part 2~3에서 사용할 패키지를 미리 설치합니다.\n\n# 한 번만 실행하면 됩니다\ninstall.packages(c(\n  # 데이터 불러오기/저장\n  \"readxl\",              # 엑셀 파일 읽기\n  \"writexl\",             # 엑셀 파일 쓰기\n  \"readr\",               # bigreadr (for large-scale data)\n  \n  # 데이터/테이블 정리\n  \"dplyr\",               # \"tidyverse\" (데이터 전처리 + 시각화)\n  \n  # 분석\n  \"survival\",            # Kaplan-Meier, Cox\n  \"survminer\",           # KM curve 시각화\n  \n  # 시각화\n  \"ggplot2\",             # 기본 그래프\n  \"ggpubr\",              # 논문용 스타일 (코딩으로 그림 최종본 완성 비추)\n  \"gridExtra\",           # 여러 그래프 배치\n  \n  # 요약 테이블블\n  \"moonBook\",            # 임상 데이터 요약\n  \"gtsummary\",           # Table 1 자동 생성\n  \n  # 보고서/문서화\n  \"knitr\",               # R Markdown 엔진\n  \"flextable\",           # Word 표\n  \"kableExtra\"           #HTML 표\n))\n\n\n\n\n\n\n\nNote설치가 안 될 때\n\n\n\n\n# R 관리자 권한으로 실행 후 재시도\n# 특정 패키지가 에러나면 하나씩 설치\ninstall.packages(\"gtsummary\")\n\n# 그래도 안 되면 버전 확인\nR.version.string\n# R 4.3 이상 권장\n\n\n\n\n\nSummary\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장\n\n다음 Part 2에서는 이 환경 위에서 실제 임상 데이터를 분석하는 파이프라인을 만들어봅니다.",
     "crumbs": [
       "Home",
-      "1. 환경 구축하기",
+      "2. 환경 구축하기",
       "4) 핵심 패키지 미리보기"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html",
-    "href": "part2/2_2_preprocessing.html",
+    "objectID": "part3/2_2_preprocessing.html",
+    "href": "part3/2_2_preprocessing.html",
     "title": "2) 데이터 전처리",
     "section": "",
     "text": "전체 분석의 80%: 전처리..😂\n\n앞에서 Table 1을 만들면서 데이터를 읽고, 필터링하고, 변수를 변환하는 과정을 거쳤습니다. 이 과정을 재사용 가능한 스크립트로 정리하면:\n\n데이터가 업데이트되면 스크립트만 다시 실행\n다음 분석(생존분석, plot 등)에서 전처리된 .rds를 바로 로드\n리뷰어 코멘트 대응 시 한 줄만 수정",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html#왜-전처리를-스크립트로-만드나",
-    "href": "part2/2_2_preprocessing.html#왜-전처리를-스크립트로-만드나",
+    "objectID": "part3/2_2_preprocessing.html#왜-전처리를-스크립트로-만드나",
+    "href": "part3/2_2_preprocessing.html#왜-전처리를-스크립트로-만드나",
     "title": "2) 데이터 전처리",
     "section": "",
     "text": "전체 분석의 80%: 전처리..😂\n\n앞에서 Table 1을 만들면서 데이터를 읽고, 필터링하고, 변수를 변환하는 과정을 거쳤습니다. 이 과정을 재사용 가능한 스크립트로 정리하면:\n\n데이터가 업데이트되면 스크립트만 다시 실행\n다음 분석(생존분석, plot 등)에서 전처리된 .rds를 바로 로드\n리뷰어 코멘트 대응 시 한 줄만 수정",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html#파라미터-설정-데이터-로드",
-    "href": "part2/2_2_preprocessing.html#파라미터-설정-데이터-로드",
+    "objectID": "part3/2_2_preprocessing.html#파라미터-설정-데이터-로드",
+    "href": "part3/2_2_preprocessing.html#파라미터-설정-데이터-로드",
     "title": "2) 데이터 전처리",
     "section": "① 파라미터 설정 & 데이터 로드",
     "text": "① 파라미터 설정 & 데이터 로드\n\nlibrary(tidyverse)\n\n# ===== 디렉토리 설정 =====\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\n# ===== 파라미터 =====\nAGE_CUT &lt;- 65\n\n# ===== 데이터 로드 (2_1에서 저장한 rds) =====\ndf_pt &lt;- readRDS(paste0(indir, \"1_df_pt.rds\"))",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html#핵심-dplyr-함수-5개",
-    "href": "part2/2_2_preprocessing.html#핵심-dplyr-함수-5개",
+    "objectID": "part3/2_2_preprocessing.html#핵심-dplyr-함수-5개",
+    "href": "part3/2_2_preprocessing.html#핵심-dplyr-함수-5개",
     "title": "2) 데이터 전처리",
     "section": "② 핵심 dplyr 함수 5개",
     "text": "② 핵심 dplyr 함수 5개\n\n\n\n함수\n역할\n\n\n\n\nfilter()\n행 필터링\n\n\nselect()\n열 선택\n\n\nmutate()\n새 변수 생성\n\n\ngroup_by() + summarise()\n그룹별 요약\n\n\narrange()\n정렬\n\n\n\n\nfilter: 행 필터링\n\n# 특정 조건 필터\ndf_pt %&gt;% filter(Age_Tx &gt;= 65, Sex == \"M\")\n\n# A tibble: 26 × 33\n   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  \n 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  \n 2     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   \n 3     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   \n 4     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   \n 5     21 lung 21-1       1         1 M         69 Repeat oli… oligopro… lung   \n 6     22 lung 22-1       1         1 M         74 Repeat oli… oligomet… lung   \n 7     24 lung 24-1       1         1 M         76 Metachrono… oligomet… lung   \n 8     31 lung 31-1       1         1 M         76 Metachrono… oligomet… lung   \n 9     32 lung 32-1       1         1 M         68 Repeat oli… oligomet… lung   \n10     36 lung 36-1       1         1 M         65 Repeat oli… oligopro… lung   \n# ℹ 16 more rows\n# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;\n\n# 여러 조건 조합\ndf_pt %&gt;% filter(Primary == \"Colon\" | Primary == \"Rectum\")\n\n# A tibble: 55 × 33\n   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  \n 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  \n 2      6 lung 6-1        1         1 F         76 Repeat oli… oligomet… lung   \n 3      7 liver 7-1       1         1 F         55 Induced ol… oligomet… liver  \n 4      9 lung 9-1        1         1 F         68 Induced ol… oligopro… lung   \n 5     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   \n 6     15 lung 15-1       1         1 F         63 Repeat oli… oligopro… lung   \n 7     17 lung 17-1       1         1 F         77 Metachrono… oligomet… lung   \n 8     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   \n 9     19 lung 19-1       1         1 M         64 Repeat oli… oligopro… lung   \n10     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   \n# ℹ 45 more rows\n# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;\n\ndf_pt %&gt;% filter(Primary %in% c(\"Colon\", \"Rectum\"))  # 같은 결과, 더 깔끔\n\n# A tibble: 55 × 33\n   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  \n 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  \n 2      6 lung 6-1        1         1 F         76 Repeat oli… oligomet… lung   \n 3      7 liver 7-1       1         1 F         55 Induced ol… oligomet… liver  \n 4      9 lung 9-1        1         1 F         68 Induced ol… oligopro… lung   \n 5     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   \n 6     15 lung 15-1       1         1 F         63 Repeat oli… oligopro… lung   \n 7     17 lung 17-1       1         1 F         77 Metachrono… oligomet… lung   \n 8     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   \n 9     19 lung 19-1       1         1 M         64 Repeat oli… oligopro… lung   \n10     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   \n# ℹ 45 more rows\n# ℹ 24 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;\n\n\n\n\nselect: 열 선택\n\n# 필요한 열만\ndf_pt %&gt;% select(Key_pt, Sex, Age_Tx, Primary, Death, OS)\n\n# A tibble: 55 × 6\n   Key_pt Sex   Age_Tx Primary Death    OS\n    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;\n 1      2 M         76 Colon       1  20.7\n 2      6 F         76 Colon       1  34.5\n 3      7 F         55 Rectum      1  26.6\n 4      9 F         68 Colon       1  11.7\n 5     10 M         77 Colon       1  43.4\n 6     15 F         63 Rectum      0  76.8\n 7     17 F         77 Rectum      1  54.7\n 8     18 M         76 Rectum      0  59.0\n 9     19 M         64 Rectum      0  47.6\n10     20 M         83 Rectum      0  31.7\n# ℹ 45 more rows\n\n# 특정 패턴 열 선택\ndf_pt %&gt;% select(starts_with(\"PTV\"))\n\n# A tibble: 55 × 6\n   PTV_cc PTVmean_BED10 PTV_D2_BED10 PTV_D5_BED10 PTV_D95_BED10 PTV_D98_BED10\n    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;\n 1  18.9           149.         162.         161.         120.          113. \n 2  33.9           124.         142.         141.         104.           97.0\n 3  53.9           114.         116.         115.          95.9          86.8\n 4   3.93          178.         207.         203.         149.          143. \n 5  26.7           135.         158.         156.         111.          106. \n 6  20.3           167.         183.         181.         151.          146. \n 7  11.2           131.         157.         154.         106.          100. \n 8   9.61          149.         181.         177.         120.          112. \n 9   6.91          130.         169.         162.         106.          101. \n10  12.3           142.         172.         168.         108.          101. \n# ℹ 45 more rows\n\ndf_pt %&gt;% select(Key_pt, Sex:Age_Tx, Death:LFFS)\n\n# A tibble: 55 × 7\n   Key_pt Sex   Age_Tx Death    OS    LF  LFFS\n    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n 1      2 M         76     1  20.7     1  9.23\n 2      6 F         76     1  34.5     0 33.5 \n 3      7 F         55     1  26.6     0 24.5 \n 4      9 F         68     1  11.7     0  6.51\n 5     10 M         77     1  43.4     0 22.3 \n 6     15 F         63     0  76.8     1 27.6 \n 7     17 F         77     1  54.7     0 28.6 \n 8     18 M         76     0  59.0     0 58.3 \n 9     19 M         64     0  47.6     0 46.5 \n10     20 M         83     0  31.7     0 25.5 \n# ℹ 45 more rows\n\n\n\n\nmutate: 새 변수 생성\n\ndf_pt &lt;- df_pt %&gt;%\n  mutate(\n    # 연령군\n    Age_group = ifelse(Age_Tx &gt;= AGE_CUT, \"≥65\", \"&lt;65\"),\n    \n    # factor 변환\n    Sex = factor(Sex, levels = c(\"M\", \"F\"), labels = c(\"Male\", \"Female\")),\n    Death = as.numeric(Death),  # Surv()에서 쓰려면 numeric 유지\n    Death_f = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\")),  # Table 1용\n    \n    # 연속형 변수 단위 변환\n    size_cm = size_mm / 10,\n    \n    # BED10 카테고리\n    BED_group = case_when(\n      PTVmean_BED10 &gt;= 100 ~ \"≥100 Gy\",\n      PTVmean_BED10 &gt;= 80  ~ \"80-99 Gy\",\n      TRUE                  ~ \"&lt;80 Gy\"\n    )\n  )\n\n\n\n\n\n\n\nTipifelse() vs case_when()\n\n\n\n\n조건이 2개 → ifelse()\n조건이 3개 이상 → case_when()\n\n\n\n\n\ngroup_by + summarise: 그룹별 요약\n\n# Primary별 환자 수, 중앙 나이\ndf_pt %&gt;%\n  group_by(Primary) %&gt;%\n  summarise(\n    n = n(),\n    median_age = median(Age_Tx),\n    death_rate = mean(Death == \"Dead\")\n  ) %&gt;%\n  arrange(desc(n))\n\n# A tibble: 2 × 4\n  Primary     n median_age death_rate\n  &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n1 Rectum     32       68.5          0\n2 Colon      23       74            0\n\n\n\n\narrange: 정렬\n\n# 나이 오름차순\ndf_pt %&gt;% arrange(Age_Tx)\n\n# A tibble: 55 × 37\n   Key_pt Key_lesion  IN_sur IN_lesion Sex    Age_Tx OMD_Type  OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;  \n 1     51 liver 51-1       1         1 Female     27 Induced … oligomet… liver  \n 2     81 lung 81-2        1         1 Female     33 Repeat o… oligopro… lung   \n 3     52 lung 52-1        1         1 Female     50 Repeat o… oligomet… lung   \n 4     89 lung 89-1        1         1 Male       51 Metachro… oligomet… lung   \n 5    115 liver 115-1      1         1 Male       52 Repeat o… oligopro… liver  \n 6     58 lung 58-1        1         1 Female     53 Repeat o… oligomet… lung   \n 7    111 lung 111-1       1         1 Male       54 Metachro… oligomet… lung   \n 8      7 liver 7-1        1         1 Female     55 Induced … oligomet… liver  \n 9     39 lung 39-1        1         1 Male       57 Metachro… oligomet… lung   \n10     54 liver 54-1       1         1 Female     57 Induced … oligomet… liver  \n# ℹ 45 more rows\n# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …\n\n# 내림차순\ndf_pt %&gt;% arrange(desc(Age_Tx))\n\n# A tibble: 55 × 37\n   Key_pt Key_lesion IN_sur IN_lesion Sex    Age_Tx OMD_Type   OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  \n 1    114 lung 114-1      1         1 Female     91 Repeat ol… oligomet… lung   \n 2    107 lung 107-1      1         1 Female     85 Metachron… oligomet… lung   \n 3     67 lung 67-1       1         1 Female     84 Induced o… oligomet… lung   \n 4     20 lung 20-1       1         1 Male       83 Metachron… oligomet… lung   \n 5    102 lung 102-1      1         1 Male       83 Synchrono… oligomet… lung   \n 6    113 lung 113-1      1         1 Female     82 Metachron… oligomet… lung   \n 7     95 lung 95-1       1         1 Male       80 Synchrono… oligomet… lung   \n 8     74 lung 74-1       1         1 Male       79 Metachron… oligomet… lung   \n 9     84 lung 84-1       1         1 Female     79 Repeat ol… oligomet… lung   \n10     75 lung 75-1       1         1 Female     78 Repeat ol… oligopro… lung   \n# ℹ 45 more rows\n# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …\n\n# 여러 기준: 성별 먼저, 그 안에서 나이순\ndf_pt %&gt;% arrange(Sex, Age_Tx)\n\n# A tibble: 55 × 37\n   Key_pt Key_lesion  IN_sur IN_lesion Sex   Age_Tx OMD_Type   OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  \n 1     89 lung 89-1        1         1 Male      51 Metachron… oligomet… lung   \n 2    115 liver 115-1      1         1 Male      52 Repeat ol… oligopro… liver  \n 3    111 lung 111-1       1         1 Male      54 Metachron… oligomet… lung   \n 4     39 lung 39-1        1         1 Male      57 Metachron… oligomet… lung   \n 5     44 lung 44-2        1         1 Male      58 Repeat ol… oligopro… lung   \n 6     97 lung 97-1        1         1 Male      58 Repeat ol… oligomet… lung   \n 7     93 liver 93-1       1         1 Male      59 Induced o… oligopro… liver  \n 8     19 lung 19-1        1         1 Male      64 Repeat ol… oligopro… lung   \n 9     82 lung 82-1        1         1 Male      64 Induced o… oligopro… lung   \n10     36 lung 36-1        1         1 Male      65 Repeat ol… oligopro… lung   \n# ℹ 45 more rows\n# ℹ 28 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, Death_f &lt;fct&gt;, …",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html#저장",
-    "href": "part2/2_2_preprocessing.html#저장",
+    "objectID": "part3/2_2_preprocessing.html#저장",
+    "href": "part3/2_2_preprocessing.html#저장",
     "title": "2) 데이터 전처리",
     "section": "③ 저장",
     "text": "③ 저장\n\n# 추가 전처리된 데이터를 2_ 접두사로 저장\nsaveRDS(df_pt, paste0(outdir, \"2_df_pt_processed.rds\"))\n\n# 최종 결과물: csv (공유/기록용) — 필요시\n# write.csv(df_pt, paste0(resdir, \"cleaned_patient_data.csv\"), row.names = FALSE)\n\n\n\n\n\n\n\nNote왜 .rds로 저장하나?\n\n\n\n\nfactor level, 변수 타입이 그대로 보존됨\ncsv로 저장하면 factor가 다시 문자열로 돌아감\n다음 스크립트에서 readRDS()로 바로 불러오면 전처리 반복 불필요",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part2/2_2_preprocessing.html#rscript-완성본",
-    "href": "part2/2_2_preprocessing.html#rscript-완성본",
+    "objectID": "part3/2_2_preprocessing.html#rscript-완성본",
+    "href": "part3/2_2_preprocessing.html#rscript-완성본",
     "title": "2) 데이터 전처리",
     "section": "④ Rscript 완성본",
     "text": "④ Rscript 완성본\n위 과정을 .R 파일 하나로 정리하면, 터미널에서 바로 실행할 수 있습니다.\n\n# ===== 02_preprocessing.R =====\n\n# ----- 디렉토리 & 파라미터 -----\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nAGE_CUT &lt;- 65\n\nlibrary(tidyverse)\n\n# 1. 데이터 로드 (2_1에서 저장한 rds)\ndf_pt &lt;- readRDS(paste0(indir, \"1_df_pt.rds\"))\n\n# 2. 전처리\ndf_pt &lt;- df_pt %&gt;%\n  mutate(\n    Age_group = ifelse(Age_Tx &gt;= AGE_CUT, \"≥65\", \"&lt;65\"),\n    Sex = factor(Sex, levels = c(\"M\", \"F\"), labels = c(\"Male\", \"Female\")),\n    Death = as.numeric(Death),\n    Death_f = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\")),\n    Multiplicity = factor(Multiplicity),\n    size_cm = size_mm / 10,\n    BED_group = case_when(\n      PTVmean_BED10 &gt;= 100 ~ \"≥100 Gy\",\n      PTVmean_BED10 &gt;= 80  ~ \"80-99 Gy\",\n      TRUE                  ~ \"&lt;80 Gy\"\n    )\n  )\n\n# 3. 저장\nsaveRDS(df_pt, paste0(outdir, \"2_df_pt_processed.rds\"))\n\ncat(\"✅ Preprocessing done:\", nrow(df_pt), \"patients\\n\")\n\n# 터미널에서 실행\nRscript 02_preprocessing.R\n\n\n\n\n\n\nTip파이프라인 흐름\n\n\n\nrawdata/clinical_data.xlsx\n  → 01_table1.R\n    → analysis/1_df_pt.rds\n    → results/Table1.docx\n  → 02_preprocessing.R  (1_df_pt.rds 로드)\n    → analysis/2_df_pt_processed.rds\n      → 03_km_plot.R      → results/KM_plot.png\n      → 04_forest_plot.R  → results/Forest_plot.png\n각 스크립트는 readRDS(paste0(indir, ...))로 이전 단계 결과를 로드합니다.",
     "crumbs": [
       "Home",
-      "2. R script 활용하기",
+      "3. R script 활용하기",
       "2) 데이터 전처리"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html",
-    "href": "part3/3_1_vibecoding.html",
+    "objectID": "part4/3_1_vibecoding.html",
+    "href": "part4/3_1_vibecoding.html",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "",
     "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html#바이브코딩이란",
-    "href": "part3/3_1_vibecoding.html#바이브코딩이란",
+    "objectID": "part4/3_1_vibecoding.html#바이브코딩이란",
+    "href": "part4/3_1_vibecoding.html#바이브코딩이란",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "",
     "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html#프롬프트의-3요소",
-    "href": "part3/3_1_vibecoding.html#프롬프트의-3요소",
+    "objectID": "part4/3_1_vibecoding.html#claude가-만드는-코드의-구조",
+    "href": "part4/3_1_vibecoding.html#claude가-만드는-코드의-구조",
+    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "section": "Claude가 만드는 코드의 구조",
+    "text": "Claude가 만드는 코드의 구조\n바이브코딩을 시작하기 전에, AI가 어떤 패턴으로 코드를 만드는지 알아야 합니다.\nPart 0에서 함수 정의 → main() 호출 구조를 봤습니다. Claude에게 실제 분석을 요청하면 이 구조가 그대로 적용됩니다:\n\n# ============================================================\n# 0. 라이브러리\n# ============================================================\nlibrary(dplyr)\nlibrary(survival)\nlibrary(gtsummary)\n\n# ============================================================\n# 1. 함수 정의\n# ============================================================\nload_data &lt;- function(filepath) {\n  df &lt;- readxl::read_excel(filepath)\n  df &lt;- df |&gt;\n    mutate(\n      age_group = ifelse(Age_Tx &gt;= 65, \"elderly\", \"non-elderly\"),\n      Death = as.numeric(Death)\n    )\n  return(df)\n}\n\nmake_table1 &lt;- function(df, by_var) {\n  df |&gt;\n    tbl_summary(by = all_of(by_var), missing = \"no\") |&gt;\n    add_p() |&gt;\n    bold_p()\n}\n\nrun_survival &lt;- function(df, time_var, event_var, group_var) {\n  formula &lt;- as.formula(\n    paste0(\"Surv(\", time_var, \", \", event_var, \") ~ \", group_var)\n  )\n  fit &lt;- survfit(formula, data = df)\n  return(fit)\n}\n\nsave_results &lt;- function(tbl, fit, resdir) {\n  tbl |&gt; as_flex_table() |&gt;\n    flextable::save_as_docx(path = file.path(resdir, \"table1.docx\"))\n\n  p &lt;- survminer::ggsurvplot(fit, pval = TRUE, risk.table = TRUE)\n  tiff(file.path(resdir, \"KM_OS.tiff\"), width = 7, height = 5,\n       units = \"in\", res = 300)\n  print(p)\n  dev.off()\n}\n\n# ============================================================\n# 2. Main\n# ============================================================\nmain &lt;- function() {\n  indir  &lt;- \"rawdata/\"\n  resdir &lt;- \"results/\"\n\n  df  &lt;- load_data(file.path(indir, \"patient_data.xlsx\"))\n  tbl &lt;- make_table1(df, by_var = \"Multiplicity\")\n  fit &lt;- run_survival(df, \"OS\", \"Death\", \"Multiplicity\")\n  save_results(tbl, fit, resdir)\n\n  cat(\"Done!\\n\")\n}\n\nmain()\n\n\n\n\n\n\n\nTipAI 코드를 받으면 이렇게 읽으세요\n\n\n\n\nmain() 먼저 → 전체 흐름 파악 (데이터 로드 → Table 1 → 생존분석 → 저장)\n각 함수의 input/output → 인자와 return값 확인\n함수 하나씩 실행 → RStudio 콘솔에서 load_data()부터 순서대로\n에러나면 해당 함수만 디버깅 → 전체를 다시 돌릴 필요 없음",
+    "crumbs": [
+      "Home",
+      "4. 결과 및 마무리",
+      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+    ]
+  },
+  {
+    "objectID": "part4/3_1_vibecoding.html#프롬프트의-3요소",
+    "href": "part4/3_1_vibecoding.html#프롬프트의-3요소",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "프롬프트의 3요소",
     "text": "프롬프트의 3요소\n좋은 프롬프트 = 역할 + 맥락 + 구체적 요청\n\n나쁜 프롬프트\n통계 분석 해줘\n→ AI가 뭘 해야 할지 모름. 쓸모없는 결과가 나옴.\n\n\n좋은 프롬프트\n너는 임상통계 전문가야.\n\n나는 올리고전이 환자 대상 SBRT 논문을 쓰고 있어.\n데이터프레임 df_pt에 다음 변수가 있어:\n- Age_Tx: 치료 시 나이 (연속형)\n- Sex: 성별 (M/F)\n- Primary: 원발 부위 (Colon, Rectum, Lung 등)\n- Death: 사망 여부 (0/1)\n- OS: 전체 생존 기간 (개월)\n- size_cm: 종양 크기 (cm)\n- PTVmean_BED10: PTV 평균 BED10 (Gy)\n\n다음을 수행하는 R 코드를 작성해줘:\n1. gtsummary로 Table 1 생성 (Death 기준 그룹 비교, p-value 포함)\n2. 변수명은 논문용 라벨로 변환\n3. results/Table1.docx로 저장\n\n\n\n\n\n\nTip프롬프트 작성 팁\n\n\n\n\ncolnames(df) 결과를 붙여넣기 — AI가 변수명을 정확히 알아야 함\n변수 타입 명시 — 연속형/범주형/생존시간 구분\n원하는 출력 형태 지정 — “Word로 저장”, “tiff 300dpi”, “forest plot” 등\n패키지 지정 — “gtsummary로”, “survminer로” 등",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html#실전-워크플로우",
-    "href": "part3/3_1_vibecoding.html#실전-워크플로우",
+    "objectID": "part4/3_1_vibecoding.html#실전-워크플로우",
+    "href": "part4/3_1_vibecoding.html#실전-워크플로우",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "실전 워크플로우",
-    "text": "실전 워크플로우\n바이브코딩의 현실적인 작업 흐름은 이렇습니다:\n1. RStudio에서 rds 로드\n2. AI가 만든 코드를 콘솔에 붙여넣기 & 실행\n3. 에러 → 에러 메시지를 AI에게 복붙 → 수정 코드 받기\n4. 중간 결과 확인 (head, str, plot 등)\n5. 만족하면 .R 파일로 저장\n6. input → output 구조의 스크립트 완성\n핵심은 처음부터 완벽한 스크립트를 만들려 하지 않는 것입니다. RStudio 콘솔에서 한 줄씩 돌려보고, 중간 과정을 계속 트러블슈팅해서 최종적으로 동작하는 코드가 완성되면 그때 파일로 저장합니다.\n\n\n① RStudio에서 데이터 로드 & 구조 파악\n\nlibrary(tidyverse)\n\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 이 결과를 복사해서 AI에게 붙여넣기\ncolnames(df_pt)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"   \"Age_group\"       \"Death_f\"         \"size_cm\"        \n[37] \"BED_group\"      \n\nstr(df_pt)\n\ntibble [55 × 37] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:55] 2 6 7 9 10 15 17 18 19 20 ...\n $ Key_lesion     : chr [1:55] \"liver 2-1\" \"lung 6-1\" \"liver 7-1\" \"lung 9-1\" ...\n $ IN_sur         : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ IN_lesion      : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : Factor w/ 2 levels \"Male\",\"Female\": 1 2 2 2 1 2 2 1 1 1 ...\n $ Age_Tx         : num [1:55] 76 76 55 68 77 63 77 76 64 83 ...\n $ OMD_Type       : chr [1:55] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" \"Induced oligoprogression\" ...\n $ OMD_class      : chr [1:55] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligoprogression\" ...\n $ Tx_site        : chr [1:55] \"liver\" \"lung\" \"liver\" \"lung\" ...\n $ Primary        : chr [1:55] \"Colon\" \"Colon\" \"Rectum\" \"Colon\" ...\n $ Bx_primary     : chr [1:55] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:55] \"mod\" \"mod\" \"well\" \"mod\" ...\n $ Multiplicity   : chr [1:55] \"single\" \"multiple\" \"single\" \"multiple\" ...\n $ OMD_no         : num [1:55] 1 3 1 2 1 1 1 2 2 1 ...\n $ size_mm        : num [1:55] 15 25 42 5 27.5 19 16.7 4 12 16.5 ...\n $ DD             : num [1:55] 1600 1200 1000 1800 1250 1800 1200 1300 1200 1300 ...\n $ fr             : num [1:55] 3 4 5 3 4 3 4 4 4 4 ...\n $ TD             : num [1:55] 4800 4800 5000 5400 5000 5400 4800 5200 4800 5200 ...\n $ GTV_cc         : num [1:55] 5.839 5.8 25.904 0.097 6.709 ...\n $ ITV_cc         : num [1:55] 8.544 9.7 25.904 0.221 7.93 ...\n $ PTV_cc         : num [1:55] 18.87 33.9 53.89 3.93 26.66 ...\n $ Death          : num [1:55] 1 1 1 1 1 0 1 0 0 0 ...\n $ OS             : num [1:55] 20.7 34.5 26.6 11.7 43.4 ...\n $ LF             : num [1:55] 1 0 0 0 0 1 0 0 0 0 ...\n $ LFFS           : num [1:55] 9.23 33.51 24.51 6.51 22.34 ...\n $ CTxAfterRT     : num [1:55] 0 0 0 0 0 1 0 0 1 0 ...\n $ CTxBeforeRT    : num [1:55] 0 1 1 1 0 1 1 1 1 1 ...\n $ bCTx_Line      : num [1:55] 0 3 3 2 0 2 1 1 3 1 ...\n $ PTVmean_BED10  : num [1:55] 149 124 114 178 135 ...\n $ PTV_D2_BED10   : num [1:55] 162 142 116 207 158 ...\n $ PTV_D5_BED10   : num [1:55] 161 141 115 203 156 ...\n $ PTV_D95_BED10  : num [1:55] 120.5 103.7 95.9 148.6 111.5 ...\n $ PTV_D98_BED10  : num [1:55] 113.5 97 86.8 143.3 106.2 ...\n $ Age_group      : chr [1:55] \"≥65\" \"≥65\" \"&lt;65\" \"≥65\" ...\n $ Death_f        : Factor w/ 2 levels \"Alive\",\"Dead\": 2 2 2 2 2 1 2 1 1 1 ...\n $ size_cm        : num [1:55] 1.5 2.5 4.2 0.5 2.75 1.9 1.67 0.4 1.2 1.65 ...\n $ BED_group      : chr [1:55] \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" ...\n\n\n\n\n② AI에게 프롬프트 작성\ncolnames()과 str() 결과를 붙여넣고, 원하는 분석을 요청합니다.\n위 데이터에서 생존분석을 해줘.\n\n- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교\n- Log-rank test p-value를 그래프에 표시\n- Risk table 포함\n- survminer 패키지 사용\n- 300 dpi tiff로 저장\n\n\n③ AI가 준 코드를 콘솔에서 실행\nAI가 생성한 코드를 한 블록씩 RStudio 콘솔에 붙여넣어 실행합니다.\n\nlibrary(survival)\nlibrary(survminer)\n\n# Kaplan-Meier fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# KM curve\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\nprint(p)\n\n\n\n\n\n\n\n\n\n\n④ 에러가 나면?\n에러 메시지를 그대로 복붙해서 AI에게 주면 됩니다.\n이 코드를 실행했더니 다음 에러가 났어:\n\nError in data.frame(..., check.names = FALSE) : \n  arguments imply differing number of rows: 54, 0, 108\n\n고쳐줘.\n→ AI가 Death가 factor라서 Surv()에서 인식 못하는 걸 잡아줌\n이런 식으로 실행 → 에러 → AI에게 복붙 → 수정을 반복합니다.\n\n\n\n\n\n\nImportant무지성 에러 복붙의 함정\n\n\n\n에러가 나면 바로 AI에게 던지고 싶지만, 그 전에 30초만 직접 확인하면 훨씬 효율적입니다.\n왜? AI는 대화가 길어질수록 앞의 맥락을 잊습니다. 에러를 복붙하고 → AI가 부분 수정하고 → 또 에러 → 또 복붙… 이걸 반복하면 원래 깔끔했던 코드가 누더기가 됩니다. 한 번에 고칠 수 있는 걸 돌아돌아 가게 되는 거예요.\n에러가 났을 때 먼저 해볼 것:\n# 1. 모르는 함수가 나왔으면 도움말 보기\n?survfit\n?ggsurvplot\n?tbl_summary\n\n# 2. RStudio에서는 Help 탭에 함수 이름 검색해도 됨\n#    → Arguments 섹션에서 각 인자가 뭘 받는지 확인\n#    → Examples 섹션에서 실제 사용법 확인\n\n\n도움말의 Arguments 섹션만 훑어봐도 “아, 이 인자에 숫자를 넣어야 하는데 문자를 넣었구나” 같은 단서를 바로 잡을 수 있습니다.\n실전 예시:\n# AI가 만든 코드에서 에러 발생\nggsurvplot(fit, pval.coord = \"top-right\")  # Error!\n\n# ?ggsurvplot → pval.coord는 c(x, y) 숫자 벡터임을 확인\nggsurvplot(fit, pval.coord = c(0.1, 0.1))  # 해결 ✅\n이렇게 본인이 1차로 걸러낸 뒤 AI에게 물어보면, AI도 정확한 맥락에서 답을 주기 때문에 수정이 한 번에 끝납니다.\n\n\n\n\n\n\n\n\nTip에러 대응 순서\n\n\n\n\n에러 메시지 읽기 — 어떤 함수에서 터졌는지 확인\n?함수명으로 용법 확인 — 인자 타입, 필수/선택 여부\n그래도 모르겠으면 — 에러 + ?함수명에서 본 내용을 같이 AI에게 주기\n\n이 코드에서 에러가 났어:\n[에러 메시지]\n\n?ggsurvplot 도움말을 보니 pval.coord는 \nnumeric vector를 받는 것 같은데, \n어떻게 고쳐야 해?\n이렇게 주면 AI가 헛다리 짚을 확률이 크게 줄어듭니다.\n\n\n\n\n⑤ 동작 확인되면 스크립트로 저장\n콘솔에서 다 돌아가는 걸 확인했으면, 코드를 모아서 .R 파일로 저장합니다. 이때 상단에 input/output을 명시하고, 경로를 paste0()로 정리합니다.\n\n# ===== 03_KM_plot.R =====\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n\n# ----- 디렉토리 -----\nindir  &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\n\n# 1. 데이터 로드\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 2. KM fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# 3. Plot\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\n# 4. 저장\ntiff(paste0(resdir, \"KM_OS.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\nggsave(paste0(resdir, \"KM_OS.pdf\"), plot = print(p), width = 7, height = 5)\n\ncat(\"✅ KM plot saved!\\n\")\n\nRscript 03_KM_plot.R\n\n\n\n\n\n\nNote스크립트 상단에 Input/Output 적기\n\n\n\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n이렇게 적어두면 나중에 파일만 봐도 이 스크립트가 뭘 읽고 뭘 만드는지 바로 알 수 있습니다.",
+    "text": "실전 워크플로우\n바이브코딩의 현실적인 작업 흐름은 이렇습니다:\n1. RStudio에서 rds 로드\n2. AI가 만든 코드를 콘솔에 붙여넣기 & 실행\n3. 에러 → 에러 메시지를 AI에게 복붙 → 수정 코드 받기\n4. 중간 결과 확인 (head, str, plot 등)\n5. 만족하면 .R 파일로 저장\n6. input → output 구조의 스크립트 완성\n핵심은 처음부터 완벽한 스크립트를 만들려 하지 않는 것입니다. RStudio 콘솔에서 한 줄씩 돌려보고, 중간 과정을 계속 트러블슈팅해서 최종적으로 동작하는 코드가 완성되면 그때 파일로 저장합니다.\n\n\n① RStudio에서 데이터 로드 & 구조 파악\n\nlibrary(tidyverse)\n\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 이 결과를 복사해서 AI에게 붙여넣기\ncolnames(df_pt)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"   \"Age_group\"       \"Death_f\"         \"size_cm\"        \n[37] \"BED_group\"      \n\nstr(df_pt)\n\ntibble [55 × 37] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:55] 2 6 7 9 10 15 17 18 19 20 ...\n $ Key_lesion     : chr [1:55] \"liver 2-1\" \"lung 6-1\" \"liver 7-1\" \"lung 9-1\" ...\n $ IN_sur         : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ IN_lesion      : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : Factor w/ 2 levels \"Male\",\"Female\": 1 2 2 2 1 2 2 1 1 1 ...\n $ Age_Tx         : num [1:55] 76 76 55 68 77 63 77 76 64 83 ...\n $ OMD_Type       : chr [1:55] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" \"Induced oligoprogression\" ...\n $ OMD_class      : chr [1:55] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligoprogression\" ...\n $ Tx_site        : chr [1:55] \"liver\" \"lung\" \"liver\" \"lung\" ...\n $ Primary        : chr [1:55] \"Colon\" \"Colon\" \"Rectum\" \"Colon\" ...\n $ Bx_primary     : chr [1:55] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:55] \"mod\" \"mod\" \"well\" \"mod\" ...\n $ Multiplicity   : chr [1:55] \"single\" \"multiple\" \"single\" \"multiple\" ...\n $ OMD_no         : num [1:55] 1 3 1 2 1 1 1 2 2 1 ...\n $ size_mm        : num [1:55] 15 25 42 5 27.5 19 16.7 4 12 16.5 ...\n $ DD             : num [1:55] 1600 1200 1000 1800 1250 1800 1200 1300 1200 1300 ...\n $ fr             : num [1:55] 3 4 5 3 4 3 4 4 4 4 ...\n $ TD             : num [1:55] 4800 4800 5000 5400 5000 5400 4800 5200 4800 5200 ...\n $ GTV_cc         : num [1:55] 5.839 5.8 25.904 0.097 6.709 ...\n $ ITV_cc         : num [1:55] 8.544 9.7 25.904 0.221 7.93 ...\n $ PTV_cc         : num [1:55] 18.87 33.9 53.89 3.93 26.66 ...\n $ Death          : num [1:55] 1 1 1 1 1 0 1 0 0 0 ...\n $ OS             : num [1:55] 20.7 34.5 26.6 11.7 43.4 ...\n $ LF             : num [1:55] 1 0 0 0 0 1 0 0 0 0 ...\n $ LFFS           : num [1:55] 9.23 33.51 24.51 6.51 22.34 ...\n $ CTxAfterRT     : num [1:55] 0 0 0 0 0 1 0 0 1 0 ...\n $ CTxBeforeRT    : num [1:55] 0 1 1 1 0 1 1 1 1 1 ...\n $ bCTx_Line      : num [1:55] 0 3 3 2 0 2 1 1 3 1 ...\n $ PTVmean_BED10  : num [1:55] 149 124 114 178 135 ...\n $ PTV_D2_BED10   : num [1:55] 162 142 116 207 158 ...\n $ PTV_D5_BED10   : num [1:55] 161 141 115 203 156 ...\n $ PTV_D95_BED10  : num [1:55] 120.5 103.7 95.9 148.6 111.5 ...\n $ PTV_D98_BED10  : num [1:55] 113.5 97 86.8 143.3 106.2 ...\n $ Age_group      : chr [1:55] \"≥65\" \"≥65\" \"&lt;65\" \"≥65\" ...\n $ Death_f        : Factor w/ 2 levels \"Alive\",\"Dead\": 2 2 2 2 2 1 2 1 1 1 ...\n $ size_cm        : num [1:55] 1.5 2.5 4.2 0.5 2.75 1.9 1.67 0.4 1.2 1.65 ...\n $ BED_group      : chr [1:55] \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" ...\n\n\n\n\n② AI에게 프롬프트 작성\ncolnames()과 str() 결과를 붙여넣고, 원하는 분석을 요청합니다.\n위 데이터에서 생존분석을 해줘.\n\n- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교\n- Log-rank test p-value를 그래프에 표시\n- Risk table 포함\n- survminer 패키지 사용\n- 300 dpi tiff로 저장\n\n\n③ AI가 준 코드를 콘솔에서 실행\nAI가 생성한 코드를 한 블록씩 RStudio 콘솔에 붙여넣어 실행합니다.\n이때 위에서 본 함수 + main 구조로 코드가 올 가능성이 높습니다.\n그 경우 main()을 바로 실행하지 말고, 함수 정의부를 먼저 실행한 뒤 함수를 하나씩 테스트하세요.\n\nlibrary(survival)\nlibrary(survminer)\n\n# Kaplan-Meier fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# KM curve\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\nprint(p)\n\n\n\n\n\n\n\n\n\n\n④ 에러가 나면?\n에러 메시지를 그대로 복붙해서 AI에게 주면 됩니다.\n이 코드를 실행했더니 다음 에러가 났어:\n\nError in data.frame(..., check.names = FALSE) : \n  arguments imply differing number of rows: 54, 0, 108\n\n고쳐줘.\n→ AI가 Death가 factor라서 Surv()에서 인식 못하는 걸 잡아줌\n이런 식으로 실행 → 에러 → AI에게 복붙 → 수정을 반복합니다.\n\n\n\n\n\n\nImportant무지성 에러 복붙의 함정\n\n\n\n에러가 나면 바로 AI에게 던지고 싶지만, 그 전에 30초만 직접 확인하면 훨씬 효율적입니다.\n왜? AI는 대화가 길어질수록 앞의 맥락을 잊습니다. 에러를 복붙하고 → AI가 부분 수정하고 → 또 에러 → 또 복붙… 이걸 반복하면 원래 깔끔했던 코드가 누더기가 됩니다. 한 번에 고칠 수 있는 걸 돌아돌아 가게 되는 거예요.\n에러가 났을 때 먼저 해볼 것:\n# 1. 모르는 함수가 나왔으면 도움말 보기\n?survfit\n?ggsurvplot\n?tbl_summary\n\n# 2. RStudio에서는 Help 탭에 함수 이름 검색해도 됨\n#    → Arguments 섹션에서 각 인자가 뭘 받는지 확인\n#    → Examples 섹션에서 실제 사용법 확인\n\n\n도움말의 Arguments 섹션만 훑어봐도 “아, 이 인자에 숫자를 넣어야 하는데 문자를 넣었구나” 같은 단서를 바로 잡을 수 있습니다.\n실전 예시:\n# AI가 만든 코드에서 에러 발생\nggsurvplot(fit, pval.coord = \"top-right\")  # Error!\n\n# ?ggsurvplot → pval.coord는 c(x, y) 숫자 벡터임을 확인\nggsurvplot(fit, pval.coord = c(0.1, 0.1))  # 해결 ✅\n이렇게 본인이 1차로 걸러낸 뒤 AI에게 물어보면, AI도 정확한 맥락에서 답을 주기 때문에 수정이 한 번에 끝납니다.\n\n\n\n\n\n\n\n\nTip에러 대응 순서\n\n\n\n\n에러 메시지 읽기 — 어떤 함수에서 터졌는지 확인\n?함수명으로 용법 확인 — 인자 타입, 필수/선택 여부\n그래도 모르겠으면 — 에러 + ?함수명에서 본 내용을 같이 AI에게 주기\n\n이 코드에서 에러가 났어:\n[에러 메시지]\n\n?ggsurvplot 도움말을 보니 pval.coord는 \nnumeric vector를 받는 것 같은데, \n어떻게 고쳐야 해?\n이렇게 주면 AI가 헛다리 짚을 확률이 크게 줄어듭니다.\n\n\n\n\n⑤ 동작 확인되면 스크립트로 저장\n콘솔에서 다 돌아가는 걸 확인했으면, 코드를 모아서 .R 파일로 저장합니다. 이때 상단에 input/output을 명시하고, 경로를 paste0()로 정리합니다.\n\n# ===== 03_KM_plot.R =====\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n\n# ----- 디렉토리 -----\nindir  &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\n\n# 1. 데이터 로드\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 2. KM fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# 3. Plot\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\n# 4. 저장\ntiff(paste0(resdir, \"KM_OS.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\nggsave(paste0(resdir, \"KM_OS.pdf\"), plot = print(p), width = 7, height = 5)\n\ncat(\"✅ KM plot saved!\\n\")\n\nRscript 03_KM_plot.R\n\n\n\n\n\n\nNote스크립트 상단에 Input/Output 적기\n\n\n\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n이렇게 적어두면 나중에 파일만 봐도 이 스크립트가 뭘 읽고 뭘 만드는지 바로 알 수 있습니다.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
-    "href": "part3/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
+    "objectID": "part4/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
+    "href": "part4/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)",
     "text": "AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)\n\n\n\n\n\n\nWarning\n\n\n\n\nReference level 방향 — relevel(factor, ref = \"baseline\")을 빠뜨리는 경우 많음\n환자 vs 병변 단위 혼동 — OS는 환자 단위, LFFS는 병변 단위\n다중비교 보정 누락 — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우\n결측치 처리 — 기본값이 na.rm = FALSE라 결과가 NA로 나올 수 있음\n생존 시간/이벤트 뒤바꿈 — Surv(time, event) 순서 주의\n\n이것들은 사람이 알아야 합니다. Part 1에서 Base R로 직접 해본 이유가 여기 있어요.",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   },
   {
-    "objectID": "part3/3_1_vibecoding.html#바이브코딩-체크리스트",
-    "href": "part3/3_1_vibecoding.html#바이브코딩-체크리스트",
+    "objectID": "part4/3_1_vibecoding.html#바이브코딩-체크리스트",
+    "href": "part4/3_1_vibecoding.html#바이브코딩-체크리스트",
     "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
     "section": "바이브코딩 체크리스트",
     "text": "바이브코딩 체크리스트\n✅ colnames()와 str() 결과를 AI에게 제공했는가?\n✅ 분석 단위(환자/병변)를 명시했는가?\n✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\n✅ 사용할 패키지를 지정했는가?\n✅ AI 결과의 reference level, 단위, p-value를 직접 확인했는가?\n✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\n✅ 스크립트 상단에 Input/Output을 명시했는가?",
     "crumbs": [
       "Home",
-      "3. 결과 및 마무리",
+      "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
   }

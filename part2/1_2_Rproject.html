@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-05-18">
 
-<title>Rscript 활용하기</title>
+<title>2) R project: 폴더 구조 체계화</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,26 +23,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-abc8d05d46af1384937a7dca9ae4bb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-abc8d05d46af1384937a7dca9ae4bb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,19 +107,19 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="../custom.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/logo.jpg" alt="" class="navbar-logo light-content">
-    <img src="./images/logo.jpg" alt="" class="navbar-logo dark-content">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../images/logo.jpg" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -96,23 +129,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part1/3_1_vibecoding.qmd"> 
+    <a class="nav-link" href="../part1/3_1_vibecoding.qmd"> 
 <span class="menu-text">1. 프로그래밍 기본기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part2/1_1_env.html"> 
+    <a class="nav-link active" href="../part2/1_1_env.html" aria-current="page"> 
 <span class="menu-text">2. 환경 구축하기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part3/2_1_table1.html"> 
+    <a class="nav-link" href="../part3/2_1_table1.html"> 
 <span class="menu-text">3. R script 활용하기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./part4/3_1_vibecoding.html"> 
+    <a class="nav-link" href="../part4/3_1_vibecoding.html"> 
 <span class="menu-text">4. 결과 및 마무리</span></a>
   </li>  
 </ul>
@@ -121,53 +154,169 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_2_Rproject.html">2) R project: 폴더 구조 체계화</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1. 프로그래밍 기본기</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part1/0_1_programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">프로그래밍 기본 문법</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part1/0_2_function.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">함수 만들기</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2. 환경 구축하기</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part2/1_1_env.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1) 왜 R Script인가</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part2/1_2_Rproject.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2) R project: 폴더 구조 체계화</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part2/1_3_Rscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3) R Script 작성 기본</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part2/1_4_Packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4) 핵심 패키지 미리보기</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3. R script 활용하기</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part3/2_1_table1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1) 데이터 읽기 &amp; Table 1 만들기</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part3/2_2_preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2) 데이터 전처리</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part3/2_3_figure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3) 핵심 Figure 그리기</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4. 결과 및 마무리</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part4/3_1_vibecoding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1) 바이브코딩으로 R 스크립트 파이프라인 만들기</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part4/3_2_summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2) 실습 과제 + 마무리</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part1.-연구-효율을-높이는-r-script-환경-구축" id="toc-part1.-연구-효율을-높이는-r-script-환경-구축" class="nav-link active" data-scroll-target="#part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</a></li>
-  <li><a href="#part2.-r-script-활용-분석-파이프라인" id="toc-part2.-r-script-활용-분석-파이프라인" class="nav-link" data-scroll-target="#part2.-r-script-활용-분석-파이프라인">Part2. R script 활용 분석 파이프라인</a></li>
-  <li><a href="#part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" id="toc-part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" class="nav-link" data-scroll-target="#part3.-바이브코딩으로-r-스크립트-파이프라인-만들기">Part3. 바이브코딩으로 R 스크립트 파이프라인 만들기</a></li>
+  <li><a href="#r-project란" id="toc-r-project란" class="nav-link active" data-scroll-target="#r-project란">R project란?</a></li>
+  <li><a href="#권장-폴더-구조" id="toc-권장-폴더-구조" class="nav-link" data-scroll-target="#권장-폴더-구조">권장 폴더 구조</a></li>
+  <li><a href="#r-project-만들어보기" id="toc-r-project-만들어보기" class="nav-link" data-scroll-target="#r-project-만들어보기">R Project 만들어보기</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_2_Rproject.html">2) R project: 폴더 구조 체계화</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Rscript 활용하기</h1>
-<p class="subtitle lead">효율적인 연구를 위한</p>
-  <div class="quarto-categories">
-    <div class="quarto-category">의학연구</div>
-    <div class="quarto-category">R</div>
-  </div>
-  </div>
+<h1 class="title">2) R project: 폴더 구조 체계화</h1>
+</div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-body">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Eunji Ha </p>
-          </div>
-  </div>
     
+  
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date-modified">May 13, 2026</p>
     </div>
   </div>
-  
     
   </div>
   
@@ -176,50 +325,71 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>본 강의에서는 “배운 R 기초를 어떻게 실제 논문 작성에 써먹는가”에 집중하고자 합니다.</p>
-<p>단순히 코드를 입력하는 수준을 넘어, 데이터 입력(Input) 시 논문용 표와 그래프(Output)가 자동으로 생성되는 실무 파이프라인 구축을 목표로 합니다.</p>
-<section id="part1.-연구-효율을-높이는-r-script-환경-구축" class="level2">
-<h2 class="anchored" data-anchor-id="part1.-연구-효율을-높이는-r-script-환경-구축">Part1. 연구 효율을 높이는 R script 환경 구축</h2>
-<p>기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.</p>
+<section id="r-project란" class="level3">
+<h3 class="anchored" data-anchor-id="r-project란">R project란?</h3>
+<p>R Project(<code>.Rproj</code>)를 쓰면:</p>
 <ul>
-<li><p><strong>R script 활용 파이프라인이란?</strong></p>
-<p><strong>input</strong>: 연구 데이터 ➡️ <strong>R script</strong> ➡️ <strong>output</strong>: 논문용 표 &amp; 그래프📊📈</p>
-<p>✅ 휴먼 에러 최소화</p>
-<p>✅ 연구 효율성</p>
-<p>✅ Reproducibility</p></li>
-<li><p><strong>R project</strong>: 폴더 구조 체계화</p>
-<ul>
-<li><p><strong><code>scripts/</code></strong>: 전처리 및 분석용 스크립트 관리</p></li>
-<li><p><strong><code>rawdata/</code></strong>: 원본 데이터 (+다른 곳에 백업)</p></li>
-<li><p><strong><code>analysis/</code></strong>: 중간 산물 저장 (<code>1_df_pt.rds</code>, <code>2_table1.rds</code>, …)</p></li>
-<li><p><strong><code>results/</code></strong>: 최종 Table 및 고해상도 Figure 정리</p>
-<p><img src="images/clipboard-3256079201.png" class="img-fluid" width="337"></p></li>
-</ul></li>
-<li><p><strong>R script</strong> 구조 템플릿</p>
+<li><strong>작업 디렉토리가 자동 설정</strong></li>
+<li>프로젝트별로 독립된 환경 유지</li>
+<li>다른 컴퓨터에서 열어도 경로 문제 없음</li>
+</ul>
+</section>
+<section id="권장-폴더-구조" class="level3">
+<h3 class="anchored" data-anchor-id="권장-폴더-구조">권장 폴더 구조</h3>
+<pre><code>my_research_project/
+├── my_research_project.Rproj
+├── scripts/          # 분석 스크립트 (.R 파일)
+│   ├── 1_table1.R
+│   ├── 2_preprocessing.R
+│   └── 3_figure.R
+├── rawdata/          # 원본 데이터 (절대 수정 금지!)
+│   └── clinical_data.xlsx
+├── analysis/         # 중간 분석 결과
+│   ├── 1_cleaned_data.rds
+│   ├── 1_df_pt.rds
+│   ├── 1_table1.rds
+│   ├── 2_df_pt_processed.rds
+│   ├── 3_cox_model.rds
+│   ├── 3_cox_tidy.rds
+└── results/          # 최종 산출물
+    ├── Table1.docx
+    ├── KM_OS.tiff
+    └── forest_OS.tiff</code></pre>
+<p><img src="images/folder_structure.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>핵심 원칙
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
-<li><strong><code>parameters / arguments</code></strong>: 디렉토리(<code>indir</code>, <code>outdir</code>, <code>resdir</code>), 파일명, 분석 옵션</li>
-<li><strong><code>데이터 로드</code></strong>: <code>readRDS(paste0(indir, "1_df_pt.rds"))</code></li>
-<li><strong><code>전처리 및 분석</code></strong>: dplyr 파이프라인</li>
-<li><strong><code>결과 저장</code></strong>: 중간 산물은 <code>.rds</code>, 최종본은 <code>.docx</code> / <code>.csv</code> / <code>.tiff</code></li>
-</ol></li>
-</ul>
+<li><strong>rawdata는 절대 건드리지 않는다</strong> — 원본은 읽기만 하고, 전처리 결과는 <code>analysis/</code>에 저장</li>
+<li><strong>스크립트에 번호를 붙인다</strong> — 실행 순서가 명확해짐</li>
+<li><strong>results에는 최종본만</strong> — 논문에 바로 들어갈 표와 그림</li>
+</ol>
+</div>
+</div>
 </section>
-<section id="part2.-r-script-활용-분석-파이프라인" class="level2">
-<h2 class="anchored" data-anchor-id="part2.-r-script-활용-분석-파이프라인">Part2. R script 활용 분석 파이프라인</h2>
-<p>예제 데이터를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.</p>
-<ul>
-<li><strong>데이터 읽기 &amp; Table 1</strong>: xlsx 읽기 → 변수 선택 → gtsummary로 Table 1 생성 → Word/CSV 내보내기</li>
-<li><strong>전처리 스크립트</strong>: dplyr 핵심 함수 5개 (filter, select, mutate, group_by, arrange) → Rscript로 정리</li>
-<li><strong>핵심 Figure 그리기</strong>: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)</li>
-</ul>
-</section>
-<section id="part3.-바이브코딩으로-r-스크립트-파이프라인-만들기" class="level2">
-<h2 class="anchored" data-anchor-id="part3.-바이브코딩으로-r-스크립트-파이프라인-만들기">Part3. 바이브코딩으로 R 스크립트 파이프라인 만들기</h2>
-<ul>
-<li><strong>프롬프트 작성법</strong>: 역할 + 맥락(<code>colnames</code>, <code>str</code>) + 구체적 요청</li>
-<li><strong>실전 워크플로우</strong>: RStudio 콘솔에서 실행 → 에러 복붙 → 트러블슈팅 → 동작 확인 후 <code>.R</code> 파일로 저장</li>
-<li><strong>AI가 틀리기 쉬운 통계적 함정</strong>: reference level, 분석 단위, 다중비교 보정 등</li>
-</ul>
+<section id="r-project-만들어보기" class="level3">
+<h3 class="anchored" data-anchor-id="r-project-만들어보기">R Project 만들어보기</h3>
+<p>RStudio에서:</p>
+<pre><code>File → New Project → New Directory → New Project
+→ 프로젝트 이름 입력 (예: "SBRT_survival")
+→ Create Project</code></pre>
+<p><img src="images/R project.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3965964054.png" class="img-fluid" width="696"></p>
+<p>그 다음 콘솔에서 폴더 생성:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 폴더 구조 한 번에 만들기</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"scripts"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"rawdata"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"analysis"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"results"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
