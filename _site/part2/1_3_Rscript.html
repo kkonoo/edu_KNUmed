@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-05-18">
 
-<title>함수 만들기</title>
+<title>3) R Script 작성 기본</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -161,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/0_1_programming.html">1. 프로그래밍 기본기</a></li><li class="breadcrumb-item"><a href="../part1/0_2_function.html">함수 만들기</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_3_Rscript.html">3) R Script 작성 기본</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -190,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part1/0_2_function.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part1/0_2_function.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">함수 만들기</span></a>
   </div>
 </li>
@@ -219,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part2/1_3_Rscript.html" class="sidebar-item-text sidebar-link">
+  <a href="../part2/1_3_Rscript.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3) R Script 작성 기본</span></a>
   </div>
 </li>
@@ -293,44 +291,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-함수" id="toc-why-함수" class="nav-link active" data-scroll-target="#why-함수">Why 함수?</a></li>
-  <li><a href="#함수-기본-구조" id="toc-함수-기본-구조" class="nav-link" data-scroll-target="#함수-기본-구조">1. 함수 기본 구조</a></li>
-  <li><a href="#여러-값을-반환하기" id="toc-여러-값을-반환하기" class="nav-link" data-scroll-target="#여러-값을-반환하기">2. 여러 값을 반환하기</a></li>
-  <li><a href="#함수-for-조합" id="toc-함수-for-조합" class="nav-link" data-scroll-target="#함수-for-조합">3. 함수 + <code>for</code> 조합</a></li>
-  <li><a href="#claude가-만드는-코드-구조-함수-main" id="toc-claude가-만드는-코드-구조-함수-main" class="nav-link" data-scroll-target="#claude가-만드는-코드-구조-함수-main">4. Claude가 만드는 코드 구조: 함수 + main</a>
-  <ul class="collapse">
-  <li><a href="#이-구조의-장점" id="toc-이-구조의-장점" class="nav-link" data-scroll-target="#이-구조의-장점">이 구조의 장점</a></li>
-  </ul></li>
-  <li><a href="#정리" id="toc-정리" class="nav-link" data-scroll-target="#정리">정리</a></li>
+  <li><a href="#r-script-구조-템플릿" id="toc-r-script-구조-템플릿" class="nav-link active" data-scroll-target="#r-script-구조-템플릿">R script 구조 템플릿</a></li>
+  <li><a href="#핵심-습관" id="toc-핵심-습관" class="nav-link" data-scroll-target="#핵심-습관">핵심 습관</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/0_1_programming.html">1. 프로그래밍 기본기</a></li><li class="breadcrumb-item"><a href="../part1/0_2_function.html">함수 만들기</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_3_Rscript.html">3) R Script 작성 기본</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">함수 만들기</h1>
+<h1 class="title">3) R Script 작성 기본</h1>
 </div>
 
 
 
 <div class="quarto-title-meta column-body">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Eunji Ha </p>
-          </div>
-  </div>
     
+  
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date-modified">May 15, 2026</p>
     </div>
   </div>
-  
     
   </div>
   
@@ -339,207 +324,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="why-함수" class="level2">
-<h2 class="anchored" data-anchor-id="why-함수">Why 함수?</h2>
-<p>같은 계산을 값만 바꿔서 반복해야 할 때, 코드를 복붙하면 실수가 생깁니다.<br>
-함수로 만들면 <strong>한 번 작성, 여러 번 재사용</strong>할 수 있습니다.</p>
-</section>
-<section id="함수-기본-구조" class="level2">
-<h2 class="anchored" data-anchor-id="함수-기본-구조">1. 함수 기본 구조</h2>
+<section id="r-script-구조-템플릿" class="level3">
+<h3 class="anchored" data-anchor-id="r-script-구조-템플릿">R script 구조 템플릿</h3>
+<p>모든 분석 스크립트의 기본 구조: 1) 파라미터 설정, 2) 패키지 로딩, 3) 데이터 읽기, 4) 분석, 5) 저장</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>함수이름 <span class="ot">&lt;-</span> <span class="cf">function</span>(인자1, 인자2 <span class="ot">=</span> 기본값) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  결과 <span class="ot">&lt;-</span> 인자1 <span class="sc">+</span> 인자2</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(결과)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>예제: 제곱 함수</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 프로젝트: SBRT 간암 생존분석</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 스크립트: 01_preprocessing.R</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 작성자: 하은지</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 최종수정: 2026-05-13</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 파라미터: 여기만 바꾸세요 =====</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>DATA_FILE <span class="ot">&lt;-</span> <span class="st">"rawdata/clinical_data.xlsx"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>TIME_VAR  <span class="ot">&lt;-</span> <span class="st">"OS"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>EVENT_VAR <span class="ot">&lt;-</span> <span class="st">"Death"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>GROUP_VAR <span class="ot">&lt;-</span> <span class="st">"Multiplicity"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>AGE_CUT   <span class="ot">&lt;-</span> <span class="dv">65</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>OUTPUT <span class="ot">&lt;-</span> <span class="st">'analysis/1_cleaned_data.rds'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 패키지 로딩 -----</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 데이터 읽기 -----</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9</code></pre>
+<pre><code> [1] "Key_pt"          "Key_lesion"      "IN_sur"          "IN_lesion"      
+ [5] "Sex"             "Age_Tx"          "OMD_Type"        "OMD_class"      
+ [9] "Tx_site"         "Primary"         "Bx_primary"      "Bx_primary_diff"
+[13] "Multiplicity"    "OMD_no"          "size_mm"         "DD"             
+[17] "fr"              "TD"              "GTV_cc"          "ITV_cc"         
+[21] "PTV_cc"          "Death"           "OS"              "LF"             
+[25] "LFFS"            "CTxAfterRT"      "CTxBeforeRT"     "bCTx_Line"      
+[29] "PTVmean_BED10"   "PTV_D2_BED10"    "PTV_D5_BED10"    "PTV_D95_BED10"  
+[33] "PTV_D98_BED10"  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raw <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Key_lesion, Age_Tx) <span class="sc">%&gt;%</span> head</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 49</code></pre>
+<pre><code># A tibble: 6 × 3
+  Key_pt Key_lesion Age_Tx
+   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+1      2 liver 2-1      76
+2      6 lung 6-1       76
+3      6 lung 6-2       76
+4      7 liver 7-1      55
+5      9 lung 9-1       68
+6      9 lung 9-2       68</code></pre>
 </div>
-</div>
-<p><strong>예제: 기본값이 있는 함수</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">n =</span> <span class="dv">2</span>) {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">^</span>n)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">3</span>)       <span class="co"># 3^2 = 9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 전처리 -----</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> raw <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.data[[TIME_VAR]])) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">age_group =</span> <span class="fu">ifelse</span>(Age_Tx <span class="sc">&gt;=</span> AGE_CUT, <span class="fu">paste0</span>(<span class="st">"≥"</span>, AGE_CUT), <span class="fu">paste0</span>(<span class="st">"&lt;"</span>, AGE_CUT)),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">event =</span> <span class="fu">as.numeric</span>(.data[[EVENT_VAR]] <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Key_pt, Key_lesion, Age_Tx, age_group, event) <span class="sc">%&gt;%</span> head</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9</code></pre>
+<pre><code># A tibble: 6 × 5
+  Key_pt Key_lesion Age_Tx age_group event
+   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+1      2 liver 2-1      76 ≥65           1
+2      6 lung 6-1       76 ≥65           1
+3      6 lung 6-2       76 ≥65           1
+4      7 liver 7-1      55 &lt;65           1
+5      9 lung 9-1       68 ≥65           1
+6      9 lung 9-2       68 ≥65           1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">3</span>, <span class="dv">3</span>)    <span class="co"># 3^3 = 27</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 27</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 결과 저장 -----</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df, OUTPUT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</section>
-<section id="여러-값을-반환하기" class="level2">
-<h2 class="anchored" data-anchor-id="여러-값을-반환하기">2. 여러 값을 반환하기</h2>
-<p>R 함수는 <code>return()</code>으로 하나만 반환합니다. 여러 값이 필요하면 <strong>리스트</strong>로 묶습니다.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>summarize_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd   =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n    =</span> <span class="fu">length</span>(x)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">summarize_vec</span>(vals)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 30</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>sd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.81139</code></pre>
-</div>
-</div>
-</section>
-<section id="함수-for-조합" class="level2">
-<h2 class="anchored" data-anchor-id="함수-for-조합">3. 함수 + <code>for</code> 조합</h2>
-<p>함수를 만들어두면 <code>for</code>로 반복 호출할 수 있습니다.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>greet <span class="ot">&lt;-</span> <span class="cf">function</span>(name) {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  msg <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"안녕하세요, "</span>, name, <span class="st">" 교수님!"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(msg)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"김"</span>, <span class="st">"이"</span>, <span class="st">"박"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> names) {</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">greet</span>(n))</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "안녕하세요, 김 교수님!"
-[1] "안녕하세요, 이 교수님!"
-[1] "안녕하세요, 박 교수님!"</code></pre>
-</div>
-</div>
-<p><strong>실전 느낌의 예제: 여러 숫자 벡터의 요약 통계</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">group_A =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">135</span>, <span class="dv">128</span>, <span class="dv">142</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">group_B =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">105</span>, <span class="dv">118</span>, <span class="dv">122</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group_C =</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">145</span>, <span class="dv">138</span>, <span class="dv">150</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> <span class="fu">names</span>(data_list)) {</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">summarize_vec</span>(data_list[[name]])</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(name, <span class="st">": mean ="</span>, res<span class="sc">$</span>mean, <span class="st">", sd ="</span>, <span class="fu">round</span>(res<span class="sc">$</span>sd, <span class="dv">1</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>group_A : mean = 131.25 , sd = 9.4 
-group_B : mean = 113.75 , sd = 7.7 
-group_C : mean = 140.75 , sd = 8.7 </code></pre>
-</div>
-</div>
-</section>
-<section id="claude가-만드는-코드-구조-함수-main" class="level2">
-<h2 class="anchored" data-anchor-id="claude가-만드는-코드-구조-함수-main">4. Claude가 만드는 코드 구조: 함수 + main</h2>
-<p>Claude에게 분석을 요청하면 대부분 이런 구조로 코드를 줍니다:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 함수 정의</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>load_data <span class="ot">&lt;-</span> <span class="cf">function</span>(filepath) {</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 데이터 읽기 &amp; 전처리</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>run_analysis <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 분석 수행</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>save_results <span class="ot">&lt;-</span> <span class="cf">function</span>(result, outdir) {</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 결과 저장</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Main: 함수 호출</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================================</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>main <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  df     <span class="ot">&lt;-</span> <span class="fu">load_data</span>(<span class="st">"rawdata/data.xlsx"</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">run_analysis</span>(df)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_results</span>(result, <span class="st">"results/"</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Done!</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="이-구조의-장점" class="level3">
-<h3 class="anchored" data-anchor-id="이-구조의-장점">이 구조의 장점</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>장점</th>
-<th>설명</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>가독성</strong></td>
-<td><code>main()</code>만 읽으면 전체 흐름이 보임</td>
-</tr>
-<tr class="even">
-<td><strong>디버깅</strong></td>
-<td>함수 단위로 테스트 가능 (<code>load_data()</code>만 따로 실행)</td>
-</tr>
-<tr class="odd">
-<td><strong>재사용</strong></td>
-<td>함수를 다른 프로젝트에 복사해서 바로 사용</td>
-</tr>
-<tr class="even">
-<td><strong>수정 용이</strong></td>
-<td>전처리 바꾸고 싶으면 <code>load_data()</code>만 수정</td>
-</tr>
-</tbody>
-</table>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>지금은 구조만 눈에 익혀두세요
+<span class="screen-reader-only">Tip</span>왜 파라미터를 상단에 모아두는가?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>실제로 이 구조가 어떻게 쓰이는지는 <a href="../part2/2_1_table1.html">Part 2</a>에서 Table 1, Figure를 만들면서 직접 보게 됩니다.<br>
-<a href="../part3/3_1_vibecoding.html">Part 3</a>에서는 Claude가 이 구조로 만든 코드를 읽고 디버깅하는 법을 연습합니다.</p>
+<ul>
+<li>다른 데이터셋에 적용할 때 <strong>상단 5줄만 수정</strong>하면 됨</li>
+<li>스크립트 본문을 뒤질 필요 없음</li>
+<li>공동연구자에게 “위에 파일명이랑 변수명만 바꾸세요”라고 안내 가능</li>
+</ul>
 </div>
 </div>
-</section>
-</section>
-<section id="정리" class="level2">
-<h2 class="anchored" data-anchor-id="정리">정리</h2>
-<pre><code>복붙 반복          →  함수로 묶기
-긴 스크립트 통째로  →  함수 정의 + main()
-에러 어디인지 모름  →  함수 단위 디버깅</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>다음: Part 1
+<span class="screen-reader-only">Note</span>고급: 커맨드라인에서 실행하기 (<code>optparse</code>)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>프로그래밍 기본기를 익혔으니, <a href="../part1/1_1_env.html">Part 1</a>에서 실제 R project 환경을 구축합니다.</p>
+<p>파라미터를 스크립트 밖에서 넘길 수도 있습니다. 익숙해지면 자동화에 유용합니다.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># terminal에서: Rscript scripts/survival.R --data rawdata/my_data.xlsx --time OS_months</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(optparse)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>option_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_option</span>(<span class="st">"--data"</span>,  <span class="at">type =</span> <span class="st">"character"</span>, <span class="at">help =</span> <span class="st">"데이터 파일 경로"</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_option</span>(<span class="st">"--time"</span>,  <span class="at">type =</span> <span class="st">"character"</span>, <span class="at">help =</span> <span class="st">"시간 변수명"</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_option</span>(<span class="st">"--event"</span>, <span class="at">type =</span> <span class="st">"character"</span>, <span class="at">help =</span> <span class="st">"이벤트 변수명"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">parse_args</span>(<span class="fu">OptionParser</span>(<span class="at">option_list =</span> option_list))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</div>
+</div>
+</section>
+<section id="핵심-습관" class="level3">
+<h3 class="anchored" data-anchor-id="핵심-습관">핵심 습관</h3>
+<p><strong>1. 주석은 “왜” or “정보”을 적기</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나쁜 주석</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">18</span>)  <span class="co"># 18세 이상 필터 (코드 보면 당연한 거)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 좋은 주석</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Age_Tx <span class="sc">&gt;=</span> <span class="dv">18</span>)  <span class="co"># IRB 승인 기준: 성인 환자만 포함</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>2. 하드코딩 금지</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나쁜 예</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 좋은 예 (R Project + 상단 파라미터)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(DATA_FILE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>3. 중간 결과 저장</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>OUTPUT <span class="ot">&lt;-</span> <span class="st">'analysis/1_cleaned_data.rds'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 전처리가 오래 걸리면 .rds로 저장해두기</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(df_cleaned, OUTPUT)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 다음 스크립트에서 바로 불러오기</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(OUTPUT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

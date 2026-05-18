@@ -9,7 +9,7 @@
 <meta name="author" content="Eunji Ha">
 <meta name="dcterms.date" content="2026-05-18">
 
-<title>프로그래밍 기본 문법</title>
+<title>1) 프로그래밍 기본 문법</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -135,11 +135,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../part1/3_1_vibecoding.qmd"> 
+    <a class="nav-link active" href="../part1/0_1_programming.html" aria-current="page"> 
 <span class="menu-text">1. 프로그래밍 기본기</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../part2/1_1_env.html" aria-current="page"> 
+    <a class="nav-link" href="../part2/1_1_env.html"> 
 <span class="menu-text">2. 환경 구축하기</span></a>
   </li>  
   <li class="nav-item">
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part1/0_1_programming.html">1. 프로그래밍 기본기</a></li><li class="breadcrumb-item"><a href="../part1/0_1_programming.html">프로그래밍 기본 문법</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">프로그래밍 기본 문법</h1>
+<h1 class="title">1) 프로그래밍 기본 문법</h1>
 </div>
 
 
@@ -592,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/kkonoo\.github\.io\/edu_KNUmed\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
