@@ -1,0 +1,68 @@
+---
+title: "4) 핵심 패키지 미리보기"
+date-modified: 2026.05.13
+format: html
+editor: visual
+---
+
+Part 2\~3에서 사용할 패키지를 미리 설치합니다.
+
+```{r}
+#| eval: false
+# 한 번만 실행하면 됩니다
+install.packages(c(
+  # 데이터 불러오기/저장
+  "readxl",              # 엑셀 파일 읽기
+  "writexl",             # 엑셀 파일 쓰기
+  "readr",               # bigreadr (for large-scale data)
+  
+  # 데이터/테이블 정리
+  "dplyr",               # "tidyverse" (데이터 전처리 + 시각화)
+  
+  # 분석
+  "survival",            # Kaplan-Meier, Cox
+  "survminer",           # KM curve 시각화
+  
+  # 시각화
+  "ggplot2",             # 기본 그래프
+  "ggpubr",              # 논문용 스타일 (코딩으로 그림 최종본 완성 비추)
+  "gridExtra",           # 여러 그래프 배치
+  
+  # 요약 테이블블
+  "moonBook",            # 임상 데이터 요약
+  "gtsummary",           # Table 1 자동 생성
+  
+  # 보고서/문서화
+  "knitr",               # R Markdown 엔진
+  "flextable",           # Word 표
+  "kableExtra"           #HTML 표
+))
+```
+
+::: callout-note
+## 설치가 안 될 때
+
+```{r}
+#| eval: false
+# R 관리자 권한으로 실행 후 재시도
+# 특정 패키지가 에러나면 하나씩 설치
+install.packages("gtsummary")
+
+# 그래도 안 되면 버전 확인
+R.version.string
+# R 4.3 이상 권장
+```
+:::
+
+------------------------------------------------------------------------
+
+### Summary
+
+```         
+✅ R Script = 분석 기록 → 재현성 확보
+✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결
+✅ 폴더 구조: rawdata / scripts / analysis / results
+✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장
+```
+
+> 다음 Part 2에서는 이 환경 위에서 실제 임상 데이터를 분석하는 파이프라인을 만들어봅니다.

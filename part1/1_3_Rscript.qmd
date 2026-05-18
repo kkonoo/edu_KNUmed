@@ -1,0 +1,112 @@
+---
+title: "3) R Script 작성 기본"
+date-modified: 2026.05.15
+format: html
+editor: visual
+---
+
+### R script 구조 템플릿
+
+모든 분석 스크립트의 기본 구조: 1) 파라미터 설정, 2) 패키지 로딩, 3) 데이터 읽기, 4) 분석, 5) 저장
+
+```{r}
+# ============================================================
+# 프로젝트: SBRT 간암 생존분석
+# 스크립트: 01_preprocessing.R
+# 작성자: 하은지
+# 최종수정: 2026-05-13
+# ============================================================
+
+# ===== 파라미터: 여기만 바꾸세요 =====
+DATA_FILE <- "rawdata/clinical_data.xlsx"
+TIME_VAR  <- "OS"
+EVENT_VAR <- "Death"
+GROUP_VAR <- "Multiplicity"
+AGE_CUT   <- 65
+OUTPUT <- 'analysis/1_cleaned_data.rds'
+# =====================================
+
+# 1. 패키지 로딩 -----
+library(readxl)
+library(tidyverse)
+
+
+# 2. 데이터 읽기 -----
+raw <- read_excel(DATA_FILE)
+names(raw)
+raw %>% select(Key_pt, Key_lesion, Age_Tx) %>% head
+
+# 3. 전처리 -----
+df <- raw %>%
+  filter(!is.na(.data[[TIME_VAR]])) %>%
+  mutate( age_group = ifelse(Age_Tx >= AGE_CUT, paste0("≥", AGE_CUT), paste0("<", AGE_CUT)),
+          event = as.numeric(.data[[EVENT_VAR]] == 1)
+  )
+df %>% select(Key_pt, Key_lesion, Age_Tx, age_group, event) %>% head
+
+# 4. 결과 저장 -----
+saveRDS(df, OUTPUT)
+```
+
+::: callout-tip
+## 왜 파라미터를 상단에 모아두는가?
+
+-   다른 데이터셋에 적용할 때 **상단 5줄만 수정**하면 됨
+-   스크립트 본문을 뒤질 필요 없음
+-   공동연구자에게 "위에 파일명이랑 변수명만 바꾸세요"라고 안내 가능
+:::
+
+::: callout-note
+## 고급: 커맨드라인에서 실행하기 (`optparse`)
+
+파라미터를 스크립트 밖에서 넘길 수도 있습니다. 익숙해지면 자동화에 유용합니다.
+
+```{r}
+#| eval: false
+# terminal에서: Rscript scripts/survival.R --data rawdata/my_data.xlsx --time OS_months
+library(optparse)
+option_list <- list(
+  make_option("--data",  type = "character", help = "데이터 파일 경로"),
+  make_option("--time",  type = "character", help = "시간 변수명"),
+  make_option("--event", type = "character", help = "이벤트 변수명")
+)
+args <- parse_args(OptionParser(option_list = option_list))
+```
+:::
+
+### 핵심 습관
+
+**1. 주석은 "왜" or "정보"을 적기**
+
+```{r}
+#| eval: false
+# 나쁜 주석
+filter(Age_Tx >= 18)  # 18세 이상 필터 (코드 보면 당연한 거)
+
+# 좋은 주석
+filter(Age_Tx >= 18)  # IRB 승인 기준: 성인 환자만 포함
+```
+
+**2. 하드코딩 금지**
+
+```{r}
+#| eval: false
+# 나쁜 예
+df <- read_excel("/Users/eunji/Desktop/논문/데이터/final_data_v3_진짜최종.xlsx")
+
+# 좋은 예 (R Project + 상단 파라미터)
+df <- read_excel(DATA_FILE)
+```
+
+**3. 중간 결과 저장**
+
+```{r}
+#| eval: false
+OUTPUT <- 'analysis/1_cleaned_data.rds'
+
+# 전처리가 오래 걸리면 .rds로 저장해두기
+saveRDS(df_cleaned, OUTPUT)
+
+# 다음 스크립트에서 바로 불러오기
+df <- readRDS(OUTPUT)
+```

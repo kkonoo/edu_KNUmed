@@ -1,0 +1,197 @@
+---
+title: "2) 실습 과제 + 마무리"
+date-modified: 2026.05.15
+format: html
+editor: visual
+---
+
+## 실습 과제
+
+::: callout-important
+## 목표
+
+AI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 `.R` 파일로 저장합니다.
+:::
+
+### 과제 1: LFFS 분석 (병변 단위)
+
+**조건**:
+
+-   데이터: `analysis/1_df_lesion.rds` (병변 단위)
+-   종속변수: `LFFS` (시간), `LF` (이벤트)
+-   그룹 변수: PTVmean_BED10 ≥100 vs \<100
+-   출력: KM curve + log-rank p-value + risk table
+-   저장: `results/KM_LFFS.tiff` (300 dpi)
+
+**프롬프트 힌트**:
+
+```         
+analysis/1_df_lesion.rds를 readRDS로 로드해서 병변 단위 생존분석을 해줘.
+
+변수 설명:
+- LFFS: local failure-free survival (months)
+- LF: local failure event (0/1)
+- PTVmean_BED10: PTV mean BED10 (Gy)
+
+PTVmean_BED10를 100 기준으로 ≥100 vs <100 두 군으로 나누고,
+KM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.
+results/ 폴더에 tiff 300dpi로 저장.
+```
+
+------------------------------------------------------------------------
+
+### 과제 2: Subgroup Forest Plot
+
+**조건**:
+
+-   데이터: `analysis/2_df_pt_processed.rds` (환자 단위)
+-   각 subgroup별로 OS에 대한 univariable Cox regression:
+    -   Age (\<65 vs ≥65)
+    -   Sex (M vs F)
+    -   Multiplicity (single vs multiple)
+    -   Tumor size (\<3cm vs ≥3cm)
+    -   BED10 (\<100 vs ≥100)
+-   각 HR + 95% CI를 forest plot으로 시각화
+
+**프롬프트 힌트**:
+
+```         
+analysis/2_df_pt_processed.rds를 readRDS로 로드해서
+subgroup별 univariable Cox regression을 수행해줘.
+
+종속변수는 OS/Death.
+
+Subgroup 정의:
+- Age_Tx: 65 기준으로 이분
+- Sex: M vs F
+- Multiplicity: single vs multiple
+- size_mm: 30mm 기준으로 이분
+- PTVmean_BED10: 100 기준으로 이분
+
+각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.
+broom::tidy()로 결과를 추출하고 ggplot으로 시각화.
+results/ 폴더에 저장.
+```
+
+------------------------------------------------------------------------
+
+## 체크리스트
+
+AI에게 코드를 받은 후 반드시 확인할 것:
+
+```         
+✅ 분석 단위가 맞는가? (환자 vs 병변)
+✅ 이벤트 변수 방향이 맞는가? (Death=1이 사망)
+✅ Factor의 reference level이 의도한 대로인가?
+✅ p-value 해석이 맞는가? (다중비교 고려)
+✅ 그래프 축 라벨과 범례가 정확한가?
+✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?
+✅ 스크립트 상단에 Input/Output을 명시했는가?
+```
+
+------------------------------------------------------------------------
+
+## Ready-to-Use 템플릿
+
+강의 후 바로 활용할 수 있는 템플릿을 제공합니다.
+
+### 생존분석 템플릿
+
+```{r}
+#| eval: false
+
+# ===== survival_analysis.R =====
+# Input:  analysis/your_data.rds
+# Output: results/KM_plot.tiff, results/cox_result.csv
+
+# ===== 디렉토리 & 파라미터: 여기만 바꾸세요 =====
+indir      <- "analysis/"
+resdir     <- "results/"
+DATA_FILE  <- paste0(indir, "your_data.rds")
+TIME_VAR   <- "OS"
+EVENT_VAR  <- "Death"
+GROUP_VAR  <- "treatment_group"
+COVARIATES <- c("age", "sex", "stage", "tumor_size")
+# =================================================
+
+library(tidyverse)
+library(survival)
+library(survminer)
+library(broom)
+
+# 데이터 로드
+df <- readRDS(DATA_FILE)
+
+# KM curve
+fit <- survfit(
+  as.formula(paste0("Surv(", TIME_VAR, ",", EVENT_VAR, ") ~ ", GROUP_VAR)),
+  data = df
+)
+
+p <- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,
+                ggtheme = theme_classic())
+
+# 저장
+tiff(paste0(resdir, "KM_plot.tiff"), width = 7, height = 5, units = "in", res = 300)
+print(p)
+dev.off()
+
+# Cox regression
+cox_formula <- as.formula(
+  paste0("Surv(", TIME_VAR, ",", EVENT_VAR, ") ~ ",
+         paste(COVARIATES, collapse = " + "))
+)
+cox_model <- coxph(cox_formula, data = df)
+cox_tidy <- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)
+
+# Cox 결과 저장
+write.csv(cox_tidy, paste0(resdir, "cox_result.csv"), row.names = FALSE)
+
+cat("✅ Done!\n")
+```
+
+::: callout-note
+## 사용법
+
+1.  파라미터 블록만 본인 데이터에 맞게 수정
+2.  RStudio 콘솔에서 실행하며 중간 결과 확인
+3.  동작 확인되면 `Rscript survival_analysis.R`로 실행
+:::
+
+------------------------------------------------------------------------
+
+## 마무리
+
+### 오늘 배운 것
+
+| Part | 핵심 |
+|------------------------------------|------------------------------------|
+| 1\. 환경 구축 | R Project + 폴더 구조(`rawdata/`, `analysis/`, `results/`) + `paste0()` 경로 관리 |
+| 2\. 분석 파이프라인 | Table 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot |
+| 3\. 바이브코딩 | 프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → `.R` 파일로 저장 |
+
+### 추천 리소스
+
+R graph gallery
+
+:   <https://r-graph-gallery.com/>
+
+R statistics
+
+:   <https://r-statistics.co/>
+
+R for Data Science (2e)
+
+:   <https://r4ds.hadley.nz/>
+
+Survival Analysis in R
+
+:   <https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html>
+
+gtsummary 공식 문서
+
+:   <https://www.danieldsjoberg.com/gtsummary/>
+
+### Q&A
+
+궁금한 점이 있으면 질문해주세요! ([eha\@knu.ac.kr](mailto:eha@knu.ac.kr){.email})

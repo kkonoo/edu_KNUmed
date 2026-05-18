@@ -1,0 +1,212 @@
+---
+title: "2) 데이터 전처리"
+date-modified: 2026.05.15
+format: html
+editor: visual
+---
+
+## 왜 전처리를 스크립트로 만드나?
+
+> 전체 분석의 80%: 전처리..😂
+
+앞에서 Table 1을 만들면서 데이터를 읽고, 필터링하고, 변수를 변환하는 과정을 거쳤습니다. 이 과정을 **재사용 가능한 스크립트**로 정리하면:
+
+-   데이터가 업데이트되면 스크립트만 다시 실행
+-   다음 분석(생존분석, plot 등)에서 전처리된 `.rds`를 바로 로드
+-   리뷰어 코멘트 대응 시 한 줄만 수정
+
+------------------------------------------------------------------------
+
+## ① 파라미터 설정 & 데이터 로드
+
+```{r}
+library(tidyverse)
+
+# ===== 디렉토리 설정 =====
+indir  <- "analysis/"
+outdir <- "analysis/"
+resdir <- "results/"
+
+# ===== 파라미터 =====
+AGE_CUT <- 65
+
+# ===== 데이터 로드 (2_1에서 저장한 rds) =====
+df_pt <- readRDS(paste0(indir, "1_df_pt.rds"))
+```
+
+------------------------------------------------------------------------
+
+## ② 핵심 dplyr 함수 5개
+
+| 함수                       | 역할         |
+|----------------------------|--------------|
+| `filter()`                 | 행 필터링    |
+| `select()`                 | 열 선택      |
+| `mutate()`                 | 새 변수 생성 |
+| `group_by() + summarise()` | 그룹별 요약  |
+| `arrange()`                | 정렬         |
+
+### filter: 행 필터링
+
+```{r}
+# 특정 조건 필터
+df_pt %>% filter(Age_Tx >= 65, Sex == "M")
+
+# 여러 조건 조합
+df_pt %>% filter(Primary == "Colon" | Primary == "Rectum")
+df_pt %>% filter(Primary %in% c("Colon", "Rectum"))  # 같은 결과, 더 깔끔
+```
+
+### select: 열 선택
+
+```{r}
+# 필요한 열만
+df_pt %>% select(Key_pt, Sex, Age_Tx, Primary, Death, OS)
+
+# 특정 패턴 열 선택
+df_pt %>% select(starts_with("PTV"))
+df_pt %>% select(Key_pt, Sex:Age_Tx, Death:LFFS)
+```
+
+### mutate: 새 변수 생성
+
+```{r}
+df_pt <- df_pt %>%
+  mutate(
+    # 연령군
+    Age_group = ifelse(Age_Tx >= AGE_CUT, "≥65", "<65"),
+    
+    # factor 변환
+    Sex = factor(Sex, levels = c("M", "F"), labels = c("Male", "Female")),
+    Death = as.numeric(Death),  # Surv()에서 쓰려면 numeric 유지
+    Death_f = factor(Death, levels = c(0, 1), labels = c("Alive", "Dead")),  # Table 1용
+    
+    # 연속형 변수 단위 변환
+    size_cm = size_mm / 10,
+    
+    # BED10 카테고리
+    BED_group = case_when(
+      PTVmean_BED10 >= 100 ~ "≥100 Gy",
+      PTVmean_BED10 >= 80  ~ "80-99 Gy",
+      TRUE                  ~ "<80 Gy"
+    )
+  )
+```
+
+::: callout-tip
+## `ifelse()` vs `case_when()`
+
+-   조건이 2개 → `ifelse()`
+-   조건이 3개 이상 → `case_when()`
+:::
+
+### group_by + summarise: 그룹별 요약
+
+```{r}
+# Primary별 환자 수, 중앙 나이
+df_pt %>%
+  group_by(Primary) %>%
+  summarise(
+    n = n(),
+    median_age = median(Age_Tx),
+    death_rate = mean(Death == "Dead")
+  ) %>%
+  arrange(desc(n))
+```
+
+### arrange: 정렬
+
+```{r}
+# 나이 오름차순
+df_pt %>% arrange(Age_Tx)
+
+# 내림차순
+df_pt %>% arrange(desc(Age_Tx))
+
+# 여러 기준: 성별 먼저, 그 안에서 나이순
+df_pt %>% arrange(Sex, Age_Tx)
+```
+
+------------------------------------------------------------------------
+
+## ③ 저장
+
+```{r}
+# 추가 전처리된 데이터를 2_ 접두사로 저장
+saveRDS(df_pt, paste0(outdir, "2_df_pt_processed.rds"))
+
+# 최종 결과물: csv (공유/기록용) — 필요시
+# write.csv(df_pt, paste0(resdir, "cleaned_patient_data.csv"), row.names = FALSE)
+```
+
+::: callout-note
+## 왜 `.rds`로 저장하나?
+
+-   factor level, 변수 타입이 그대로 보존됨
+-   csv로 저장하면 factor가 다시 문자열로 돌아감
+-   다음 스크립트에서 `readRDS()`로 바로 불러오면 전처리 반복 불필요
+:::
+
+------------------------------------------------------------------------
+
+## ④ Rscript 완성본
+
+위 과정을 `.R` 파일 하나로 정리하면, 터미널에서 바로 실행할 수 있습니다.
+
+```{r}
+#| eval: false
+# ===== 02_preprocessing.R =====
+
+# ----- 디렉토리 & 파라미터 -----
+indir  <- "analysis/"
+outdir <- "analysis/"
+AGE_CUT <- 65
+
+library(tidyverse)
+
+# 1. 데이터 로드 (2_1에서 저장한 rds)
+df_pt <- readRDS(paste0(indir, "1_df_pt.rds"))
+
+# 2. 전처리
+df_pt <- df_pt %>%
+  mutate(
+    Age_group = ifelse(Age_Tx >= AGE_CUT, "≥65", "<65"),
+    Sex = factor(Sex, levels = c("M", "F"), labels = c("Male", "Female")),
+    Death = as.numeric(Death),
+    Death_f = factor(Death, levels = c(0, 1), labels = c("Alive", "Dead")),
+    Multiplicity = factor(Multiplicity),
+    size_cm = size_mm / 10,
+    BED_group = case_when(
+      PTVmean_BED10 >= 100 ~ "≥100 Gy",
+      PTVmean_BED10 >= 80  ~ "80-99 Gy",
+      TRUE                  ~ "<80 Gy"
+    )
+  )
+
+# 3. 저장
+saveRDS(df_pt, paste0(outdir, "2_df_pt_processed.rds"))
+
+cat("✅ Preprocessing done:", nrow(df_pt), "patients\n")
+```
+
+``` bash
+# 터미널에서 실행
+Rscript 02_preprocessing.R
+```
+
+::: callout-tip
+## 파이프라인 흐름
+
+```         
+rawdata/clinical_data.xlsx
+  → 01_table1.R
+    → analysis/1_df_pt.rds
+    → results/Table1.docx
+  → 02_preprocessing.R  (1_df_pt.rds 로드)
+    → analysis/2_df_pt_processed.rds
+      → 03_km_plot.R      → results/KM_plot.png
+      → 04_forest_plot.R  → results/Forest_plot.png
+```
+
+각 스크립트는 `readRDS(paste0(indir, ...))`로 이전 단계 결과를 로드합니다.
+:::

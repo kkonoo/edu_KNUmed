@@ -1,0 +1,65 @@
+project:
+  type: website
+  execute-dir: project
+ 
+website:
+  navbar:
+    logo: images/logo.jpg
+    left:
+      - href: index.qmd
+        text: Home
+      - href: part1/1_1_env.qmd
+        text: 1. 환경 구축하기
+      - href: part2/2_1_table1.qmd
+        text: 2. R script 활용하기
+      - href: part3/3_1_vibecoding.qmd
+        text: 3. 결과 및 마무리
+ 
+  sidebar:
+    style: docked
+    contents:
+      - section: "1. 환경 구축하기"
+        contents: "part1/*.qmd"
+      - section: "2. R script 활용하기"
+        contents: "part2/*.qmd"
+      - section: "3. 결과 및 마무리"
+        contents: "part3/*.qmd"
+ 
+  page-footer:
+    left: "Copyright 2026, Eunji"
+ 
+format:
+  html: 
+    theme: cosmo
+    css: custom.css
+    toc: true
+    toc-location: right
+    page-layout: full
+ 
+execute:
+  freeze: auto
+  warning: false
+  message: false
+  
+    # right:
+    #   - text: "EN"
+    #     href: en/index.qmd
+    #   - text: "KO"
+    #     href: ko/index.qmd
+
+  # sidebar:
+    #   contents: auto
+    # style: docked
+  #     background: dark
+    # pdf:
+    # mainfont: "KoPubWorldDotum"
+    # mainfontoptions:
+    #   - Path=C:/Windows/Fonts/
+    #   - Extension=.ttf
+    #   - UprightFont=KoPubWorld Dotum Medium
+    #   - BoldFont=KoPubWorld Dotum Bold
+    # pdf-engine: xelatex
+    # include-in-header:
+    #   text: |
+    #     \usepackage{emoji}
+    #     \setemojifont{Segoe UI Emoji}
