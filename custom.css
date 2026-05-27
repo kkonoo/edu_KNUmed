@@ -9,8 +9,18 @@ body {
 }
 
 /* 소제목 색상 */
-h2 { color: #5B4D80; font-size: 1.6em; }
-h3 { color: #7A6A99; font-size: 1.4em; }
+h2 {
+  color: #5B4D80; font-size: 1.6em;
+  background-color: #f3f0f7;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+h3 {
+  color: #7A6A99; font-size: 1.4em;
+  background-color: #fbfaff;  /* h2보다 훨씬 연하게 */
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+}
 h4 { color: #9A8DB5; font-size: 1.1em; }
 
 /* 코드 공통 */
@@ -36,7 +46,23 @@ pre:not(.sourceCode) code {
 
 /* R 코드 블록 */
 pre.sourceCode, pre.sourceCode code {
-  background: #f3f0f7;
+  background: #f5f5f5; /* #f3f0f7: 연보라 */
+  margin-bottom: 0;
+}
+.cell-output,
+.cell-output-stderr {
+  margin-top: 0;
+  padding-top: 0;
+}
+.cell-output-stdout {
+  margin: 0;
+  padding: 0;
+}
+.cell-output pre {
+  background: none;
+  padding-top: 0;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -70,3 +96,9 @@ dd,
   color: #555;
 }
 
+
+/* plot정렬 */
+.cell-output-display {
+  display: flex;
+  justify-content: center;
+}
