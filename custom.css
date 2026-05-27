@@ -21,7 +21,10 @@ h3 {
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
 }
-h4 { color: #9A8DB5; font-size: 1.1em; }
+h4 { 
+  color: #9A8DB5; font-size: 1.1em; 
+  padding: 0.3rem 0.6rem;
+}
 
 /* 코드 공통 */
 code, pre code {
