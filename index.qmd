@@ -31,19 +31,14 @@ R 기초 문법은 배웠지만, **프로그래밍 구조**(`for`, `if`, 함수)
     **input**: 연구 데이터 ➡️ **R script** ➡️ **output**: 논문용 표 & 그래프📊📈
 
     ✅ 휴먼 에러 최소화
-
     ✅ 연구 효율성
-
     ✅ Reproducibility
 
 -   **R project**: 폴더 구조 체계화
 
     -   **`scripts/`**: 전처리 및 분석용 스크립트 관리
-
     -   **`rawdata/`**: 원본 데이터 (+다른 곳에 백업)
-
     -   **`analysis/`**: 중간 산물 저장 (`1_df_pt.rds`, `2_table1.rds`, ...)
-
     -   **`results/`**: 최종 Table 및 고해상도 Figure 정리
 
         ![](images/clipboard-3256079201.png){width="337"}
