@@ -197,7 +197,7 @@ cat("✅ Done!\n")
 
 ## 다음 한 걸음: 나만의 LLM-wiki
 
-![](images/LLM-wiki.png)
+![](/images/LLM-wiki.png)
 
 ::: callout-important
 ### 오늘 시킨 AI는 교수님을 모릅니다
