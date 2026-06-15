@@ -31,6 +31,12 @@ jobs:
         with:
           packages: |
             tidyverse
+            survival
+            survminer
+            broom
+            gtsummary
+            flextable
+            readxl
             BiocManager
 
       - name: Setup Quarto
