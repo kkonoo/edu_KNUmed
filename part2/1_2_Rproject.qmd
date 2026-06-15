@@ -1,11 +1,12 @@
 ---
 title: "2) R project: 폴더 구조 체계화"
+subtitle: 입력 · 처리 · 출력 폴더 나누기
 date: last-modified
 format: html
 editor: visual
 ---
 
-### R project란?
+## R project란?
 
 R Project(`.Rproj`)를 쓰면:
 
@@ -15,7 +16,7 @@ R Project(`.Rproj`)를 쓰면:
 
 ### 권장 폴더 구조
 
-```         
+``` {style="background-color: #f6f6f6"}
 my_research_project/
 ├── my_research_project.Rproj
 ├── scripts/          # 분석 스크립트 (.R 파일)
@@ -37,29 +38,29 @@ my_research_project/
     └── forest_OS.tiff
 ```
 
-![](images/folder_structure.png)
+![](images/folder_structure.png){fig-align="center"}
 
-::: callout-important
-## 핵심 원칙
+::: callout-tip
+### 핵심 원칙
 
 1.  **rawdata는 절대 건드리지 않는다** — 원본은 읽기만 하고, 전처리 결과는 `analysis/`에 저장
 2.  **스크립트에 번호를 붙인다** — 실행 순서가 명확해짐
 3.  **results에는 최종본만** — 논문에 바로 들어갈 표와 그림
 :::
 
-### R Project 만들어보기
+## R Project 만들어보기
 
 RStudio에서:
 
-```         
+``` {style="background-color: #f6f6f6"}
 File → New Project → New Directory → New Project
 → 프로젝트 이름 입력 (예: "SBRT_survival")
 → Create Project
 ```
 
-![](images/R%20project.png)
+![](/images/R_project.png){fig-align="center"}
 
-![](images/clipboard-3965964054.png){width="696"}
+![](/images/wd.png){fig-align="center"}
 
 그 다음 콘솔에서 폴더 생성:
 

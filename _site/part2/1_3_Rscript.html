@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-18">
+<meta name="dcterms.date" content="2026-06-15">
 
 <title>3) R Script 작성 기본</title>
 <style>
@@ -69,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assets/img/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -207,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part2/1_1_env.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1) 왜 R Script인가</span></a>
+ <span class="menu-text">1) R Script 이해</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#r-script-구조-템플릿" id="toc-r-script-구조-템플릿" class="nav-link active" data-scroll-target="#r-script-구조-템플릿">R script 구조 템플릿</a></li>
-  <li><a href="#핵심-습관" id="toc-핵심-습관" class="nav-link" data-scroll-target="#핵심-습관">핵심 습관</a></li>
+  <li><a href="#길들이면-좋은-습관" id="toc-길들이면-좋은-습관" class="nav-link" data-scroll-target="#길들이면-좋은-습관">길들이면 좋은 습관</a></li>
   </ul>
 </nav>
     </div>
@@ -303,6 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_3_Rscript.html">3) R Script 작성 기본</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">3) R Script 작성 기본</h1>
+<p class="subtitle lead">input만 바꾸면 되는 스크립트</p>
 </div>
 
 
@@ -313,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date">June 15, 2026</p>
     </div>
   </div>
   
@@ -414,13 +416,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>고급: 커맨드라인에서 실행하기 (<code>optparse</code>)
+<span class="screen-reader-only">Tip</span>고급: 커맨드라인에서 실행하기 (<code>optparse</code>)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -438,8 +440,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="핵심-습관" class="level3">
-<h3 class="anchored" data-anchor-id="핵심-습관">핵심 습관</h3>
+<section id="길들이면-좋은-습관" class="level2">
+<h2 class="anchored" data-anchor-id="길들이면-좋은-습관">길들이면 좋은 습관</h2>
 <p><strong>1. 주석은 “왜” or “정보”을 적기</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나쁜 주석</span></span>
@@ -544,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/kkonoo\.github\.io\/edu_KNUmed\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

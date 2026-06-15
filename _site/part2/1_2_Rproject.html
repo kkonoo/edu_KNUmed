@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-18">
+<meta name="dcterms.date" content="2026-06-15">
 
 <title>2) R project: 폴더 구조 체계화</title>
 <style>
@@ -69,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assets/img/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -207,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part2/1_1_env.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1) 왜 R Script인가</span></a>
+ <span class="menu-text">1) R Script 이해</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -292,8 +293,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-project란" id="toc-r-project란" class="nav-link active" data-scroll-target="#r-project란">R project란?</a></li>
+  <li><a href="#r-project란" id="toc-r-project란" class="nav-link active" data-scroll-target="#r-project란">R project란?</a>
+  <ul class="collapse">
   <li><a href="#권장-폴더-구조" id="toc-권장-폴더-구조" class="nav-link" data-scroll-target="#권장-폴더-구조">권장 폴더 구조</a></li>
+  </ul></li>
   <li><a href="#r-project-만들어보기" id="toc-r-project-만들어보기" class="nav-link" data-scroll-target="#r-project-만들어보기">R Project 만들어보기</a></li>
   </ul>
 </nav>
@@ -304,6 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_2_Rproject.html">2) R project: 폴더 구조 체계화</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">2) R project: 폴더 구조 체계화</h1>
+<p class="subtitle lead">입력 · 처리 · 출력 폴더 나누기</p>
 </div>
 
 
@@ -314,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date">June 15, 2026</p>
     </div>
   </div>
   
@@ -326,18 +330,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="r-project란" class="level3">
-<h3 class="anchored" data-anchor-id="r-project란">R project란?</h3>
+<section id="r-project란" class="level2">
+<h2 class="anchored" data-anchor-id="r-project란">R project란?</h2>
 <p>R Project(<code>.Rproj</code>)를 쓰면:</p>
 <ul>
 <li><strong>작업 디렉토리가 자동 설정</strong></li>
 <li>프로젝트별로 독립된 환경 유지</li>
 <li>다른 컴퓨터에서 열어도 경로 문제 없음</li>
 </ul>
-</section>
 <section id="권장-폴더-구조" class="level3">
 <h3 class="anchored" data-anchor-id="권장-폴더-구조">권장 폴더 구조</h3>
-<pre><code>my_research_project/
+<pre style="background-color: #f6f6f6"><code>my_research_project/
 ├── my_research_project.Rproj
 ├── scripts/          # 분석 스크립트 (.R 파일)
 │   ├── 1_table1.R
@@ -356,14 +359,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     ├── Table1.docx
     ├── KM_OS.tiff
     └── forest_OS.tiff</code></pre>
-<p><img src="images/folder_structure.png" class="img-fluid"></p>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/folder_structure.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>핵심 원칙
+<span class="screen-reader-only">Tip</span>핵심 원칙
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -375,14 +382,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="r-project-만들어보기" class="level3">
-<h3 class="anchored" data-anchor-id="r-project-만들어보기">R Project 만들어보기</h3>
+</section>
+<section id="r-project-만들어보기" class="level2">
+<h2 class="anchored" data-anchor-id="r-project-만들어보기">R Project 만들어보기</h2>
 <p>RStudio에서:</p>
-<pre><code>File → New Project → New Directory → New Project
+<pre style="background-color: #f6f6f6"><code>File → New Project → New Directory → New Project
 → 프로젝트 이름 입력 (예: "SBRT_survival")
 → Create Project</code></pre>
-<p><img src="images/R project.png" class="img-fluid"></p>
-<p><img src="images/clipboard-3965964054.png" class="img-fluid" width="696"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/R_project.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/wd.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>그 다음 콘솔에서 폴더 생성:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 폴더 구조 한 번에 만들기</span></span>
@@ -469,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/kkonoo\.github\.io\/edu_KNUmed\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

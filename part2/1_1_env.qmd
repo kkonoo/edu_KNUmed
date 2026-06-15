@@ -1,5 +1,6 @@
 ---
-title: "1) 왜 R Script인가"
+title: "1) R Script 이해"
+subtitle: "분석 기록 + 자동화"
 date: last-modified
 format: html
 editor: visual
@@ -7,9 +8,7 @@ editor: visual
 
 ### 현재 많은 연구자의 워크플로우(?)
 
-```         
 Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...
-```
 
 ::: callout-warning
 ## 이 과정에서 생기는 문제들
@@ -21,9 +20,9 @@ Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 
 
 ### R Script 파이프라인이란
 
-> **input:** 연구 데이터 **➡️ [R script]{style="font-size: 1.3em; font-weight: bold;"} ➡️ output:** 논문용 표 & 그래프 **📊📈**
->
-> **스크립트 = 분석 기록**
+**input:** 연구 데이터 **➡️ [R script]{style="font-size: 1.3em; font-weight: bold;"} ➡️ output:** 논문용 표 & 그래프 **📊📈**
+
+**스크립트 = 분석 기록**
 
 |                  | 기존 방식 (SPSS/Excel) | R Script 파이프라인         |
 |------------------|------------------------|-----------------------------|

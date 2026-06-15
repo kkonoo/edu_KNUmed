@@ -22,7 +22,7 @@ R로 만들면: **코드 한 번 실행 → 끝**
 
 ## ① 파라미터 설정 & 패키지 로드
 
-![](images/clipboard-3935063346.png)
+![](/images/rawdata.png){fig-align="center"}
 
 ```{r}
 library(tidyverse)

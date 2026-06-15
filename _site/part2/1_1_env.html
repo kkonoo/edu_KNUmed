@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-18">
+<meta name="dcterms.date" content="2026-06-15">
 
-<title>1) 왜 R Script인가</title>
+<title>1) R Script 이해</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,6 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assets/img/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -125,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_1_env.html">1) R Script 이해</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -172,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part2/1_1_env.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">1) 왜 R Script인가</span></a>
+ <span class="menu-text">1) R Script 이해</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -265,9 +266,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_1_env.html">1) 왜 R Script인가</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part2/1_1_env.html">2. 환경 구축하기</a></li><li class="breadcrumb-item"><a href="../part2/1_1_env.html">1) R Script 이해</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1) 왜 R Script인가</h1>
+<h1 class="title">1) R Script 이해</h1>
+<p class="subtitle lead">분석 기록 + 자동화</p>
 </div>
 
 
@@ -278,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date">June 15, 2026</p>
     </div>
   </div>
   
@@ -292,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="현재-많은-연구자의-워크플로우" class="level3">
 <h3 class="anchored" data-anchor-id="현재-많은-연구자의-워크플로우">현재 많은 연구자의 워크플로우(?)</h3>
-<pre><code>Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시...</code></pre>
+<p>Excel에서 데이터 정리 → SPSS에서 분석 → 결과를 Word에 복붙 → 리뷰어 코멘트 → 처음부터 다시…</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -313,10 +315,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="r-script-파이프라인이란" class="level3">
 <h3 class="anchored" data-anchor-id="r-script-파이프라인이란">R Script 파이프라인이란</h3>
-<blockquote class="blockquote">
 <p><strong>input:</strong> 연구 데이터 <strong>➡️ <span style="font-size: 1.3em; font-weight: bold;">R script</span> ➡️ output:</strong> 논문용 표 &amp; 그래프 <strong>📊📈</strong></p>
 <p><strong>스크립트 = 분석 기록</strong></p>
-</blockquote>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -453,7 +453,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/kkonoo\.github\.io\/edu_KNUmed\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
