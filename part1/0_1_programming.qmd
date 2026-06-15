@@ -50,7 +50,7 @@ if (p_value < 0.001) {
 print(sig)
 ```
 
-::: callout-note
+::: callout-tip
 ## `ifelse()` — 벡터 전체에 조건 적용
 
 `if`는 값 1개, `ifelse()`는 벡터 전체에 작동합니다.
@@ -148,10 +148,3 @@ cat("Converged after", iter, "iterations\n")
 | `if/else` | 조건 분기          | p-value 유의성 표시, 이상치 처리 |
 | `for`     | 정해진 횟수 반복   | 여러 변수 분석, 파일 일괄 처리   |
 | `while`   | 조건 충족까지 반복 | 수렴 알고리즘, AI 생성 코드 이해 |
-
-::: callout-important
-## 다음 장에서는
-
-이 문법들을 **함수(function)**로 묶어서 재사용하는 법을 배웁니다.\
-→ 이것이 AI가 코드를 구조화하는 핵심 방식입니다.
-:::

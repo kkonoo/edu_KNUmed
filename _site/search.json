@@ -268,7 +268,7 @@
     "href": "part1/0_1_programming.html#조건문-if-else-if-else",
     "title": "1) 프로그래밍 기본 문법",
     "section": "① 조건문: if / else if / else",
-    "text": "① 조건문: if / else if / else\n조건에 따라 다른 코드를 실행합니다.\n\n# 기본 구조\nif (조건) {\n  # 조건이 TRUE일 때 실행\n} else {\n  # 조건이 FALSE일 때 실행\n}\n\n예제: p-value에 따라 유의성 판단\n\np_value &lt;- 0.03\n\nif (p_value &lt; 0.001) {\n  sig &lt;- \"***\"\n} else if (p_value &lt; 0.01) {\n  sig &lt;- \"**\"\n} else if (p_value &lt; 0.05) {\n  sig &lt;- \"*\"\n} else {\n  sig &lt;- \"ns\"\n}\n\nprint(sig)\n\n[1] \"*\"\n\n\n\n\n\n\n\n\nNoteifelse() — 벡터 전체에 조건 적용\n\n\n\nif는 값 1개, ifelse()는 벡터 전체에 작동합니다.\n\ndf$age_group &lt;- ifelse(df$age &gt;= 65, \"elderly\", \"non-elderly\")\n\ndplyr::case_when()도 같은 용도이며, 조건이 3개 이상이면 더 깔끔합니다.",
+    "text": "① 조건문: if / else if / else\n조건에 따라 다른 코드를 실행합니다.\n\n# 기본 구조\nif (조건) {\n  # 조건이 TRUE일 때 실행\n} else {\n  # 조건이 FALSE일 때 실행\n}\n\n예제: p-value에 따라 유의성 판단\n\np_value &lt;- 0.03\n\nif (p_value &lt; 0.001) {\n  sig &lt;- \"***\"\n} else if (p_value &lt; 0.01) {\n  sig &lt;- \"**\"\n} else if (p_value &lt; 0.05) {\n  sig &lt;- \"*\"\n} else {\n  sig &lt;- \"ns\"\n}\n\nprint(sig)\n\n[1] \"*\"\n\n\n\n\n\n\n\n\nTipifelse() — 벡터 전체에 조건 적용\n\n\n\nif는 값 1개, ifelse()는 벡터 전체에 작동합니다.\n\ndf$age_group &lt;- ifelse(df$age &gt;= 65, \"elderly\", \"non-elderly\")\n\ndplyr::case_when()도 같은 용도이며, 조건이 3개 이상이면 더 깔끔합니다.",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
@@ -304,7 +304,7 @@
     "href": "part1/0_1_programming.html#정리",
     "title": "1) 프로그래밍 기본 문법",
     "section": "정리",
-    "text": "정리\n\n\n\n문법\n용도\n의학연구 활용 예시\n\n\n\n\nif/else\n조건 분기\np-value 유의성 표시, 이상치 처리\n\n\nfor\n정해진 횟수 반복\n여러 변수 분석, 파일 일괄 처리\n\n\nwhile\n조건 충족까지 반복\n수렴 알고리즘, AI 생성 코드 이해\n\n\n\n\n\n\n\n\n\nImportant다음 장에서는\n\n\n\n이 문법들을 함수(function)로 묶어서 재사용하는 법을 배웁니다.\n→ 이것이 AI가 코드를 구조화하는 핵심 방식입니다.",
+    "text": "정리\n\n\n\n문법\n용도\n의학연구 활용 예시\n\n\n\n\nif/else\n조건 분기\np-value 유의성 표시, 이상치 처리\n\n\nfor\n정해진 횟수 반복\n여러 변수 분석, 파일 일괄 처리\n\n\nwhile\n조건 충족까지 반복\n수렴 알고리즘, AI 생성 코드 이해",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
@@ -330,7 +330,7 @@
     "href": "index.html#part2.-연구-효율을-높이는-r-script-환경-구축",
     "title": "Rscript 활용하기 + 바이브코딩",
     "section": "Part2. 연구 효율을 높이는 R script 환경 구축",
-    "text": "Part2. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\n\nR script 활용 파이프라인이란?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\nR project: 폴더 구조 체계화\n\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (수정 금지 + 다른 곳에 백업)\nanalysis/: 중간 산물 저장 (1_df_pt.rds, 2_table1.rds, …)\nresults/: 최종 Table 및 고해상도 Figure 정리\n\nR script 작성 기본: 스크립트 5단계 구조\n\n파라미터/arguments: 디렉토리(indir, outdir, resdir), 파일명, 분석 옵션 — “여기만 바꾸세요”\n패키지 로딩\n데이터 읽기: readRDS(paste0(indir, \"1_df_pt.rds\"))\n전처리 및 분석: dplyr 파이프라인\n결과 저장: 중간 산물은 .rds, 최종본은 .docx / .csv / .tiff"
+    "text": "Part2. 연구 효율을 높이는 R script 환경 구축\n기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.\n\nR script 활용 파이프라인이란?\ninput: 연구 데이터 ➡️ R script ➡️ output: 논문용 표 & 그래프📊📈\nR project: 폴더 구조 체계화\n\nscripts/: 전처리 및 분석용 스크립트 관리\nrawdata/: 원본 데이터 (수정 금지 + 다른 곳에 백업)\nanalysis/: 중간 산물 저장 (1_df_pt.rds, 2_table1.rds, …)\nresults/: 최종 Table 및 고해상도 Figure 정리\n\nR script 작성 기본: 스크립트 5단계 구조\n\n파라미터/arguments: 디렉토리(indir, outdir, resdir) …\n패키지 로딩\n데이터 읽기: readRDS(paste0(indir, \"1_df_pt.rds\"))\n전처리 및 분석: dplyr 파이프라인\n결과 저장: 중간 산물은 .rds, 최종본은 .docx / .csv / .tiff"
   },
   {
     "objectID": "index.html#part3.-r-script-활용-분석-파이프라인",
@@ -423,7 +423,7 @@
     "href": "part1/0_2_function.html#정리",
     "title": "2) 함수 만들기",
     "section": "정리",
-    "text": "정리\n복붙 반복          →  함수로 묶기\n긴 스크립트 통째로  →  함수 정의 + main()\n에러 어디인지 모름  →  함수 단위 디버깅\n\n\n\n\n\n\nNote다음: Part 2\n\n\n\n프로그래밍 기본기를 익혔으니, Part 2에서 실제 R project 환경을 구축합니다.",
+    "text": "정리\n\n복붙 반복 → 함수로 묶기\n긴 스크립트 통째로 → 함수 정의 + main()\n에러 어디인지 모름 → 함수 단위 디버깅\n\n\n다음\nPart 2 효율적인 연구를 위한 파일/폴더 구조화 (R project)",
     "crumbs": [
       "Home",
       "1. 프로그래밍 기본기",
@@ -609,5 +609,82 @@
       "4. 결과 및 마무리",
       "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
     ]
+  },
+  {
+    "objectID": "slides/Part1_intro.html#why-문법",
+    "href": "slides/Part1_intro.html#why-문법",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "Why 문법?",
+    "text": "Why 문법?\ndplyr, ggplot2만으로도 분석은 됩니다\n\n그런데 AI가 짜주는 코드엔 for, if, 함수가 깔려 있습니다\n\n\n읽고 · 고치고 · 디버깅하려면 → 구조를 알아야 함\n\n바이브코딩 얘기 여기서. Claude한테 시키면 결국 이 세 가지로 짜준다. 못 읽으면 통째로 믿는 수밖에 없음."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#조건문-if",
+    "href": "slides/Part1_intro.html#조건문-if",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "① 조건문 if",
+    "text": "① 조건문 if\n조건에 따라 갈라지는 코드\n# 기본 구조\nif (조건) {\n  # 조건이 TRUE일 때 실행\n} else {\n  # 조건이 FALSE일 때 실행\n}\n예제: p-value에 따라 유의성 판단\n\np_value &lt;- 0.03\n\nif (p_value &lt; 0.001) { sig &lt;- \"***\"\n} else if (p_value &lt; 0.01) { sig &lt;- \"**\"\n} else if (p_value &lt; 0.05) { sig &lt;- \"*\"\n} else { sig &lt;- \"ns\"\n}\n\nprint(sig)\n\n[1] \"*\"\n\n\n\nifelse()는 벡터 전체, case_when()은 조건 3개 이상일 때. 자세한 건 사이트."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#반복문-for",
+    "href": "slides/Part1_intro.html#반복문-for",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "② 반복문 for",
+    "text": "② 반복문 for\n같은 작업을 여러 번\nfor (변수 in 벡터) {\n  # 반복 실행할 코드\n}\n예제: 여러 변수에 대해 t-test 반복\nvars &lt;- c(\"BMI\", \"SBP\", \"DBP\", \"HbA1c\")\n\nfor (v in vars) {\n  f &lt;- as.formula(paste(v, \"~ group\"))\n  results[[v]] &lt;- t.test(f, data = df)\n}\n\n변수 4개든 400개든 코드는 똑같다\n\n\n파일 일괄 읽기 패턴(list.files + for)도 사이트에. 실전에서 제일 많이 쓰는 패턴."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#반복문-while",
+    "href": "slides/Part1_intro.html#반복문-while",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "③ 반복문 while",
+    "text": "③ 반복문 while\n조건이 참인 동안 반복 — 수렴할 때까지\nwhile (조건) {\n  # 반복 실행\n  # ⚠️ 조건을 FALSE로 만드는 코드가 반드시 있어야 함 (무한루프 방지)\n}\n\nwhile (diff &gt; tol) {\n  current &lt;- update(prev)\n  diff &lt;- abs(current - prev)\n  prev  &lt;- current\n}\n\nfor보다 덜 쓰지만 AI 생성 코드에 종종 나옴. 무한루프 주의만 말로."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#정리",
+    "href": "slides/Part1_intro.html#정리",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "정리",
+    "text": "정리\n\n\n\n문법\n언제\n\n\n\n\nif\n갈래 나눌 때\n\n\nfor\n정해진 횟수\n\n\nwhile\n조건 충족까지\n\n\n\n\n→ 다음: 이걸 함수로 묶기 = AI가 코드를 구조화하는 방식\n\n표 자체가 클라이맥스 아님. “AI가 코드 구조화하는 핵심 방식”으로 넘기는 다리."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#why-함수",
+    "href": "slides/Part1_intro.html#why-함수",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "Why 함수?",
+    "text": "Why 함수?\n복붙 반복 = 실수의 씨앗\n\n함수 = 한 번 작성, 여러 번 재사용\n\n\n= 단축키\n\n\n= 스킬\n\n값만 바꿔 복붙하다 한 군데 안 바꿔서 터지는 경험 다들 있음. 그 얘기 말로."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#기본-구조",
+    "href": "slides/Part1_intro.html#기본-구조",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "① 기본 구조",
+    "text": "① 기본 구조\n함수이름 &lt;- function(인자1, 인자2 = 기본값) {\n  결과 &lt;- 인자1 + 인자2\n  return(결과)\n}\n예제: 지수 함수\n\nsquare &lt;- function(x) {\n  return(x^2)\n}\n\nsquare(5)\n\n[1] 25\n\n# 기본값 설정\npower &lt;- function(x, n = 2) {\n  return(x^n)\n}\n\npower(3)       # 3^2 = 9\n\n[1] 9\n\npower(3, 3)    # 3^3 = 27\n\n[1] 27\n\n\n\n인자, 기본값, return. 더 자세한 예제는 사이트."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#여러-값-return-리스트",
+    "href": "slides/Part1_intro.html#여러-값-return-리스트",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "② 여러 값 return → 리스트",
+    "text": "② 여러 값 return → 리스트\n\nsummarize_vec &lt;- function(x) {\n  list(mean = mean(x), sd = sd(x), n = length(x))\n}\n\nvals &lt;- c(10, 20, 30, 40, 50)\nres &lt;- summarize_vec(vals)\nres$mean\n\n[1] 30\n\nres$sd\n\n[1] 15.81139\n\n\n\nreturn은 하나만. 여러 개면 리스트로 묶는다."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#함수-for",
+    "href": "slides/Part1_intro.html#함수-for",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "③ 함수 + for",
+    "text": "③ 함수 + for\n만들어 두면 반복 호출\n\ndata_list &lt;- list(\n  group_A = c(120, 135, 128, 142),\n  group_B = c(110, 105, 118, 122),\n  group_C = c(130, 145, 138, 150)\n)\ndata_list\n\n$group_A\n[1] 120 135 128 142\n\n$group_B\n[1] 110 105 118 122\n\n$group_C\n[1] 130 145 138 150\n\nfor (name in names(data_list)) {\n  res &lt;- summarize_vec(data_list[[name]])\n  cat(name, \": mean =\", res$mean, \"\\n\")\n}\n\ngroup_A : mean = 131.25 \ngroup_B : mean = 113.75 \ngroup_C : mean = 140.75 \n\n\n\n함수 하나 + for = 같은 작업을 N개 그룹에. 실전 패턴."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#claude가-짜주는-구조-제일-중요",
+    "href": "slides/Part1_intro.html#claude가-짜주는-구조-제일-중요",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "④ Claude가 짜주는 구조 (제일 중요!)",
+    "text": "④ Claude가 짜주는 구조 (제일 중요!)\nload_data    &lt;- function(path) { ... }   # 입력\nrun_analysis &lt;- function(df)   { ... }   # 처리\nsave_results &lt;- function(res)  { ... }   # 출력\n\nmain &lt;- function() {\n  df  &lt;- load_data(\"data.xlsx\")\n  res &lt;- run_analysis(df)\n  save_results(res)\n}\nmain()\n\n입력 · 처리 · 출력 — 이게 구조화\n\n\n여기가 핵심. Claude한테 시키면 거의 다 이 꼴로 준다. 그냥 코딩 컨벤션이 아니라, 막연한 일을 입력·처리·출력으로 쪼개 이름 붙인 것. 오늘 발표 전체 메시지가 사실 이 슬라이드 한 장에 들어있음. 마무리에서 다시 부른다.\n\n왜 구조화?\n\n\n\n가독성\nmain()만 봐도 흐름이 보임\n\n\n디버깅\n함수 단위로 따로 실행\n\n\n재사용\n다른 프로젝트에 복사\n\n\n\n\n표 읽지 말고, main()만 읽으면 전체가 보인다는 것 하나만 강조. 나머지는 사이트."
+  },
+  {
+    "objectID": "slides/Part1_intro.html#part1-기초-정리",
+    "href": "slides/Part1_intro.html#part1-기초-정리",
+    "title": "연구 생산성을 높이는R 프로그래밍 입문",
+    "section": "Part1 기초 정리",
+    "text": "Part1 기초 정리\n복붙 반복         →  함수로 만들어서 사용\n긴 스크립트       →  함수 + main()\n에러 어디?        →  함수 단위 디버깅\n\n→ 다음: 효율적인 연구를 위한 파일/폴더 구조화 (R project)\n\n다음: 실제 R project 환경 구축. (Part 2 링크는 사이트.)"
   }
 ]
