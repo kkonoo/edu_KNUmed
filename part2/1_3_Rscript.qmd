@@ -1,6 +1,7 @@
 ---
 title: "3) R Script 작성 기본"
 subtitle: input만 바꾸면 되는 스크립트
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual

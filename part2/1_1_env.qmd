@@ -1,6 +1,7 @@
 ---
 title: "1) R Script 이해"
 subtitle: "분석 기록 + 자동화"
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual

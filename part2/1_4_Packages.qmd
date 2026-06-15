@@ -1,5 +1,6 @@
 ---
 title: "4) 핵심 패키지 미리보기"
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual
@@ -58,9 +59,9 @@ R.version.string
 
 ## 정리
 
-✅ R Script = 분석 기록 → 재현성 확보 \
-✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결 \
-✅ 폴더 구조: rawdata / scripts / analysis / results \
+✅ R Script = 분석 기록 → 재현성 확보\
+✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\
+✅ 폴더 구조: rawdata / scripts / analysis / results\
 ✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장
 
 ### 다음

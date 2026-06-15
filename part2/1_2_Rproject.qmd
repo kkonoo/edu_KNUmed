@@ -1,6 +1,7 @@
 ---
 title: "2) R project: 폴더 구조 체계화"
 subtitle: 입력 · 처리 · 출력 폴더 나누기
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual

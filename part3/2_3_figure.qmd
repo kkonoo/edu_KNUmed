@@ -1,5 +1,6 @@
 ---
 title: "3) 핵심 Figure 그리기"
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual
@@ -209,9 +210,9 @@ saveRDS(cox_tidy,  paste0(outdir, "3_cox_tidy.rds"))
 
 ## 정리
 
-✅ KM curve: survfit() → ggsurvplot() \
-✅ Forest plot: coxph() → tidy() → ggplot() \
-✅ broom::tidy()로 통계 수치 자동 추출 \
+✅ KM curve: survfit() → ggsurvplot()\
+✅ Forest plot: coxph() → tidy() → ggplot()\
+✅ broom::tidy()로 통계 수치 자동 추출\
 ✅ tiff 300dpi로 저장 → 논문 투고 가능
 
 ### 다음

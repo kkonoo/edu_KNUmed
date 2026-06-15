@@ -1,5 +1,7 @@
 ---
-title: "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+title: "1) 바이브코딩"
+subtitle: "AI식으로 사고하기"
+author: "Eunji Ha"
 date: last-modified
 format: html
 editor: visual
@@ -11,13 +13,28 @@ editor: visual
 
 코드를 "외우는" 것이 아니라, **AI에게 잘 시키는 법**을 배우는 것입니다.
 
-------------------------------------------------------------------------
-
 ## Claude가 만드는 코드의 구조
 
 바이브코딩을 시작하기 전에, AI가 어떤 **패턴**으로 코드를 만드는지 알아야 합니다.
 
 [Part 0](../part0/0_2_function.html)에서 **함수 정의 → main() 호출** 구조를 봤습니다. Claude에게 실제 분석을 요청하면 이 구조가 그대로 적용됩니다:
+
+``` {style="background-color: #f6f6f6"}
+load_data    <- function(path) { ... }   # 입력
+make_table1  <- function(df)   { ... }   # 처리
+run_survival <- function(df)   { ... }   # 처리
+save_results <- function(...)  { ... }   # 출력
+
+main <- function() {
+  df  <- load_data(...)
+  tbl <- make_table1(df)
+  fit <- run_survival(df)
+  save_results(tbl, fit)
+}
+main()
+```
+
+예제 적용 구조
 
 ```{r}
 #| eval: false
@@ -95,15 +112,13 @@ main()
 4.  **에러나면 해당 함수만 디버깅** → 전체를 다시 돌릴 필요 없음
 :::
 
-------------------------------------------------------------------------
-
 ## 프롬프트의 3요소
 
 좋은 프롬프트 = **역할 + 맥락 + 구체적 요청**
 
 ### 나쁜 프롬프트
 
-```         
+``` {style="border:1px solid #696969"}
 통계 분석 해줘
 ```
 
@@ -111,7 +126,7 @@ main()
 
 ### 좋은 프롬프트
 
-```         
+``` {style="border:1px solid #696969"}
 너는 임상통계 전문가야.
 
 나는 올리고전이 환자 대상 SBRT 논문을 쓰고 있어.
@@ -139,13 +154,11 @@ main()
 4.  **패키지 지정** — "gtsummary로", "survminer로" 등
 :::
 
-------------------------------------------------------------------------
-
 ## 실전 워크플로우
 
 바이브코딩의 현실적인 작업 흐름은 이렇습니다:
 
-```         
+``` r
 1. RStudio에서 rds 로드
 2. AI가 만든 코드를 콘솔에 붙여넣기 & 실행
 3. 에러 → 에러 메시지를 AI에게 복붙 → 수정 코드 받기
@@ -178,7 +191,7 @@ str(df_pt)
 
 `colnames()`과 `str()` 결과를 붙여넣고, 원하는 분석을 요청합니다.
 
-```         
+``` {style="border:1px solid #696969"}
 위 데이터에서 생존분석을 해줘.
 
 - Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교
@@ -221,7 +234,7 @@ print(p)
 
 에러 메시지를 **그대로 복붙**해서 AI에게 주면 됩니다.
 
-```         
+``` {style="border:1px solid #696969"}
 이 코드를 실행했더니 다음 에러가 났어:
 
 Error in data.frame(..., check.names = FALSE) : 
@@ -234,7 +247,7 @@ Error in data.frame(..., check.names = FALSE) :
 
 이런 식으로 **실행 → 에러 → AI에게 복붙 → 수정**을 반복합니다.
 
-::: callout-important
+::: callout-tip
 ## 무지성 에러 복붙의 함정
 
 에러가 나면 바로 AI에게 던지고 싶지만, **그 전에 30초만 직접 확인**하면 훨씬 효율적입니다.
@@ -254,9 +267,9 @@ Error in data.frame(..., check.names = FALSE) :
 #    → Examples 섹션에서 실제 사용법 확인
 ```
 
-![](images/clipboard-586022742.png){width="193"}
+![](/images/help.png){fig-align="center"}
 
-![](images/clipboard-2642163456.png)
+![](/images/usage.png){fig-align="center"}
 
 도움말의 **Arguments** 섹션만 훑어봐도 "아, 이 인자에 숫자를 넣어야 하는데 문자를 넣었구나" 같은 단서를 바로 잡을 수 있습니다.
 
@@ -273,14 +286,13 @@ ggsurvplot(fit, pval.coord = c(0.1, 0.1))  # 해결 ✅
 이렇게 **본인이 1차로 걸러낸 뒤** AI에게 물어보면, AI도 정확한 맥락에서 답을 주기 때문에 수정이 한 번에 끝납니다.
 :::
 
-::: callout-tip
-## 에러 대응 순서
+#### 에러 대응 순서
 
 1.  **에러 메시지 읽기** — 어떤 함수에서 터졌는지 확인
 2.  **`?함수명`으로 용법 확인** — 인자 타입, 필수/선택 여부
 3.  **그래도 모르겠으면** — 에러 + `?함수명`에서 본 내용을 같이 AI에게 주기
 
-```         
+``` {style="border:1px solid #696969"}
 이 코드에서 에러가 났어:
 [에러 메시지]
 
@@ -290,7 +302,6 @@ numeric vector를 받는 것 같은데,
 ```
 
 이렇게 주면 AI가 헛다리 짚을 확률이 크게 줄어듭니다.
-:::
 
 ### ⑤ 동작 확인되면 스크립트로 저장
 
@@ -342,7 +353,7 @@ cat("✅ KM plot saved!\n")
 Rscript 03_KM_plot.R
 ```
 
-::: callout-note
+::: callout-tip
 ## 스크립트 상단에 Input/Output 적기
 
 ``` r
@@ -353,30 +364,33 @@ Rscript 03_KM_plot.R
 이렇게 적어두면 나중에 파일만 봐도 **이 스크립트가 뭘 읽고 뭘 만드는지** 바로 알 수 있습니다.
 :::
 
-------------------------------------------------------------------------
-
 ## AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)
 
-::: callout-warning
-1.  **Reference level 방향** — `relevel(factor, ref = "baseline")`을 빠뜨리는 경우 많음
-2.  **환자 vs 병변 단위 혼동** — OS는 환자 단위, LFFS는 병변 단위
-3.  **다중비교 보정 누락** — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우
-4.  **결측치 처리** — 기본값이 `na.rm = FALSE`라 결과가 `NA`로 나올 수 있음
-5.  **생존 시간/이벤트 뒤바꿈** — `Surv(time, event)` 순서 주의
+-   Reference level 방향 — `relevel(factor, ref = "baseline")`을 빠뜨리는 경우 많음
+-   환자 vs 병변 단위 혼동 — OS는 환자 단위, LFFS는 병변 단위
+-   다중비교 보정 누락 — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우
+-   결측치 처리 — 기본값이 `na.rm = FALSE`라 결과가 `NA`로 나올 수 있음
+-   생존 시간/이벤트 뒤바꿈 — `Surv(time, event)` 순서 주의
 
-**이것들은 사람이 알아야 합니다.** Part 1에서 Base R로 직접 해본 이유가 여기 있어요.
-:::
-
-------------------------------------------------------------------------
+**이것들은 사람이 알아야 합니다.**\
+결국 디테일은 다 알고 구현이 귀찮아서 AI에게 시키는 느낌으로 가야합니다.\
+Part 1에서 기초 문법을 배운 이유입니다.
 
 ## 바이브코딩 체크리스트
 
-```         
-✅ colnames()와 str() 결과를 AI에게 제공했는가?
-✅ 분석 단위(환자/병변)를 명시했는가?
-✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)
+프롬프트 시:
+
+✅ colnames()와 str() 결과를 AI에게 제공했는가?\
+✅ 분석 단위(환자/병변)를 명시했는가?\
+✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\
 ✅ 사용할 패키지를 지정했는가?
-✅ AI 결과의 reference level, 단위, p-value를 직접 확인했는가?
-✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?
+
+AI에게 코드를 받은 후 반드시 확인할 것:
+
+✅ 분석 단위가 맞는가? (환자 vs 병변)\
+✅ 이벤트 변수 방향이 맞는가? (Death=1이 사망)\
+✅ Factor의 reference level이 의도한 대로인가?\
+✅ p-value 해석이 맞는가? (다중비교 고려)\
+✅ 그래프 축 라벨과 범례가 정확한가?\
+✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\
 ✅ 스크립트 상단에 Input/Output을 명시했는가?
-```

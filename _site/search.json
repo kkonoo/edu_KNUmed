@@ -2,13 +2,13 @@
   {
     "objectID": "part4/3_2_summary.html",
     "href": "part4/3_2_summary.html",
-    "title": "2) 실습 과제 + 마무리",
+    "title": "2) 마무리",
     "section": "",
-    "text": "Important목표\n\n\n\nAI(Claude, ChatGPT 등)에게 프롬프트를 작성하여 분석 코드를 만들고, RStudio 콘솔에서 직접 실행해보세요. 동작이 확인되면 .R 파일로 저장합니다.\n\n\n\n\n조건:\n\nBMI_category(bmi) 함수를 작성하세요\nBMI &lt; 18.5 → “저체중”, 18.5~24.9 → “정상”, 25~29.9 → “과체중”, ≥30 → “비만” 반환\n벡터 c(17, 22, 27, 33)에 for문으로 적용하여 결과 출력\n\n프롬프트 없이 직접 해보기 — Part 1에서 배운 if/else와 함수 만들기를 복습하는 과제입니다.\n\n\n\n\n\n\nTip힌트\n\n\n\nBMI_category &lt;- function(bmi) {\n  if (bmi &lt; 18.5) {\n    return(???)\n  } else if ...\n}\n\ntest_bmis &lt;- c(17, 22, 27, 33)\nfor (b in test_bmis) {\n  cat(\"BMI\", b, \"→\", BMI_category(b), \"\\n\")\n}\n\n\n\n\n\n\n조건:\n\n데이터: analysis/1_df_lesion.rds (병변 단위)\n종속변수: LFFS (시간), LF (이벤트)\n그룹 변수: PTVmean_BED10 ≥100 vs &lt;100\n출력: KM curve + log-rank p-value + risk table\n저장: results/KM_LFFS.tiff (300 dpi)\n\n프롬프트 힌트:\nanalysis/1_df_lesion.rds를 readRDS로 로드해서 병변 단위 생존분석을 해줘.\n\n변수 설명:\n- LFFS: local failure-free survival (months)\n- LF: local failure event (0/1)\n- PTVmean_BED10: PTV mean BED10 (Gy)\n\nPTVmean_BED10를 100 기준으로 ≥100 vs &lt;100 두 군으로 나누고,\nKM curve를 그려줘. survminer 사용, log-rank p-value와 risk table 포함.\nresults/ 폴더에 tiff 300dpi로 저장.\n\n\n\n\n조건:\n\n데이터: analysis/2_df_pt_processed.rds (환자 단위)\n각 subgroup별로 OS에 대한 univariable Cox regression:\n\nAge (&lt;65 vs ≥65)\nSex (M vs F)\nMultiplicity (single vs multiple)\nTumor size (&lt;3cm vs ≥3cm)\nBED10 (&lt;100 vs ≥100)\n\n각 HR + 95% CI를 forest plot으로 시각화\n\n프롬프트 힌트:\nanalysis/2_df_pt_processed.rds를 readRDS로 로드해서\nsubgroup별 univariable Cox regression을 수행해줘.\n\n종속변수는 OS/Death.\n\nSubgroup 정의:\n- Age_Tx: 65 기준으로 이분\n- Sex: M vs F\n- Multiplicity: single vs multiple\n- size_mm: 30mm 기준으로 이분\n- PTVmean_BED10: 100 기준으로 이분\n\n각 subgroup별 HR (95% CI)를 계산하고 forest plot으로 그려줘.\nbroom::tidy()로 결과를 추출하고 ggplot으로 시각화.\nresults/ 폴더에 저장.",
+    "text": "Part\n핵심\n\n\n\n\n1. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n2. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n3. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n4. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n폴더 쪼개기 (R project)\n과정 쪼개기 (함수)\n구성 쪼개기 (프롬프트)\n\n\n네 파트 전부 한 단어로 → 구조화 ## Ready-to-Use 템플릿\n\n\n\n강의 후 바로 활용할 수 있는 템플릿을 제공합니다.\n\n# ===== survival_analysis.R =====\n# Input:  analysis/your_data.rds\n# Output: results/KM_plot.tiff, results/cox_result.csv\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nindir      &lt;- \"analysis/\"\nresdir     &lt;- \"results/\"\nDATA_FILE  &lt;- paste0(indir, \"your_data.rds\")\nTIME_VAR   &lt;- \"OS\"\nEVENT_VAR  &lt;- \"Death\"\nGROUP_VAR  &lt;- \"treatment_group\"\nCOVARIATES &lt;- c(\"age\", \"sex\", \"stage\", \"tumor_size\")\n# =====================================\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# 1. 데이터 로드\ndf &lt;- readRDS(DATA_FILE)\n\n# 2. KM curve\nfit &lt;- survfit(\n  as.formula(paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \", GROUP_VAR)),\n  data = df\n)\n\np &lt;- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,\n                ggtheme = theme_classic())\n\n# 3. KM 저장\ntiff(paste0(resdir, \"KM_plot.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n# 4. Cox regression\ncox_formula &lt;- as.formula(\n  paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \",\n         paste(COVARIATES, collapse = \" + \"))\n)\ncox_model &lt;- coxph(cox_formula, data = df)\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n# 5. Cox 결과 저장\nwrite.csv(cox_tidy, paste0(resdir, \"cox_result.csv\"), row.names = FALSE)\n\ncat(\"✅ Done!\\n\")\n\n\n\n\n\n파라미터 블록만 본인 데이터에 맞게 수정\nRStudio 콘솔에서 실행하며 중간 결과 확인\n동작 확인되면 Rscript survival_analysis.R로 실행\n\n\n\n\n\n\n\nTipClaude에게 시키면 function + main 구조로 올 수 있습니다\n\n\n\n위 템플릿은 위에서 아래로 읽기 쉬운 flat script입니다. 하지만 Claude에게 바이브코딩으로 분석을 시키면 load_data(), run_km() 같은 함수를 정의하고 main()에서 호출하는 구조로 코드를 줄 가능성이 높습니다. 같은 분석을 하는 코드이니 당황하지 마세요 — Part 1에서 배운 구조입니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "2) 실습 과제 + 마무리"
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
     ]
   },
   {
@@ -50,13 +50,13 @@
   {
     "objectID": "part4/3_2_summary.html#마무리",
     "href": "part4/3_2_summary.html#마무리",
-    "title": "2) 실습 과제 + 마무리",
-    "section": "마무리",
-    "text": "마무리\n\n오늘 배운 것\n\n\n\n\n\n\n\nPart\n핵심\n\n\n\n\n1. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n2. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n3. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n4. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n\n추천 리소스\n\nR graph gallery\n\nhttps://r-graph-gallery.com/\n\nR statistics\n\nhttps://r-statistics.co/\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/\n\n\n\n\nQ&A\n궁금한 점이 있으면 질문해주세요! (eha@knu.ac.kr)",
+    "title": "2) 마무리",
+    "section": "",
+    "text": "Part\n핵심\n\n\n\n\n1. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n2. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n3. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n4. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n폴더 쪼개기 (R project)\n과정 쪼개기 (함수)\n구성 쪼개기 (프롬프트)\n\n\n네 파트 전부 한 단어로 → 구조화 ## Ready-to-Use 템플릿\n\n\n\n\n\n강의 후 바로 활용할 수 있는 템플릿을 제공합니다.\n\n# ===== survival_analysis.R =====\n# Input:  analysis/your_data.rds\n# Output: results/KM_plot.tiff, results/cox_result.csv\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nindir      &lt;- \"analysis/\"\nresdir     &lt;- \"results/\"\nDATA_FILE  &lt;- paste0(indir, \"your_data.rds\")\nTIME_VAR   &lt;- \"OS\"\nEVENT_VAR  &lt;- \"Death\"\nGROUP_VAR  &lt;- \"treatment_group\"\nCOVARIATES &lt;- c(\"age\", \"sex\", \"stage\", \"tumor_size\")\n# =====================================\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# 1. 데이터 로드\ndf &lt;- readRDS(DATA_FILE)\n\n# 2. KM curve\nfit &lt;- survfit(\n  as.formula(paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \", GROUP_VAR)),\n  data = df\n)\n\np &lt;- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,\n                ggtheme = theme_classic())\n\n# 3. KM 저장\ntiff(paste0(resdir, \"KM_plot.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n# 4. Cox regression\ncox_formula &lt;- as.formula(\n  paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \",\n         paste(COVARIATES, collapse = \" + \"))\n)\ncox_model &lt;- coxph(cox_formula, data = df)\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n# 5. Cox 결과 저장\nwrite.csv(cox_tidy, paste0(resdir, \"cox_result.csv\"), row.names = FALSE)\n\ncat(\"✅ Done!\\n\")\n\n\n\n\n\n파라미터 블록만 본인 데이터에 맞게 수정\nRStudio 콘솔에서 실행하며 중간 결과 확인\n동작 확인되면 Rscript survival_analysis.R로 실행\n\n\n\n\n\n\n\nTipClaude에게 시키면 function + main 구조로 올 수 있습니다\n\n\n\n위 템플릿은 위에서 아래로 읽기 쉬운 flat script입니다. 하지만 Claude에게 바이브코딩으로 분석을 시키면 load_data(), run_km() 같은 함수를 정의하고 main()에서 호출하는 구조로 코드를 줄 가능성이 높습니다. 같은 분석을 하는 코드이니 당황하지 마세요 — Part 1에서 배운 구조입니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "2) 실습 과제 + 마무리"
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
     ]
   },
   {
@@ -529,85 +529,85 @@
   {
     "objectID": "part4/3_1_vibecoding.html",
     "href": "part4/3_1_vibecoding.html",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "",
     "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#바이브코딩이란",
     "href": "part4/3_1_vibecoding.html#바이브코딩이란",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "",
     "text": "AI에게 자연어로 설명 → 코드 생성 → 실행 → 수정 반복\n\n코드를 “외우는” 것이 아니라, AI에게 잘 시키는 법을 배우는 것입니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#claude가-만드는-코드의-구조",
     "href": "part4/3_1_vibecoding.html#claude가-만드는-코드의-구조",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "Claude가 만드는 코드의 구조",
-    "text": "Claude가 만드는 코드의 구조\n바이브코딩을 시작하기 전에, AI가 어떤 패턴으로 코드를 만드는지 알아야 합니다.\nPart 0에서 함수 정의 → main() 호출 구조를 봤습니다. Claude에게 실제 분석을 요청하면 이 구조가 그대로 적용됩니다:\n\n# ============================================================\n# 0. 라이브러리\n# ============================================================\nlibrary(dplyr)\nlibrary(survival)\nlibrary(gtsummary)\n\n# ============================================================\n# 1. 함수 정의\n# ============================================================\nload_data &lt;- function(filepath) {\n  df &lt;- readxl::read_excel(filepath)\n  df &lt;- df |&gt;\n    mutate(\n      age_group = ifelse(Age_Tx &gt;= 65, \"elderly\", \"non-elderly\"),\n      Death = as.numeric(Death)\n    )\n  return(df)\n}\n\nmake_table1 &lt;- function(df, by_var) {\n  df |&gt;\n    tbl_summary(by = all_of(by_var), missing = \"no\") |&gt;\n    add_p() |&gt;\n    bold_p()\n}\n\nrun_survival &lt;- function(df, time_var, event_var, group_var) {\n  formula &lt;- as.formula(\n    paste0(\"Surv(\", time_var, \", \", event_var, \") ~ \", group_var)\n  )\n  fit &lt;- survfit(formula, data = df)\n  return(fit)\n}\n\nsave_results &lt;- function(tbl, fit, resdir) {\n  tbl |&gt; as_flex_table() |&gt;\n    flextable::save_as_docx(path = file.path(resdir, \"table1.docx\"))\n\n  p &lt;- survminer::ggsurvplot(fit, pval = TRUE, risk.table = TRUE)\n  tiff(file.path(resdir, \"KM_OS.tiff\"), width = 7, height = 5,\n       units = \"in\", res = 300)\n  print(p)\n  dev.off()\n}\n\n# ============================================================\n# 2. Main\n# ============================================================\nmain &lt;- function() {\n  indir  &lt;- \"rawdata/\"\n  resdir &lt;- \"results/\"\n\n  df  &lt;- load_data(file.path(indir, \"patient_data.xlsx\"))\n  tbl &lt;- make_table1(df, by_var = \"Multiplicity\")\n  fit &lt;- run_survival(df, \"OS\", \"Death\", \"Multiplicity\")\n  save_results(tbl, fit, resdir)\n\n  cat(\"Done!\\n\")\n}\n\nmain()\n\n\n\n\n\n\n\nTipAI 코드를 받으면 이렇게 읽으세요\n\n\n\n\nmain() 먼저 → 전체 흐름 파악 (데이터 로드 → Table 1 → 생존분석 → 저장)\n각 함수의 input/output → 인자와 return값 확인\n함수 하나씩 실행 → RStudio 콘솔에서 load_data()부터 순서대로\n에러나면 해당 함수만 디버깅 → 전체를 다시 돌릴 필요 없음",
+    "text": "Claude가 만드는 코드의 구조\n바이브코딩을 시작하기 전에, AI가 어떤 패턴으로 코드를 만드는지 알아야 합니다.\nPart 0에서 함수 정의 → main() 호출 구조를 봤습니다. Claude에게 실제 분석을 요청하면 이 구조가 그대로 적용됩니다:\nload_data    &lt;- function(path) { ... }   # 입력\nmake_table1  &lt;- function(df)   { ... }   # 처리\nrun_survival &lt;- function(df)   { ... }   # 처리\nsave_results &lt;- function(...)  { ... }   # 출력\n\nmain &lt;- function() {\n  df  &lt;- load_data(...)\n  tbl &lt;- make_table1(df)\n  fit &lt;- run_survival(df)\n  save_results(tbl, fit)\n}\nmain()\n예제 적용 구조\n\n# ============================================================\n# 0. 라이브러리\n# ============================================================\nlibrary(dplyr)\nlibrary(survival)\nlibrary(gtsummary)\n\n# ============================================================\n# 1. 함수 정의\n# ============================================================\nload_data &lt;- function(filepath) {\n  df &lt;- readxl::read_excel(filepath)\n  df &lt;- df |&gt;\n    mutate(\n      age_group = ifelse(Age_Tx &gt;= 65, \"elderly\", \"non-elderly\"),\n      Death = as.numeric(Death)\n    )\n  return(df)\n}\n\nmake_table1 &lt;- function(df, by_var) {\n  df |&gt;\n    tbl_summary(by = all_of(by_var), missing = \"no\") |&gt;\n    add_p() |&gt;\n    bold_p()\n}\n\nrun_survival &lt;- function(df, time_var, event_var, group_var) {\n  formula &lt;- as.formula(\n    paste0(\"Surv(\", time_var, \", \", event_var, \") ~ \", group_var)\n  )\n  fit &lt;- survfit(formula, data = df)\n  return(fit)\n}\n\nsave_results &lt;- function(tbl, fit, resdir) {\n  tbl |&gt; as_flex_table() |&gt;\n    flextable::save_as_docx(path = file.path(resdir, \"table1.docx\"))\n\n  p &lt;- survminer::ggsurvplot(fit, pval = TRUE, risk.table = TRUE)\n  tiff(file.path(resdir, \"KM_OS.tiff\"), width = 7, height = 5,\n       units = \"in\", res = 300)\n  print(p)\n  dev.off()\n}\n\n# ============================================================\n# 2. Main\n# ============================================================\nmain &lt;- function() {\n  indir  &lt;- \"rawdata/\"\n  resdir &lt;- \"results/\"\n\n  df  &lt;- load_data(file.path(indir, \"patient_data.xlsx\"))\n  tbl &lt;- make_table1(df, by_var = \"Multiplicity\")\n  fit &lt;- run_survival(df, \"OS\", \"Death\", \"Multiplicity\")\n  save_results(tbl, fit, resdir)\n\n  cat(\"Done!\\n\")\n}\n\nmain()\n\n\n\n\n\n\n\nTipAI 코드를 받으면 이렇게 읽으세요\n\n\n\n\nmain() 먼저 → 전체 흐름 파악 (데이터 로드 → Table 1 → 생존분석 → 저장)\n각 함수의 input/output → 인자와 return값 확인\n함수 하나씩 실행 → RStudio 콘솔에서 load_data()부터 순서대로\n에러나면 해당 함수만 디버깅 → 전체를 다시 돌릴 필요 없음",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#프롬프트의-3요소",
     "href": "part4/3_1_vibecoding.html#프롬프트의-3요소",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "프롬프트의 3요소",
     "text": "프롬프트의 3요소\n좋은 프롬프트 = 역할 + 맥락 + 구체적 요청\n\n나쁜 프롬프트\n통계 분석 해줘\n→ AI가 뭘 해야 할지 모름. 쓸모없는 결과가 나옴.\n\n\n좋은 프롬프트\n너는 임상통계 전문가야.\n\n나는 올리고전이 환자 대상 SBRT 논문을 쓰고 있어.\n데이터프레임 df_pt에 다음 변수가 있어:\n- Age_Tx: 치료 시 나이 (연속형)\n- Sex: 성별 (M/F)\n- Primary: 원발 부위 (Colon, Rectum, Lung 등)\n- Death: 사망 여부 (0/1)\n- OS: 전체 생존 기간 (개월)\n- size_cm: 종양 크기 (cm)\n- PTVmean_BED10: PTV 평균 BED10 (Gy)\n\n다음을 수행하는 R 코드를 작성해줘:\n1. gtsummary로 Table 1 생성 (Death 기준 그룹 비교, p-value 포함)\n2. 변수명은 논문용 라벨로 변환\n3. results/Table1.docx로 저장\n\n\n\n\n\n\nTip프롬프트 작성 팁\n\n\n\n\ncolnames(df) 결과를 붙여넣기 — AI가 변수명을 정확히 알아야 함\n변수 타입 명시 — 연속형/범주형/생존시간 구분\n원하는 출력 형태 지정 — “Word로 저장”, “tiff 300dpi”, “forest plot” 등\n패키지 지정 — “gtsummary로”, “survminer로” 등",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#실전-워크플로우",
     "href": "part4/3_1_vibecoding.html#실전-워크플로우",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "실전 워크플로우",
-    "text": "실전 워크플로우\n바이브코딩의 현실적인 작업 흐름은 이렇습니다:\n1. RStudio에서 rds 로드\n2. AI가 만든 코드를 콘솔에 붙여넣기 & 실행\n3. 에러 → 에러 메시지를 AI에게 복붙 → 수정 코드 받기\n4. 중간 결과 확인 (head, str, plot 등)\n5. 만족하면 .R 파일로 저장\n6. input → output 구조의 스크립트 완성\n핵심은 처음부터 완벽한 스크립트를 만들려 하지 않는 것입니다. RStudio 콘솔에서 한 줄씩 돌려보고, 중간 과정을 계속 트러블슈팅해서 최종적으로 동작하는 코드가 완성되면 그때 파일로 저장합니다.\n\n\n① RStudio에서 데이터 로드 & 구조 파악\n\nlibrary(tidyverse)\n\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 이 결과를 복사해서 AI에게 붙여넣기\ncolnames(df_pt)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"   \"Age_group\"       \"Death_f\"         \"size_cm\"        \n[37] \"BED_group\"      \n\nstr(df_pt)\n\ntibble [55 × 37] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:55] 2 6 7 9 10 15 17 18 19 20 ...\n $ Key_lesion     : chr [1:55] \"liver 2-1\" \"lung 6-1\" \"liver 7-1\" \"lung 9-1\" ...\n $ IN_sur         : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ IN_lesion      : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : Factor w/ 2 levels \"Male\",\"Female\": 1 2 2 2 1 2 2 1 1 1 ...\n $ Age_Tx         : num [1:55] 76 76 55 68 77 63 77 76 64 83 ...\n $ OMD_Type       : chr [1:55] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" \"Induced oligoprogression\" ...\n $ OMD_class      : chr [1:55] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligoprogression\" ...\n $ Tx_site        : chr [1:55] \"liver\" \"lung\" \"liver\" \"lung\" ...\n $ Primary        : chr [1:55] \"Colon\" \"Colon\" \"Rectum\" \"Colon\" ...\n $ Bx_primary     : chr [1:55] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:55] \"mod\" \"mod\" \"well\" \"mod\" ...\n $ Multiplicity   : chr [1:55] \"single\" \"multiple\" \"single\" \"multiple\" ...\n $ OMD_no         : num [1:55] 1 3 1 2 1 1 1 2 2 1 ...\n $ size_mm        : num [1:55] 15 25 42 5 27.5 19 16.7 4 12 16.5 ...\n $ DD             : num [1:55] 1600 1200 1000 1800 1250 1800 1200 1300 1200 1300 ...\n $ fr             : num [1:55] 3 4 5 3 4 3 4 4 4 4 ...\n $ TD             : num [1:55] 4800 4800 5000 5400 5000 5400 4800 5200 4800 5200 ...\n $ GTV_cc         : num [1:55] 5.839 5.8 25.904 0.097 6.709 ...\n $ ITV_cc         : num [1:55] 8.544 9.7 25.904 0.221 7.93 ...\n $ PTV_cc         : num [1:55] 18.87 33.9 53.89 3.93 26.66 ...\n $ Death          : num [1:55] 1 1 1 1 1 0 1 0 0 0 ...\n $ OS             : num [1:55] 20.7 34.5 26.6 11.7 43.4 ...\n $ LF             : num [1:55] 1 0 0 0 0 1 0 0 0 0 ...\n $ LFFS           : num [1:55] 9.23 33.51 24.51 6.51 22.34 ...\n $ CTxAfterRT     : num [1:55] 0 0 0 0 0 1 0 0 1 0 ...\n $ CTxBeforeRT    : num [1:55] 0 1 1 1 0 1 1 1 1 1 ...\n $ bCTx_Line      : num [1:55] 0 3 3 2 0 2 1 1 3 1 ...\n $ PTVmean_BED10  : num [1:55] 149 124 114 178 135 ...\n $ PTV_D2_BED10   : num [1:55] 162 142 116 207 158 ...\n $ PTV_D5_BED10   : num [1:55] 161 141 115 203 156 ...\n $ PTV_D95_BED10  : num [1:55] 120.5 103.7 95.9 148.6 111.5 ...\n $ PTV_D98_BED10  : num [1:55] 113.5 97 86.8 143.3 106.2 ...\n $ Age_group      : chr [1:55] \"≥65\" \"≥65\" \"&lt;65\" \"≥65\" ...\n $ Death_f        : Factor w/ 2 levels \"Alive\",\"Dead\": 2 2 2 2 2 1 2 1 1 1 ...\n $ size_cm        : num [1:55] 1.5 2.5 4.2 0.5 2.75 1.9 1.67 0.4 1.2 1.65 ...\n $ BED_group      : chr [1:55] \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" ...\n\n\n\n\n② AI에게 프롬프트 작성\ncolnames()과 str() 결과를 붙여넣고, 원하는 분석을 요청합니다.\n위 데이터에서 생존분석을 해줘.\n\n- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교\n- Log-rank test p-value를 그래프에 표시\n- Risk table 포함\n- survminer 패키지 사용\n- 300 dpi tiff로 저장\n\n\n③ AI가 준 코드를 콘솔에서 실행\nAI가 생성한 코드를 한 블록씩 RStudio 콘솔에 붙여넣어 실행합니다.\n이때 위에서 본 함수 + main 구조로 코드가 올 가능성이 높습니다.\n그 경우 main()을 바로 실행하지 말고, 함수 정의부를 먼저 실행한 뒤 함수를 하나씩 테스트하세요.\n\nlibrary(survival)\nlibrary(survminer)\n\n# Kaplan-Meier fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# KM curve\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\nprint(p)\n\n\n\n\n\n\n\n\n\n\n④ 에러가 나면?\n에러 메시지를 그대로 복붙해서 AI에게 주면 됩니다.\n이 코드를 실행했더니 다음 에러가 났어:\n\nError in data.frame(..., check.names = FALSE) : \n  arguments imply differing number of rows: 54, 0, 108\n\n고쳐줘.\n→ AI가 Death가 factor라서 Surv()에서 인식 못하는 걸 잡아줌\n이런 식으로 실행 → 에러 → AI에게 복붙 → 수정을 반복합니다.\n\n\n\n\n\n\nImportant무지성 에러 복붙의 함정\n\n\n\n에러가 나면 바로 AI에게 던지고 싶지만, 그 전에 30초만 직접 확인하면 훨씬 효율적입니다.\n왜? AI는 대화가 길어질수록 앞의 맥락을 잊습니다. 에러를 복붙하고 → AI가 부분 수정하고 → 또 에러 → 또 복붙… 이걸 반복하면 원래 깔끔했던 코드가 누더기가 됩니다. 한 번에 고칠 수 있는 걸 돌아돌아 가게 되는 거예요.\n에러가 났을 때 먼저 해볼 것:\n# 1. 모르는 함수가 나왔으면 도움말 보기\n?survfit\n?ggsurvplot\n?tbl_summary\n\n# 2. RStudio에서는 Help 탭에 함수 이름 검색해도 됨\n#    → Arguments 섹션에서 각 인자가 뭘 받는지 확인\n#    → Examples 섹션에서 실제 사용법 확인\n\n\n도움말의 Arguments 섹션만 훑어봐도 “아, 이 인자에 숫자를 넣어야 하는데 문자를 넣었구나” 같은 단서를 바로 잡을 수 있습니다.\n실전 예시:\n# AI가 만든 코드에서 에러 발생\nggsurvplot(fit, pval.coord = \"top-right\")  # Error!\n\n# ?ggsurvplot → pval.coord는 c(x, y) 숫자 벡터임을 확인\nggsurvplot(fit, pval.coord = c(0.1, 0.1))  # 해결 ✅\n이렇게 본인이 1차로 걸러낸 뒤 AI에게 물어보면, AI도 정확한 맥락에서 답을 주기 때문에 수정이 한 번에 끝납니다.\n\n\n\n\n\n\n\n\nTip에러 대응 순서\n\n\n\n\n에러 메시지 읽기 — 어떤 함수에서 터졌는지 확인\n?함수명으로 용법 확인 — 인자 타입, 필수/선택 여부\n그래도 모르겠으면 — 에러 + ?함수명에서 본 내용을 같이 AI에게 주기\n\n이 코드에서 에러가 났어:\n[에러 메시지]\n\n?ggsurvplot 도움말을 보니 pval.coord는 \nnumeric vector를 받는 것 같은데, \n어떻게 고쳐야 해?\n이렇게 주면 AI가 헛다리 짚을 확률이 크게 줄어듭니다.\n\n\n\n\n⑤ 동작 확인되면 스크립트로 저장\n콘솔에서 다 돌아가는 걸 확인했으면, 코드를 모아서 .R 파일로 저장합니다. 이때 상단에 input/output을 명시하고, 경로를 paste0()로 정리합니다.\n\n# ===== 03_KM_plot.R =====\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n\n# ----- 디렉토리 -----\nindir  &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\n\n# 1. 데이터 로드\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 2. KM fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# 3. Plot\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\n# 4. 저장\ntiff(paste0(resdir, \"KM_OS.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\nggsave(paste0(resdir, \"KM_OS.pdf\"), plot = print(p), width = 7, height = 5)\n\ncat(\"✅ KM plot saved!\\n\")\n\nRscript 03_KM_plot.R\n\n\n\n\n\n\nNote스크립트 상단에 Input/Output 적기\n\n\n\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n이렇게 적어두면 나중에 파일만 봐도 이 스크립트가 뭘 읽고 뭘 만드는지 바로 알 수 있습니다.",
+    "text": "실전 워크플로우\n바이브코딩의 현실적인 작업 흐름은 이렇습니다:\n1. RStudio에서 rds 로드\n2. AI가 만든 코드를 콘솔에 붙여넣기 & 실행\n3. 에러 → 에러 메시지를 AI에게 복붙 → 수정 코드 받기\n4. 중간 결과 확인 (head, str, plot 등)\n5. 만족하면 .R 파일로 저장\n6. input → output 구조의 스크립트 완성\n핵심은 처음부터 완벽한 스크립트를 만들려 하지 않는 것입니다. RStudio 콘솔에서 한 줄씩 돌려보고, 중간 과정을 계속 트러블슈팅해서 최종적으로 동작하는 코드가 완성되면 그때 파일로 저장합니다.\n\n\n① RStudio에서 데이터 로드 & 구조 파악\n\nlibrary(tidyverse)\n\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 이 결과를 복사해서 AI에게 붙여넣기\ncolnames(df_pt)\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"   \"Age_group\"       \"Death_f\"         \"size_cm\"        \n[37] \"BED_group\"      \n\nstr(df_pt)\n\ntibble [55 × 37] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:55] 2 6 7 9 10 15 17 18 19 20 ...\n $ Key_lesion     : chr [1:55] \"liver 2-1\" \"lung 6-1\" \"liver 7-1\" \"lung 9-1\" ...\n $ IN_sur         : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ IN_lesion      : num [1:55] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : Factor w/ 2 levels \"Male\",\"Female\": 1 2 2 2 1 2 2 1 1 1 ...\n $ Age_Tx         : num [1:55] 76 76 55 68 77 63 77 76 64 83 ...\n $ OMD_Type       : chr [1:55] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" \"Induced oligoprogression\" ...\n $ OMD_class      : chr [1:55] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligoprogression\" ...\n $ Tx_site        : chr [1:55] \"liver\" \"lung\" \"liver\" \"lung\" ...\n $ Primary        : chr [1:55] \"Colon\" \"Colon\" \"Rectum\" \"Colon\" ...\n $ Bx_primary     : chr [1:55] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:55] \"mod\" \"mod\" \"well\" \"mod\" ...\n $ Multiplicity   : chr [1:55] \"single\" \"multiple\" \"single\" \"multiple\" ...\n $ OMD_no         : num [1:55] 1 3 1 2 1 1 1 2 2 1 ...\n $ size_mm        : num [1:55] 15 25 42 5 27.5 19 16.7 4 12 16.5 ...\n $ DD             : num [1:55] 1600 1200 1000 1800 1250 1800 1200 1300 1200 1300 ...\n $ fr             : num [1:55] 3 4 5 3 4 3 4 4 4 4 ...\n $ TD             : num [1:55] 4800 4800 5000 5400 5000 5400 4800 5200 4800 5200 ...\n $ GTV_cc         : num [1:55] 5.839 5.8 25.904 0.097 6.709 ...\n $ ITV_cc         : num [1:55] 8.544 9.7 25.904 0.221 7.93 ...\n $ PTV_cc         : num [1:55] 18.87 33.9 53.89 3.93 26.66 ...\n $ Death          : num [1:55] 1 1 1 1 1 0 1 0 0 0 ...\n $ OS             : num [1:55] 20.7 34.5 26.6 11.7 43.4 ...\n $ LF             : num [1:55] 1 0 0 0 0 1 0 0 0 0 ...\n $ LFFS           : num [1:55] 9.23 33.51 24.51 6.51 22.34 ...\n $ CTxAfterRT     : num [1:55] 0 0 0 0 0 1 0 0 1 0 ...\n $ CTxBeforeRT    : num [1:55] 0 1 1 1 0 1 1 1 1 1 ...\n $ bCTx_Line      : num [1:55] 0 3 3 2 0 2 1 1 3 1 ...\n $ PTVmean_BED10  : num [1:55] 149 124 114 178 135 ...\n $ PTV_D2_BED10   : num [1:55] 162 142 116 207 158 ...\n $ PTV_D5_BED10   : num [1:55] 161 141 115 203 156 ...\n $ PTV_D95_BED10  : num [1:55] 120.5 103.7 95.9 148.6 111.5 ...\n $ PTV_D98_BED10  : num [1:55] 113.5 97 86.8 143.3 106.2 ...\n $ Age_group      : chr [1:55] \"≥65\" \"≥65\" \"&lt;65\" \"≥65\" ...\n $ Death_f        : Factor w/ 2 levels \"Alive\",\"Dead\": 2 2 2 2 2 1 2 1 1 1 ...\n $ size_cm        : num [1:55] 1.5 2.5 4.2 0.5 2.75 1.9 1.67 0.4 1.2 1.65 ...\n $ BED_group      : chr [1:55] \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" \"≥100 Gy\" ...\n\n\n\n\n② AI에게 프롬프트 작성\ncolnames()과 str() 결과를 붙여넣고, 원하는 분석을 요청합니다.\n위 데이터에서 생존분석을 해줘.\n\n- Kaplan-Meier curve: Death/OS 기준, Multiplicity(single vs multiple)로 그룹 비교\n- Log-rank test p-value를 그래프에 표시\n- Risk table 포함\n- survminer 패키지 사용\n- 300 dpi tiff로 저장\n\n\n③ AI가 준 코드를 콘솔에서 실행\nAI가 생성한 코드를 한 블록씩 RStudio 콘솔에 붙여넣어 실행합니다.\n이때 위에서 본 함수 + main 구조로 코드가 올 가능성이 높습니다.\n그 경우 main()을 바로 실행하지 말고, 함수 정의부를 먼저 실행한 뒤 함수를 하나씩 테스트하세요.\n\nlibrary(survival)\nlibrary(survminer)\n\n# Kaplan-Meier fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# KM curve\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\nprint(p)\n\n\n\n\n\n\n\n\n\n\n④ 에러가 나면?\n에러 메시지를 그대로 복붙해서 AI에게 주면 됩니다.\n이 코드를 실행했더니 다음 에러가 났어:\n\nError in data.frame(..., check.names = FALSE) : \n  arguments imply differing number of rows: 54, 0, 108\n\n고쳐줘.\n→ AI가 Death가 factor라서 Surv()에서 인식 못하는 걸 잡아줌\n이런 식으로 실행 → 에러 → AI에게 복붙 → 수정을 반복합니다.\n\n\n\n\n\n\nTip무지성 에러 복붙의 함정\n\n\n\n에러가 나면 바로 AI에게 던지고 싶지만, 그 전에 30초만 직접 확인하면 훨씬 효율적입니다.\n왜? AI는 대화가 길어질수록 앞의 맥락을 잊습니다. 에러를 복붙하고 → AI가 부분 수정하고 → 또 에러 → 또 복붙… 이걸 반복하면 원래 깔끔했던 코드가 누더기가 됩니다. 한 번에 고칠 수 있는 걸 돌아돌아 가게 되는 거예요.\n에러가 났을 때 먼저 해볼 것:\n# 1. 모르는 함수가 나왔으면 도움말 보기\n?survfit\n?ggsurvplot\n?tbl_summary\n\n# 2. RStudio에서는 Help 탭에 함수 이름 검색해도 됨\n#    → Arguments 섹션에서 각 인자가 뭘 받는지 확인\n#    → Examples 섹션에서 실제 사용법 확인\n\n\n\n\n\n\n\n\n\n\n도움말의 Arguments 섹션만 훑어봐도 “아, 이 인자에 숫자를 넣어야 하는데 문자를 넣었구나” 같은 단서를 바로 잡을 수 있습니다.\n실전 예시:\n# AI가 만든 코드에서 에러 발생\nggsurvplot(fit, pval.coord = \"top-right\")  # Error!\n\n# ?ggsurvplot → pval.coord는 c(x, y) 숫자 벡터임을 확인\nggsurvplot(fit, pval.coord = c(0.1, 0.1))  # 해결 ✅\n이렇게 본인이 1차로 걸러낸 뒤 AI에게 물어보면, AI도 정확한 맥락에서 답을 주기 때문에 수정이 한 번에 끝납니다.\n\n\n\n에러 대응 순서\n\n에러 메시지 읽기 — 어떤 함수에서 터졌는지 확인\n?함수명으로 용법 확인 — 인자 타입, 필수/선택 여부\n그래도 모르겠으면 — 에러 + ?함수명에서 본 내용을 같이 AI에게 주기\n\n이 코드에서 에러가 났어:\n[에러 메시지]\n\n?ggsurvplot 도움말을 보니 pval.coord는 \nnumeric vector를 받는 것 같은데, \n어떻게 고쳐야 해?\n이렇게 주면 AI가 헛다리 짚을 확률이 크게 줄어듭니다.\n\n\n\n⑤ 동작 확인되면 스크립트로 저장\n콘솔에서 다 돌아가는 걸 확인했으면, 코드를 모아서 .R 파일로 저장합니다. 이때 상단에 input/output을 명시하고, 경로를 paste0()로 정리합니다.\n\n# ===== 03_KM_plot.R =====\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n\n# ----- 디렉토리 -----\nindir  &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\n\n# 1. 데이터 로드\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))\n\n# 2. KM fit\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\n# 3. Plot\np &lt;- ggsurvplot(\n  fit,\n  data = df_pt,\n  pval = TRUE,\n  risk.table = TRUE,\n  xlab = \"Time (months)\",\n  ylab = \"Overall survival\",\n  palette = c(\"#2E86AB\", \"#A23B72\"),\n  ggtheme = theme_minimal()\n)\n\n# 4. 저장\ntiff(paste0(resdir, \"KM_OS.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\nggsave(paste0(resdir, \"KM_OS.pdf\"), plot = print(p), width = 7, height = 5)\n\ncat(\"✅ KM plot saved!\\n\")\n\nRscript 03_KM_plot.R\n\n\n\n\n\n\nTip스크립트 상단에 Input/Output 적기\n\n\n\n# Input:  analysis/2_df_pt_processed.rds\n# Output: results/KM_OS.tiff, results/KM_OS.pdf\n이렇게 적어두면 나중에 파일만 봐도 이 스크립트가 뭘 읽고 뭘 만드는지 바로 알 수 있습니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
     "href": "part4/3_1_vibecoding.html#ai가-틀리기-쉬운-통계적-함정-사전-지식이-중요한-이유",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)",
-    "text": "AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)\n\n\n\n\n\n\nWarning\n\n\n\n\nReference level 방향 — relevel(factor, ref = \"baseline\")을 빠뜨리는 경우 많음\n환자 vs 병변 단위 혼동 — OS는 환자 단위, LFFS는 병변 단위\n다중비교 보정 누락 — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우\n결측치 처리 — 기본값이 na.rm = FALSE라 결과가 NA로 나올 수 있음\n생존 시간/이벤트 뒤바꿈 — Surv(time, event) 순서 주의\n\n이것들은 사람이 알아야 합니다. Part 1에서 Base R로 직접 해본 이유가 여기 있어요.",
+    "text": "AI가 틀리기 쉬운 통계적 함정 (사전 지식이 중요한 이유)\n\nReference level 방향 — relevel(factor, ref = \"baseline\")을 빠뜨리는 경우 많음\n환자 vs 병변 단위 혼동 — OS는 환자 단위, LFFS는 병변 단위\n다중비교 보정 누락 — subgroup 여러 개 비교하면서 Bonferroni 안 하는 경우\n결측치 처리 — 기본값이 na.rm = FALSE라 결과가 NA로 나올 수 있음\n생존 시간/이벤트 뒤바꿈 — Surv(time, event) 순서 주의\n\n이것들은 사람이 알아야 합니다.\n결국 디테일은 다 알고 구현이 귀찮아서 AI에게 시키는 느낌으로 가야합니다.\nPart 1에서 기초 문법을 배운 이유입니다.",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
     "objectID": "part4/3_1_vibecoding.html#바이브코딩-체크리스트",
     "href": "part4/3_1_vibecoding.html#바이브코딩-체크리스트",
-    "title": "1) 바이브코딩으로 R 스크립트 파이프라인 만들기",
+    "title": "1) 바이브코딩",
     "section": "바이브코딩 체크리스트",
-    "text": "바이브코딩 체크리스트\n✅ colnames()와 str() 결과를 AI에게 제공했는가?\n✅ 분석 단위(환자/병변)를 명시했는가?\n✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\n✅ 사용할 패키지를 지정했는가?\n✅ AI 결과의 reference level, 단위, p-value를 직접 확인했는가?\n✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\n✅ 스크립트 상단에 Input/Output을 명시했는가?",
+    "text": "바이브코딩 체크리스트\n프롬프트 시:\n✅ colnames()와 str() 결과를 AI에게 제공했는가?\n✅ 분석 단위(환자/병변)를 명시했는가?\n✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\n✅ 사용할 패키지를 지정했는가?\nAI에게 코드를 받은 후 반드시 확인할 것:\n✅ 분석 단위가 맞는가? (환자 vs 병변)\n✅ 이벤트 변수 방향이 맞는가? (Death=1이 사망)\n✅ Factor의 reference level이 의도한 대로인가?\n✅ p-value 해석이 맞는가? (다중비교 고려)\n✅ 그래프 축 라벨과 범례가 정확한가?\n✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\n✅ 스크립트 상단에 Input/Output을 명시했는가?",
     "crumbs": [
       "Home",
-      "4. 결과 및 마무리",
-      "1) 바이브코딩으로 R 스크립트 파이프라인 만들기"
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
     ]
   },
   {
@@ -853,5 +853,65 @@
     "title": "R script 할용하기",
     "section": "Part3 예제 정리",
     "text": "Part3 예제 정리\n✅ KM:     survfit() → ggsurvplot()\n✅ Forest: coxph() → tidy() → ggplot()\n✅ tiff 300dpi → 논문 투고\n\n패턴은 똑같다: 모델 적합 → tidy로 추출 → 그림. 저장은 300dpi tiff."
+  },
+  {
+    "objectID": "part4/3_1_vibecoding.html#체크리스트",
+    "href": "part4/3_1_vibecoding.html#체크리스트",
+    "title": "1) 바이브코딩",
+    "section": "체크리스트",
+    "text": "체크리스트\n프롬프트 시:\n✅ colnames()와 str() 결과를 AI에게 제공했는가?\n✅ 분석 단위(환자/병변)를 명시했는가?\n✅ 원하는 출력 형태를 지정했는가? (docx, tiff, html)\n✅ 사용할 패키지를 지정했는가?\nAI에게 코드를 받은 후 반드시 확인할 것:\n✅ 분석 단위가 맞는가? (환자 vs 병변)\n✅ 이벤트 변수 방향이 맞는가? (Death=1이 사망)\n✅ Factor의 reference level이 의도한 대로인가?\n✅ p-value 해석이 맞는가? (다중비교 고려)\n✅ 그래프 축 라벨과 범례가 정확한가?\n✅ 콘솔에서 동작 확인 후 .R 파일로 저장했는가?\n✅ 스크립트 상단에 Input/Output을 명시했는가?",
+    "crumbs": [
+      "Home",
+      "4. 바이브코딩 및 마무리",
+      "1) 바이브코딩"
+    ]
+  },
+  {
+    "objectID": "part4/3_2_summary.html#다음-한-걸음-나만의-llm-wiki",
+    "href": "part4/3_2_summary.html#다음-한-걸음-나만의-llm-wiki",
+    "title": "2) 마무리",
+    "section": "다음 한 걸음: 나만의 LLM-wiki",
+    "text": "다음 한 걸음: 나만의 LLM-wiki\n\n\n\n\n\n\nWarning오늘 시킨 AI는 교수님을 모릅니다\n\n\n\n오늘 우리는 AI에게 분석 코드를 시켰습니다. 그런데 AI는 교수님의 데이터 정의, 연구실의 분석 관습, 그동안 쌓은 노하우를 전혀 모릅니다. 그래서 매번 처음부터 다 설명해야 하죠 (“LFFS는 local failure-free survival이고, Death=1이 사망이고…”).\n\n\n\nLLM-wiki는 이 문제를 뒤집는 시도입니다. 교수님이 자신의 분석 노하우·프롬프트·코드 스니펫·연구 관습을 위키처럼 한 곳에 쌓아두면, AI가 그걸 참고해서 교수님 맥락에 딱 맞는 답을 줍니다.\n\n연구: 매번 설명하던 데이터 정의·분석 컨벤션을 한 번 적어두면, 이후 분석은 그 위에서 일관되게 굴러갑니다.\n교육: 쌓인 노하우가 곧 제자·공동연구자에게 전수되는 교재가 됩니다. 사람이 떠나도 노하우는 남습니다.\n\n오늘 당장 만들 필요는 없습니다. “내 노하우를 AI가 읽을 수 있게 쌓아두는 방향이 있다” — 이 인식 하나만 가져가셔도 충분합니다.",
+    "crumbs": [
+      "Home",
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
+    ]
+  },
+  {
+    "objectID": "part4/3_2_summary.html#추천-리소스",
+    "href": "part4/3_2_summary.html#추천-리소스",
+    "title": "2) 마무리",
+    "section": "추천 리소스",
+    "text": "추천 리소스\n\nR graph gallery\n\nhttps://r-graph-gallery.com/\n\nR statistics\n\nhttps://r-statistics.co/\n\nR for Data Science (2e)\n\nhttps://r4ds.hadley.nz/\n\nSurvival Analysis in R\n\nhttps://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html\n\ngtsummary 공식 문서\n\nhttps://www.danieldsjoberg.com/gtsummary/",
+    "crumbs": [
+      "Home",
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
+    ]
+  },
+  {
+    "objectID": "part4/3_2_summary.html#qa",
+    "href": "part4/3_2_summary.html#qa",
+    "title": "2) 마무리",
+    "section": "Q&A",
+    "text": "Q&A\n궁금한 점이 있으면 질문해주세요! (eha@knu.ac.kr)\n(사실 AI가 더 잘 대답해 줄 거예요..)",
+    "crumbs": [
+      "Home",
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
+    ]
+  },
+  {
+    "objectID": "part4/3_2_summary.html#오늘-배운-것",
+    "href": "part4/3_2_summary.html#오늘-배운-것",
+    "title": "2) 마무리",
+    "section": "",
+    "text": "Part\n핵심\n\n\n\n\n1. 프로그래밍 기본기\nif/else, for, while + 함수 만들기 + Claude의 함수+main 구조\n\n\n2. 환경 구축\nR Project + 폴더 구조(rawdata/, analysis/, results/) + paste0() 경로 관리\n\n\n3. 분석 파이프라인\nTable 1(gtsummary) → 전처리(dplyr) → KM curve + Forest plot\n\n\n4. 바이브코딩\n프롬프트 작성 → RStudio 콘솔에서 트러블슈팅 → .R 파일로 저장\n\n\n\n\n폴더 쪼개기 (R project)\n과정 쪼개기 (함수)\n구성 쪼개기 (프롬프트)\n\n\n네 파트 전부 한 단어로 → 구조화 ## Ready-to-Use 템플릿\n\n\n\n강의 후 바로 활용할 수 있는 템플릿을 제공합니다.\n\n# ===== survival_analysis.R =====\n# Input:  analysis/your_data.rds\n# Output: results/KM_plot.tiff, results/cox_result.csv\n\n# ===== 파라미터: 여기만 바꾸세요 =====\nindir      &lt;- \"analysis/\"\nresdir     &lt;- \"results/\"\nDATA_FILE  &lt;- paste0(indir, \"your_data.rds\")\nTIME_VAR   &lt;- \"OS\"\nEVENT_VAR  &lt;- \"Death\"\nGROUP_VAR  &lt;- \"treatment_group\"\nCOVARIATES &lt;- c(\"age\", \"sex\", \"stage\", \"tumor_size\")\n# =====================================\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# 1. 데이터 로드\ndf &lt;- readRDS(DATA_FILE)\n\n# 2. KM curve\nfit &lt;- survfit(\n  as.formula(paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \", GROUP_VAR)),\n  data = df\n)\n\np &lt;- ggsurvplot(fit, data = df, pval = TRUE, risk.table = TRUE,\n                ggtheme = theme_classic())\n\n# 3. KM 저장\ntiff(paste0(resdir, \"KM_plot.tiff\"), width = 7, height = 5, units = \"in\", res = 300)\nprint(p)\ndev.off()\n\n# 4. Cox regression\ncox_formula &lt;- as.formula(\n  paste0(\"Surv(\", TIME_VAR, \",\", EVENT_VAR, \") ~ \",\n         paste(COVARIATES, collapse = \" + \"))\n)\ncox_model &lt;- coxph(cox_formula, data = df)\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n# 5. Cox 결과 저장\nwrite.csv(cox_tidy, paste0(resdir, \"cox_result.csv\"), row.names = FALSE)\n\ncat(\"✅ Done!\\n\")\n\n\n\n\n\n파라미터 블록만 본인 데이터에 맞게 수정\nRStudio 콘솔에서 실행하며 중간 결과 확인\n동작 확인되면 Rscript survival_analysis.R로 실행\n\n\n\n\n\n\n\nTipClaude에게 시키면 function + main 구조로 올 수 있습니다\n\n\n\n위 템플릿은 위에서 아래로 읽기 쉬운 flat script입니다. 하지만 Claude에게 바이브코딩으로 분석을 시키면 load_data(), run_km() 같은 함수를 정의하고 main()에서 호출하는 구조로 코드를 줄 가능성이 높습니다. 같은 분석을 하는 코드이니 당황하지 마세요 — Part 1에서 배운 구조입니다.",
+    "crumbs": [
+      "Home",
+      "4. 바이브코딩 및 마무리",
+      "2) 마무리"
+    ]
   }
 ]
