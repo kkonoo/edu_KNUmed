@@ -11,6 +11,10 @@ format:
     incremental: true
 mainfont: "Pretendard"
 monofont: "D2Coding"
+warning: false
+message: false
+echo: true
+eval: true
 ---
 
 # Part1.<br>프로그래밍 기본기 {background-color="#2c3e50"}
@@ -97,14 +101,16 @@ for (v in vars) {
 
 조건이 참인 동안 반복 — *수렴할 때까지*
 
-``` r
+``` {.r}
 while (조건) {
   # 반복 실행
   # ⚠️ 조건을 FALSE로 만드는 코드가 반드시 있어야 함 (무한루프 방지)
 }
 ```
 
-``` r
+<br>
+
+``` {.r}
 while (diff > tol) {
   current <- update(prev)
   diff <- abs(current - prev)

@@ -316,6 +316,7 @@ Eunji Ha
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># 반복 실행</span></span>
 <span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># ⚠️ 조건을 FALSE로 만드는 코드가 반드시 있어야 함 (무한루프 방지)</span></span>
 <span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (diff <span class="sc">&gt;</span> tol) {</span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  current <span class="ot">&lt;-</span> <span class="fu">update</span>(prev)</span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  diff <span class="ot">&lt;-</span> <span class="fu">abs</span>(current <span class="sc">-</span> prev)</span>
@@ -581,8 +582,8 @@ group_C : mean = 140.75 </code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="정리-1" class="slide level2">
-<h2>정리</h2>
+<section id="part1-기초-정리" class="slide level2">
+<h2>Part1 기초 정리</h2>
 <pre><code>복붙 반복         →  함수로 만들어서 사용
 긴 스크립트       →  함수 + main()
 에러 어디?        →  함수 단위 디버깅</code></pre>
