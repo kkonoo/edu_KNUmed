@@ -1,5 +1,5 @@
 ---
-title: "Rscript 활용하기"
+title: "Rscript 활용하기 + 바이브코딩"
 subtitle: "효율적인 연구를 위한"
 sidebar: false
 author: "Eunji Ha"
@@ -26,13 +26,8 @@ R 기초 문법은 배웠지만, **프로그래밍 구조**(`if`, `for`, 함수)
 
 기초를 배운 직후이므로, R을 실제 연구 도구로 세팅하는 법부터 시작합니다.
 
--   **R script 활용 파이프라인이란?**
-
-    **input**: 연구 데이터 ➡️ **R script** ➡️ **output**: 논문용 표 & 그래프📊📈
-
-    ✅ 휴먼 에러 최소화\
-    ✅ 연구 효율성\
-    ✅ Reproducibility
+-   **R script 활용 파이프라인이란?\
+    input**: 연구 데이터 ➡️ **R script** ➡️ **output**: 논문용 표 & 그래프📊📈
 
 -   **R project**: 폴더 구조 체계화
 
@@ -53,10 +48,9 @@ R 기초 문법은 배웠지만, **프로그래밍 구조**(`if`, `for`, 함수)
 
 예제 데이터(SBRT 간암 생존분석)를 가지고 Table 1부터 Figure까지, 단계별로 스크립트를 만들어봅니다.
 
--   **데이터 읽기 & Table 1**: xlsx 읽기 → 환자 단위 정리 → 변수 select → gtsummary로 Table 1 생성(그룹 비교 + p-value) → Word/CSV 내보내기
-    -   리뷰어가 "BMI 말고 BSA로" 하면? → 코드 한 줄 수정으로 끝
--   **전처리 스크립트**: dplyr 다섯 동사 (filter, select, mutate, group_by, arrange) → Rscript로 정리 → `2_` 접두사로 저장
--   **핵심 Figure 그리기**: Kaplan-Meier Curve (survminer) → Cox regression → Forest Plot (broom + ggplot)
+-   **데이터 읽기 & Table 1**: xlsx 읽기 → gtsummary로 Table 1 생성(그룹 비교 + p-value)
+-   **전처리 스크립트**: dplyr 활용
+-   **핵심 Figure 그리기**: survival plot, forest plot
 
 ## Part4. 바이브코딩으로 R 스크립트 파이프라인 만들기
 
