@@ -1,111 +1,88 @@
-/* css styles */
+/*-- scss:defaults --*/
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-@import url('https://cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-ligature-full.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+ 
+$font-family-sans-serif: "Pretendard", sans-serif;
+$font-family-monospace: "Nanum Gothic Coding", monospace;
 
-body {
-  font-family: "Pretendard", sans-serif;
-  font-size: 1.1em;   /* 기본 16px → ~17.6px */
-  font-weight: 500;  /* Medium */
+// 포인트 색 하나만 정의해서 재사용
+$accent: #5B4D80;
+
+$body-color: #1a1a1a;          // 본문은 거의 검정 (기본 revealjs 느낌)
+$link-color: $accent;
+
+// heading: 검정에 가깝게, 굵기로 위계 (색 남발 X)
+$presentation-heading-color: #1a1a1a;
+$presentation-heading-font: "Pretendard", sans-serif;
+$presentation-heading-font-weight: 700;
+
+$code-block-bg: #f6f6f6;
+$code-color: $accent;          // 인라인 코드만 포인트색
+
+/*-- scss:rules --*/
+
+.reveal {
+  font-weight: 400;
 }
 
-/* 소제목 색상 */
-h2 {
-  color: #5B4D80; font-size: 1.4em;
-  background-color: #f3f0f7;
-  padding: 0.3em;
-  border-radius: 8px;
-  margin: 0.3em 0; /* 상하만 margin, 좌우는 0 */
+// h2: 박스 제거, 얇은 밑줄 한 줄로 정리
+.reveal h2 {
+  color: #1a1a1a;
+  border-bottom: 3px solid #5B4D80;
+  padding-bottom: 0.2em;
+  display: inline-block;
 }
-h3 {
-  color: #7A6A99; font-size: 1.25em;
-  /* background-color: #fbfaff; /* h2보다 훨씬 연하게 */ /*
-  padding: 0.3em;
+
+// h3/h4: 색 대신 굵기·크기로만 구분
+.reveal h3 { color: #333; font-weight: 600; }
+.reveal h4 { color: #333; font-weight: 600; }
+
+// 강조(bold)만 포인트색으로 — 시선 한 곳에
+.reveal strong { color: #5B4D80; }
+
+// 코드블록
+.reveal pre {
   border-radius: 6px;
-  margin: 0.2em 0;
-}
-h4 { 
-  color: #5B4D80; font-size: 1.2em;  /* #9A8DB5 */
-  border-radius: 4px; font-weight: 600;  /* SemiBold */
-  margin: 0.2em 0;
-}
-
-
-/* 코드 공통 */
-code, pre code {
-  font-family: 'D2Coding', 'Fira Code', monospace;
-  font-size: 1em;
-  font-weight: 500
-  border-radius: 6px;
-}
-
-pre {
-  border-radius: 6px;
-  padding: 1em;
   border: none;
+  box-shadow: none;
+}
+.reveal pre code {
+  background: #f6f6f6;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  font-family: "D2Coding", "Fira Code", monospace;
 }
 
-
-/* 일반 코드 블록 (``` 만 쓴 것) */
-pre:not(.sourceCode) {
-  background: #f5f5f5;
-}
-pre:not(.sourceCode) code {
-  color: #555;
+// 인라인 코드
+.reveal code {
+  font-family: "D2Coding", "Fira Code", monospace;
+  color: #5B4D80;
 }
 
-/* R 코드 블록 */
-pre.sourceCode, pre.sourceCode code {
-  background: #f5f5f5; /* #f3f0f7: 연보라 */
-  margin: 0;
-}
-.cell-output,
-.cell-output-stderr,
-.cell-output-stdout {
-  margin: 0;
-  padding: 0;
-}
-.cell-output pre {
-  background: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* callout 박스 안 글씨체/크기 */
-.callout-body-container {
-  font-family: 'Pretendard', sans-serif;
-  font-size: 1.2em;
-  font-weight: 500;  /* Medium */
-  color: #555;
-}
-
-/* callout 제목 글씨체 */
-.callout-title-container {
-  font-family: 'Pretendard', sans-serif;
+// 큰 글씨 한 줄용 (.big)
+.reveal .big {
+  font-size: 1.6em;
   font-weight: 700;
-  font-size: 1.2em;
-  font-weight: 500;  /* Medium */
+  color: #5B4D80;
+  line-height: 1.4;
+}
+
+// blockquote: 톤 다운
+.reveal blockquote {
+  border-left: 3px solid #5B4D80;
+  background: #fafafa;
   color: #555;
 }
 
-/* callout 컬러바 */
-.callout {
-  border-left: 3px solid;  /* 왼쪽 컬러바만 남기기 */
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
+// 섹션 표지(# 배경) 위에서는 텍스트 흰색
+.reveal .slide-background.has-dark-background ~ * h1,
+.reveal section[data-background-color] h1 {
+  color: #fff;
 }
 
-/* definition */
-dd,
-.callout-body-container {
-  color: #555;
-}
-
-
-/* plot정렬 */
-.cell-output-display {
+// plot 중앙정렬
+.reveal .cell-output-display {
   display: flex;
   justify-content: center;
 }
-
