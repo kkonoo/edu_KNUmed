@@ -1,0 +1,393 @@
+---
+title: "R script 할용하기"
+subtitle: "실전 예제"
+author: "Eunji Ha"
+date: last-modified
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: false
+    highlight-style: a11y
+    incremental: true
+mainfont: "Pretendard"
+monofont: "D2Coding"
+---
+
+# Part3.<br>R script 실전 예제 {background-color="#2c3e50"}
+
+::: subtitle
+Table1 + 전처리 + 분석 Figure
+:::
+
+## Table 1, 엑셀로 만들면
+
+-   median(range) 직접 계산 → 복붙
+-   n(%) 직접 계산 → 복붙
+-   p-value 따로 → 복붙
+-   변수 하나 바뀌면 → **처음부터**
+
+. . .
+
+R로 만들면 → **코드 한 번 실행, 끝**
+
+::: notes
+다들 해본 노가다. 오늘 이걸 코드 한 번으로 바꾼다.
+:::
+
+## 파라미터 설정 (예제 데이터 적용)<br>& 패키지 로드
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(gtsummary)
+library(flextable)
+
+# ===== 디렉토리 설정 =====
+indir  <- "rawdata/"
+outdir <- "analysis/"
+resdir <- "results/"
+
+# ===== 파라미터 =====
+DATA_FILE <- paste0(indir, "clinical_data.xlsx")
+GROUP_VAR <- "Death"
+
+```
+
+## 데이터 구조 먼저
+
+```{r}
+df <- read_excel(DATA_FILE)
+dim(df); str(df); names(df)
+```
+
+> 환자-병변 pair: 한 환자가 여러 병변
+
+::: notes
+분석 단위 주의. 환자 단위(OS, Death)면 IN_sur==1만. 병변 단위(LF)면 전체. 이거 안 맞추면 숫자 다 틀림 — 말로 강조.
+:::
+
+## 필요한 column select {.scrollable}
+
+Table1에서 보여줄 column 선택하기: `select()`
+
+```{r}
+# 환자 단위: 환자당 1행만 남기기
+df_pt <- df %>% filter(IN_sur == 1)
+
+# 필요한 것만
+df_tbl <- df_pt %>%
+  select(Sex, Age_Tx, Primary, Multiplicity, size_mm, TD, GTV_cc, PTVmean_BED10, Death)
+
+names(df_tbl)
+```
+
+## 가장 간단한 Table 1 {.scrollable}
+
+-   연속형 → median (IQR) 자동
+-   범주형 → n (%) 자동
+-   결측치 자동 표시
+
+```{r}
+df_tbl %>% tbl_summary()
+```
+
+::: notes
+한 줄이 이걸 다 한다. select로 넣을 변수만 고른 뒤 파이프 한 번.
+:::
+
+## 그룹 비교 + p-value {.scrollable}
+
+```{r}
+df_tbl %>%
+  tbl_summary(by = Death) %>%
+  add_p() %>%        # 검정 자동 선택
+  add_overall() %>%
+  bold_labels()
+```
+
+::: notes
+add_p()가 변수 타입 보고 chi-sq / Wilcoxon 알아서. 결과 이미지 자리에 실제 Table 1 캡처. 라벨링(Age_Tx → Age at treatment)·digits 세부는 사이트.
+:::
+
+## 리뷰어가 BMI→BSA 하면?
+
+``` r
+df_tbl <- df_pt %>%
+  select(Sex, Age_Tx, BSA, ...)   # 한 단어만
+```
+
+::: big
+엑셀 30분, R 30초
+:::
+
+::: notes
+이 한 장이 파트3 핵심. select에서 변수 하나 바꾸고 재실행. 저장(docx/csv)·rds 파이프라인은 사이트.
+:::
+
+## 2) 전처리 {background-color="#2c3e50"}
+
+::: big
+> 전체 분석의 80% 😭
+:::
+
+스크립트로 만들면 →
+
+데이터 바뀌어도 재실행, 다음 분석은 `.rds` 로드
+
+::: notes
+전처리가 연구의 8할(웃음, 말로). 한 번 스크립트로 박아두면 재사용. 리뷰어 대응도 한 줄.
+:::
+
+## dplyr 다섯 동사
+
+| 함수                   | 역할      |
+|------------------------|-----------|
+| `filter()`             | 행 고르기 |
+| `select()`             | 열 고르기 |
+| `mutate()`             | 새 변수   |
+| `group_by + summarise` | 그룹 요약 |
+| `arrange()`            | 정렬      |
+
+::: notes
+이 다섯 개가 전처리의 거의 전부. 문장처럼 읽힌다 — "df를 filter하고 mutate해서 summarise".
+:::
+
+## mutate: 새 변수
+
+```{r}
+df_pt %>% mutate(
+  Age_group = ifelse(Age_Tx >= 65, "≥65", "<65"),
+  size_cm   = size_mm / 10,
+  BED_group = case_when(
+    PTVmean_BED10 >= 100 ~ "≥100 Gy",
+    PTVmean_BED10 >= 80  ~ "80-99 Gy",
+    TRUE                 ~ "<80 Gy"
+  )
+)
+```
+
+::: notes
+조건 2개면 ifelse, 3개 이상이면 case_when. 앞 파트 if/else가 여기서 벡터로.
+:::
+
+## 저장
+
+```{r}
+# 추가 전처리된 데이터를 2_ 접두사로 저장
+saveRDS(df_pt, paste0(outdir, "2_df_pt_processed.rds"))
+
+# 최종 결과물: csv (공유/기록용) — 필요시
+# write.csv(df_pt, paste0(resdir, "cleaned_patient_data.csv"), row.names = FALSE)
+```
+
+![](/images/results.png){fig-align="center"}
+
+## 파이프라인 흐름 {.smaller}
+
+```         
+rawdata/clinical_data.xlsx
+  → 01_table1.R
+    → analysis/1_df_pt.rds
+    → results/Table1.docx
+  → 02_preprocessing.R  (1_df_pt.rds 로드)
+    → analysis/2_df_pt_processed.rds
+      → 03_km_plot.R      → results/KM_plot.png
+      → 04_forest_plot.R  → results/Forest_plot.png
+```
+
+> 각 스크립트는 앞 단계 `.rds`를 로드
+
+::: notes
+이게 파이프라인. 입력·처리·출력이 파일로 연결됨. .rds로 저장하는 이유: factor·타입 보존(csv는 풀림). 완성 .R 전문은 사이트.
+:::
+
+
+
+## 3) 분석 Figure {background-color="#2c3e50"}
+
+### 그림 작업의 원칙
+
+
+R은 알맹이, PPT는 마무리
+
+
+- R = 통계적으로 정확한 곡선·점·에러바
+- 꾸미기(폰트·범례·화살표) >>> PPT
+
+::: {.notes}
+theme() 한 줄씩 씨름하지 마라. 축 텍스트·범례는 PPT 드래그가 10배 빠름. R에선 "통계적으로 정확한 그림"에만 집중. 이거 실전 팁이라 강조.
+:::
+
+## 파라미터 설정 (예제 데이터 적용)<br>& 패키지 로드
+
+```{r}
+library(tidyverse)
+library(survival)
+library(survminer)
+library(broom)
+
+# ===== 디렉토리 설정 =====
+indir  <- "analysis/"
+outdir <- "analysis/"
+resdir <- "results/"
+
+# ===== 데이터 로드 (2_2에서 저장한 rds) =====
+df_pt <- readRDS(paste0(indir, "2_df_pt_processed.rds"))
+```
+
+
+## ① Kaplan-Meier
+
+```{r}
+fit <- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)
+
+ggsurvplot(fit, data = df_pt,
+           pval = TRUE,          # log-rank
+           risk.table = TRUE)
+```
+
+::: {.notes}
+survfit으로 적합, ggsurvplot으로 그림. pval=TRUE면 log-rank 자동. 결과 이미지 자리에 실제 KM 캡처. 옵션 표는 사이트.
+:::
+
+## ② Forest plot {.scrollable}
+
+### Cox regression 실행
+
+```{r}
+# Multivariable Cox
+cox_model <- coxph(
+  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_mm + PTVmean_BED10,
+  data = df_pt
+)
+
+# summary(cox_model)
+
+# 통계 수치를 데이터프레임으로
+cox_tidy <- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)
+
+# 변수 라벨 매핑
+cox_tidy <- cox_tidy %>%
+  mutate(
+    label = case_when(
+      term == "Age_Tx"                  ~ "Age",
+      term == "SexM"                    ~ "Sex (Male)",
+      term == "Multiplicitymultiple"    ~ "Multiplicity (Multiple)",
+      term == "size_cm"                 ~ "Tumor size (cm)",
+      term == "PTVmean_BED10"           ~ "PTV mean BED10",
+      TRUE                              ~ term
+    )
+  )
+
+cox_tidy
+```
+
+----
+
+### Forest plot 그리기 {.scrollable}
+
+
+#### three components of ggplot2
+
+data: a data frame
+<br>aes: x-axis, y-axis, color, fill, group, etc.
+<br>geom: the type of plot
+
+```{.r}
+dataframe %>%
+  ggplot(aes(x = xx, y = yy)) +
+  geom_function() +
+  ...
+```  
+
+::: fragment
+
+#### Forest plot
+
+```{r}
+#| eval: false
+
+# ggplot으로 forest plot
+gp <- cox_tidy %>% 
+  ggplot(aes(x = estimate, y = reorder(label, estimate))) +
+  geom_point(size = 3, color = "#5B4D80") +
+  geom_errorbarh(
+    aes(xmin = conf.low, xmax = conf.high),
+    height = 0.2,
+    color = "#5B4D80"
+  ) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  scale_x_log10() +
+  labs(
+    x = "Hazard Ratio (95% CI)",
+    y = NULL,
+    title = "Multivariable Cox Regression: Overall Survival"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11)
+  )
+
+```
+
+:::
+
+----
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+
+# ggplot으로 forest plot
+gp <- cox_tidy %>% 
+  ggplot(aes(x = estimate, y = reorder(label, estimate))) +
+  geom_point(size = 3, color = "#5B4D80") +
+  geom_errorbarh(
+    aes(xmin = conf.low, xmax = conf.high),
+    height = 0.2,
+    color = "#5B4D80"
+  ) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  scale_x_log10() +
+  labs(
+    x = "Hazard Ratio (95% CI)",
+    y = NULL,
+    title = "Multivariable Cox Regression: Overall Survival"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 13, face = "bold"),
+    axis.text = element_text(size = 11)
+  )
+
+gp
+```
+
+----
+
+```{.r}
+# 저장
+ggsave(paste0(resdir, "forest_OS.tiff"), gp, width = 8, height = 4, dpi = 300)
+ggsave(paste0(resdir, "forest_OS.pdf"), gp, width = 8, height = 4)
+```
+
+![](/images/plot_save.png){fig-align="center"}
+
+::: {.notes}
+coxph로 모델, tidy로 HR·95%CI·p를 데이터프레임으로. 직접 타이핑 안 하니 오타 없음. ggplot forest 코드 전문은 사이트. 결과 이미지 자리에 실제 forest 캡처.
+:::
+
+## Part3 예제 정리
+
+```
+✅ KM:     survfit() → ggsurvplot()
+✅ Forest: coxph() → tidy() → ggplot()
+✅ tiff 300dpi → 논문 투고
+```
+
+::: {.notes}
+패턴은 똑같다: 모델 적합 → tidy로 추출 → 그림. 저장은 300dpi tiff.
+:::

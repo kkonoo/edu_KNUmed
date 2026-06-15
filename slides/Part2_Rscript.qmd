@@ -1,0 +1,305 @@
+---
+title: "R Script 이해"
+subtitle: "분석 기록 + 자동화"
+author: "Eunji Ha"
+date: last-modified
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: false
+    highlight-style: a11y
+    incremental: true
+mainfont: "Pretendard"
+monofont: "D2Coding"
+---
+
+# Part2.<br>R 환경 구조화 {background-color="#2c3e50"}
+
+::: subtitle
+AI식으로 일하기
+:::
+
+## 익숙한 워크플로우?
+
+```         
+Excel 정리 → SPSS 분석 → Word 복붙
+→ 리뷰어 코멘트 → 처음부터 다시...
+```
+
+::: notes
+다들 해본 그 과정. 데이터 한 번 바뀌면 표·그래프 전부 수작업. p-value 어디서 나왔는지 추적 안 됨. 공유는 스크린샷. 이 고통 말로.
+:::
+
+<br>
+
+### R Script 파이프라인
+
+::: big
+input → \[ R script \] → output
+:::
+
+연구 데이터 → **R script** → 표 · 그래프
+
+::: fragment
+> 스크립트 = **분석 기록**
+:::
+
+::: notes
+파이프라인 = 입력·처리·출력. 앞에서 함수 main() 봤던 그 구조랑 같다. 스크립트가 곧 기록이라 재현된다.
+:::
+
+## 뭐가 다른가 {.smaller}
+
+|             | SPSS / Excel        | R Script          |
+|-------------|---------------------|-------------------|
+| 데이터 수정 | 표·그래프 전부 다시 | 재실행 n초        |
+| 공유        | 구두·스크린샷       | `.R` 전달         |
+| 리뷰어 수정 | 처음부터            | 한 줄 고치고 실행 |
+| 재현성      | ❌                  | ✅                |
+
+::: notes
+표 읽지 말고 "재현성" 한 단어만. 시나리오로 말하기: 리뷰어가 BMI 대신 BSA 써달라 하면 — SPSS는 다시 다 돌리고, R은 변수명 한 줄.
+:::
+
+# R Project: <br>폴더 구조 체계화 {background-color="#2c3e50"}
+
+::: subtitle
+입력 · 처리 · 출력 폴더 나누기
+:::
+
+## R Project란
+
+`.Rproj` 하나로
+
+-   작업 디렉토리 **자동 설정**
+-   프로젝트별 독립 환경
+-   다른 컴퓨터에서도 경로 문제 없음
+
+::: notes
+경로 하드코딩 지옥에서 탈출. 더블클릭하면 그 폴더가 기준점.
+:::
+
+## 폴더 구조
+
+::::: columns
+::: {.column width="50%"}
+```         
+my_project/
+├── scripts/    # 분석 코드
+├── rawdata/    # 원본 (수정 금지!)
+├── analysis/   # 중간 결과 (.rds)
+└── results/    # 최종 산출물
+```
+:::
+
+::: {.column width="50%"}
+![](/images/folder_structure.png){fig-align="center"}
+:::
+:::::
+
+. . .
+
+> rawdata 입력 → analysis 처리 → results 출력
+
+::: notes
+폴더 자체가 입력·처리·출력. 막연한 "프로젝트"를 세 칸으로 쪼개 이름 붙인 것 = 구조화. 스크립트 번호 붙이기, results엔 최종본만 — 디테일은 사이트.
+:::
+
+## 핵심 원칙 한 줄
+
+::: big
+rawdata는 절대 건드리지 않는다
+:::
+
+원본은 읽기만, 전처리 결과는 `analysis/`로
+
+논문용 최종 결과는 `results/`에 정리
+
+::: notes
+원본 한 번 덮어쓰면 끝. 읽기 전용으로 신성시. 나머지 원칙(번호, 최종본)은 말로.
+:::
+
+## 만들어보기
+
+R project 생성
+
+![](/images/R_project.png){fig-align="center"}
+
+하위 폴더 생성
+
+``` r
+dir.create("scripts")
+dir.create("rawdata")
+dir.create("analysis")
+dir.create("results")
+```
+
+::: notes
+RStudio: File → New Project. 스크린샷·세부 단계는 사이트.
+:::
+
+# R script 직성 기본 {background-color="#2c3e50"}
+
+::: subtitle
+input만 바꾸면 되는 스크립트
+:::
+
+## 스크립트 5단계
+
+::::: columns
+::: {.column width="30%"}
+파라미터
+
+🔽
+
+패키지
+
+🔽
+
+읽기
+
+🔽
+
+전처리 / 분석
+
+🔽
+
+저장
+:::
+
+::: {.column width="70%"}
+``` r
+# ============================================================
+# 프로젝트: SBRT 간암 생존분석
+# 스크립트: 01_preprocessing.R
+# 작성자: 하은지
+# 최종수정: 2026-05-13
+# ============================================================
+
+# ===== 파라미터: 여기만 바꾸세요 =====
+DATA_FILE <- "rawdata/clinical_data.xlsx"
+TIME_VAR  <- "OS"
+EVENT_VAR <- "Death"
+GROUP_VAR <- "Multiplicity"
+AGE_CUT   <- 65
+OUTPUT <- 'analysis/1_cleaned_data.rds'
+# =====================================
+
+# 1. 패키지 로딩 -----
+library(readxl)
+library(tidyverse)
+
+
+# 2. 데이터 읽기 -----
+raw <- read_excel(DATA_FILE)
+names(raw)
+raw %>% select(Key_pt, Key_lesion, Age_Tx) %>% head
+
+# 3. 전처리 -----
+df <- raw %>%
+  filter(!is.na(.data[[TIME_VAR]])) %>%
+  mutate( age_group = ifelse(Age_Tx >= AGE_CUT, paste0("≥", AGE_CUT), paste0("<", AGE_CUT)),
+          event = as.numeric(.data[[EVENT_VAR]] == 1)
+  )
+df %>% select(Key_pt, Key_lesion, Age_Tx, age_group, event) %>% head
+
+# 4. 결과 저장 -----
+saveRDS(df, OUTPUT)
+```
+:::
+:::::
+
+::: notes
+모든 분석 스크립트가 이 골격. 외워두면 빈 파일 앞에서 안 막힘.
+:::
+
+## 상단 파라미터
+
+``` r
+# ===== 여기만 바꾸세요 =====
+DATA_FILE <- "rawdata/clinical_data.xlsx"
+TIME_VAR  <- "OS"
+EVENT_VAR <- "Death"
+GROUP_VAR <- "Multiplicity"
+OUTPUT    <- "analysis/1_cleaned_data.rds"
+# ===========================
+```
+
+> 다른 데이터셋? **상단 5줄만 수정**
+
+::: notes
+본문 뒤질 필요 없음. 공동연구자한테 "위에 파일명·변수명만 바꾸세요". 이것도 구조화 — 바뀌는 것(파라미터)과 안 바뀌는 것(로직)을 분리.
+:::
+
+## 좋은 습관 {.scrollable}
+
+### 좋은 주석 = "왜"
+
+``` r
+# 나쁨
+filter(Age_Tx >= 18)   # 18세 이상 필터
+
+# 좋음
+filter(Age_Tx >= 18)   # IRB 기준: 성인만 포함
+```
+
+::: notes
+코드가 "무엇"은 이미 말해줌. 주석은 "왜"를 적는다.
+:::
+
+### 하드코딩 금지
+
+``` r
+# 나쁨
+read_excel("/Users/eunji/.../진짜최종_v3.xlsx")
+
+# 좋음
+read_excel(DATA_FILE)
+```
+
+### 중간 결과 저장
+
+```{r}
+#| eval: false
+OUTPUT <- 'analysis/1_cleaned_data.rds'
+
+# 전처리가 오래 걸리면 .rds로 저장해두기
+saveRDS(df_cleaned, OUTPUT)
+
+# 다음 스크립트에서 바로 불러오기
+df <- readRDS(OUTPUT)
+```
+
+::: notes
+"진짜최종_v3" 파일명 다들 있죠(웃음 포인트, 말로). 상단 파라미터 + 상대경로면 해결. optparse로 커맨드라인 넘기는 고급편은 사이트.
+:::
+
+## 패키지 한 번에 설치 {.smaller}
+
+``` r
+install.packages(c(
+  "readxl", "writexl", "readr",      # 입출력
+  "dplyr",                           # 전처리
+  "survival", "survminer",           # 생존분석
+  "ggplot2", "ggpubr",               # 시각화
+  "gtsummary", "moonBook",           # Table 1
+  "flextable", "kableExtra"          # 표 출력
+))
+```
+
+::: notes
+한 번만 실행. 전체 목록·주석은 사이트. 에러나면 하나씩, R 4.3 이상 권장 — 이것도 사이트.
+:::
+
+## Part2 환경 구축 정리
+
+```         
+✅ R Script  = 분석 기록 → 재현성
+✅ R Project = 독립 환경 → 경로 해결
+✅ 폴더      = rawdata / scripts / analysis / results
+✅ 습관      = 상단 파라미터 · 주석 · 상대경로
+```
+
+::: notes
+전부 한 방향: 막연한 작업을 입력·처리·출력으로 쪼개 이름 붙이기. 다음 Part는 이 환경 위에서 실제 임상 데이터 분석.
+:::

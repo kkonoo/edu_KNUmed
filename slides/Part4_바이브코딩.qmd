@@ -1,0 +1,190 @@
+---
+title: "바이브코딩으로 연구하기"
+subtitle: "AI 잘 부려먹기"
+author: "Eunji Ha"
+date: last-modified
+format:
+  revealjs:
+    slide-number: true
+    code-line-numbers: false
+    highlight-style: a11y
+    incremental: true
+mainfont: "Pretendard"
+monofont: "D2Coding"
+---
+
+# Part4.<br>바이브코딩 및 마무리 {background-color="#2c3e50"}
+
+::: subtitle
+AI식으로 사고하기
+:::
+
+## 바이브코딩이란
+
+::: big
+자연어로 설명 → 코드 생성 → 실행 → 수정
+:::
+
+코드를 외우는 게 아니라, **AI에게 잘 시켜야함** **AI가 짠 코드를 읽고 고칠 수 있어야함**
+
+::: notes
+오늘 앞에서 base R 직접 짠 건 외우라는 게 아님. AI가 짠 걸 읽고 고치기 위함. 이제 실제로 시켜본다.
+:::
+
+## Claude가 주는 구조 {.smaller}
+
+``` r
+load_data    <- function(path) { ... }   # 입력
+make_table1  <- function(df)   { ... }   # 처리
+run_survival <- function(df)   { ... }   # 처리
+save_results <- function(...)  { ... }   # 출력
+
+main <- function() {
+  df  <- load_data(...)
+  tbl <- make_table1(df)
+  fit <- run_survival(df)
+  save_results(tbl, fit)
+}
+main()
+```
+
+> 앞에서 본 **함수 + main** 구조 그대로
+
+::: notes
+파트1 그 구조가 실제 분석에 그대로. 읽는 순서: main() 먼저(전체 흐름) → 각 함수 입출력 → 하나씩 실행 → 에러나면 그 함수만.
+:::
+
+## 프롬프트 3요소
+
+::: big
+역할 + 맥락 + 구체적 요청
+:::
+
+. . .
+
+❌ "통계 분석 해줘"
+
+✅ "임상통계 전문가로서
+
+✅ df_pt에 이런 변수가 있고
+
+✅ Table 1을 Death 기준으로 docx 저장"
+
+::: notes
+나쁜 프롬프트는 쓸모없는 결과. colnames() 결과 붙여넣기, 변수 타입 명시, 출력 형태·패키지 지정. 이게 프롬프트의 구조화.
+:::
+
+## 실전 워크플로우
+
+1.  데이터 파악: rds 로드 → colnames(), str()
+
+2.  AI에게 붙여넣고 분석 요청
+
+3.  코드 받아 콘솔에서 한 블록씩 실행
+
+4.  에러 → 트러블슈팅
+
+5.  동작하면 .R로 저장
+
+::: fragment
+> 처음부터 완벽하게 짜려 하지 않기
+:::
+
+::: notes
+콘솔에서 한 줄씩 굴려보고, 되면 저장. 완벽주의가 오히려 발목.
+:::
+
+## 무지성 에러 복붙의 함정 {.scrollable}
+
+에러 → 바로 AI → 부분 수정 → 또 에러 → 또 복붙
+
+. . .
+
+> 깔끔하던 코드가 **누더기**로..
+
+. . .
+
+먼저 30초: `?ggsurvplot` — Arguments만 봐도 느낌이 옴
+
+![](/images/help.png){fig-align="center"}
+
+![](/images/usage.png){fig-align="center"}
+
+::: notes
+AI는 대화 길어지면 앞 맥락 잊음. 돌아돌아 감. 본인이 1차로 거른 뒤 "도움말 보니 이 인자는 numeric인데" 하고 물으면 한 번에 끝. 이거 실전에서 제일 중요한 팁.
+:::
+
+## AI가 틀리기 쉬운 함정 {.nonincremental}
+
+-   reference level 방향
+-   환자 vs 병변 단위 혼동
+-   다중비교 보정 누락
+-   결측치 처리 (`na.rm`)
+-   `Surv(time, event)` 순서
+
+. . .
+
+> 이건 사람이..<br>결국 알고는 있지만 구현하는 게 귀찮을 뿐..
+
+::: notes
+파트1에서 base R 직접 해본 이유가 바로 여기. AI는 그럴듯하게 틀린다. 검증은 도메인 지식 있는 사람 몫. 마무리 "통찰력" 메시지로 가는 다리.
+:::
+
+# 마무리 {background-color="#2c3e50"}
+
+::: subtitle
+한 걸음 더?
+:::
+
+## 오늘 배운 것 {.smaller}
+
+| Part           | 핵심                          |
+|----------------|-------------------------------|
+| 1\. 기본기     | `if`/`for` + 함수 + main 구조 |
+| 2\. 환경       | R Project + 폴더 + 경로 관리  |
+| 3\. 분석       | Table 1 → 전처리 → KM·Forest  |
+| 4\. 바이브코딩 | 프롬프트 → 콘솔 → `.R` 저장   |
+
+-   폴더 쪼개기 (R project)
+
+-   과정 쪼개기 (함수)
+
+-   구성 쪼개기 (프롬프트)
+
+. . .
+
+> 네 파트 전부 한 단어로 → **구조화**
+
+::: notes
+표는 빠르게. "전부 구조화로 수렴한다"로 넘기면서 마무리 메시지로 진입.
+:::
+
+------------------------------------------------------------------------
+
+## 다음 한 걸음: 나만의 LLM-wiki {.scrollable}
+
+
+![](/images/LLM-wiki.png){fig-align="center"}
+
+
+오늘 시킨 AI는 교수님을 모릅니다
+
+**LLM-wiki?** 나를 아는 AI!
+
+
+------------------------------------------------------------------------
+
+## 추천 리소스 {.smaller}
+
+-   R Graph Gallery — r-graph-gallery.com
+-   R for Data Science (2e) — r4ds.hadley.nz
+-   gtsummary 공식 문서
+-   Survival Analysis in R (Emily Zabor)
+
+#  {.center}
+
+감사합니다:)
+
+Questions? 👉 eha\@knu.ac.kr
+
+(사실 AI가 더 잘 대답해 줄 거예요..)
