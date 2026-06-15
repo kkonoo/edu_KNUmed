@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-18">
+<meta name="dcterms.date" content="2026-06-15">
 
 <title>3) 핵심 Figure 그리기</title>
 <style>
@@ -69,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../assets/img/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -207,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../part2/1_1_env.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1) 왜 R Script인가</span></a>
+ <span class="menu-text">1) R Script 이해</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -307,7 +308,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#저장-1" id="toc-저장-1" class="nav-link" data-scroll-target="#저장-1">저장</a></li>
   </ul></li>
   <li><a href="#중간-산물-저장" id="toc-중간-산물-저장" class="nav-link" data-scroll-target="#중간-산물-저장">③ 중간 산물 저장</a></li>
-  <li><a href="#정리" id="toc-정리" class="nav-link" data-scroll-target="#정리">정리</a></li>
+  <li><a href="#정리" id="toc-정리" class="nav-link" data-scroll-target="#정리">정리</a>
+  <ul class="collapse">
+  <li><a href="#다음" id="toc-다음" class="nav-link" data-scroll-target="#다음">다음</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -327,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date">June 15, 2026</p>
     </div>
   </div>
   
@@ -353,13 +357,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== 데이터 로드 (2_2에서 저장한 rds) =====</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df_pt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(indir, <span class="st">"2_df_pt_processed.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>실전 팁: R로 알맹이, PPT로 마무리
+<span class="screen-reader-only">Tip</span>실전 팁: R로 알맹이, PPT로 마무리
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -513,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multivariable Cox</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Surv</span>(OS, Death) <span class="sc">~</span> Age_Tx <span class="sc">+</span> Sex <span class="sc">+</span> Multiplicity <span class="sc">+</span> size_cm <span class="sc">+</span> PTVmean_BED10,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Surv</span>(OS, Death) <span class="sc">~</span> Age_Tx <span class="sc">+</span> Sex <span class="sc">+</span> Multiplicity <span class="sc">+</span> size_mm <span class="sc">+</span> PTVmean_BED10,</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_pt</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -521,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 coxph(formula = Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + 
-    size_cm + PTVmean_BED10, data = df_pt)
+    size_mm + PTVmean_BED10, data = df_pt)
 
   n= 55, number of events= 31 
 
@@ -529,7 +533,7 @@ coxph(formula = Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity +
 Age_Tx             0.005504  1.005519 0.017416 0.316   0.7520  
 SexFemale          0.938781  2.556864 0.374875 2.504   0.0123 *
 Multiplicitysingle 0.030896  1.031378 0.415717 0.074   0.9408  
-size_cm            0.191956  1.211618 0.220416 0.871   0.3838  
+size_mm            0.019196  1.019381 0.022042 0.871   0.3838  
 PTVmean_BED10      0.006047  1.006066 0.011160 0.542   0.5879  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -538,7 +542,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Age_Tx                 1.006     0.9945    0.9718     1.040
 SexFemale              2.557     0.3911    1.2263     5.331
 Multiplicitysingle     1.031     0.9696    0.4566     2.330
-size_cm                1.212     0.8253    0.7866     1.866
+size_mm                1.019     0.9810    0.9763     1.064
 PTVmean_BED10          1.006     0.9940    0.9843     1.028
 
 Concordance= 0.671  (se = 0.05 )
@@ -561,7 +565,7 @@ Score (logrank) test = 9.89  on 5 df,   p=0.08</code></pre>
 1 Age_Tx                 1.01    0.0174    0.316   0.752     0.972      1.04
 2 SexFemale              2.56    0.375     2.50    0.0123    1.23       5.33
 3 Multiplicitysingle     1.03    0.416     0.0743  0.941     0.457      2.33
-4 size_cm                1.21    0.220     0.871   0.384     0.787      1.87
+4 size_mm                1.02    0.0220    0.871   0.384     0.976      1.06
 5 PTVmean_BED10          1.01    0.0112    0.542   0.588     0.984      1.03</code></pre>
 </div>
 </div>
@@ -630,7 +634,11 @@ Score (logrank) test = 9.89  on 5 df,   p=0.08</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">paste0</span>(resdir, <span class="st">"forest_OS.tiff"</span>), <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">paste0</span>(resdir, <span class="st">"forest_OS.pdf"</span>), <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/clipboard-2259193059.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/plot_results.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
 </section>
 <section id="중간-산물-저장" class="level2">
@@ -640,17 +648,25 @@ Score (logrank) test = 9.89  on 5 df,   p=0.08</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(cox_model, <span class="fu">paste0</span>(outdir, <span class="st">"3_cox_model.rds"</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(cox_tidy,  <span class="fu">paste0</span>(outdir, <span class="st">"3_cox_tidy.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="images/clipboard-2134562879.png" class="img-fluid" width="656"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\images/rds.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <hr>
 </section>
 <section id="정리" class="level2">
 <h2 class="anchored" data-anchor-id="정리">정리</h2>
-<pre><code>✅ KM curve: survfit() → ggsurvplot()
-✅ Forest plot: coxph() → tidy() → ggplot()
-✅ broom::tidy()로 통계 수치 자동 추출 
-✅ tiff 300dpi로 저장 → 논문 투고 가능</code></pre>
+<p>✅ KM curve: survfit() → ggsurvplot()<br>
+✅ Forest plot: coxph() → tidy() → ggplot()<br>
+✅ broom::tidy()로 통계 수치 자동 추출<br>
+✅ tiff 300dpi로 저장 → 논문 투고 가능</p>
+<section id="다음" class="level3">
+<h3 class="anchored" data-anchor-id="다음">다음</h3>
+<p><a href="../part4/3_1_vibecoding.html">Part 4</a>: 바이브코딩과 마무리</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -727,7 +743,7 @@ Score (logrank) test = 9.89  on 5 df,   p=0.08</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/kkonoo\.github\.io\/edu_KNUmed\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

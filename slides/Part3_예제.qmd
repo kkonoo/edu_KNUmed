@@ -11,6 +11,7 @@ format:
     incremental: true
 mainfont: "Pretendard"
 monofont: "D2Coding"
+echo: true
 ---
 
 # Part3.<br>R script 실전 예제 {background-color="#2c3e50"}
@@ -34,7 +35,9 @@ R로 만들면 → **코드 한 번 실행, 끝**
 다들 해본 노가다. 오늘 이걸 코드 한 번으로 바꾼다.
 :::
 
-## 파라미터 설정 (예제 데이터 적용)<br>& 패키지 로드
+## 파라미터 설정 (예제 데이터 적용)<br>& 패키지 로드 {.scrollable}
+
+![](/images/rawdata.png){fig-align="center" width="203"}
 
 ```{r}
 library(tidyverse)
@@ -52,6 +55,7 @@ DATA_FILE <- paste0(indir, "clinical_data.xlsx")
 GROUP_VAR <- "Death"
 
 ```
+
 
 ## 데이터 구조 먼저
 
@@ -83,13 +87,20 @@ names(df_tbl)
 
 ## 가장 간단한 Table 1 {.scrollable}
 
--   연속형 → median (IQR) 자동
--   범주형 → n (%) 자동
--   결측치 자동 표시
-
+::::: columns
+::: {.column width="40%"}
 ```{r}
 df_tbl %>% tbl_summary()
 ```
+:::
+
+::: {.column width="60%"}
+-   연속형 → median (IQR) 자동
+-   범주형 → n (%) 자동
+-   결측치 자동 표시
+:::
+
+::::
 
 ::: notes
 한 줄이 이걸 다 한다. select로 넣을 변수만 고른 뒤 파이프 한 번.
@@ -201,20 +212,16 @@ rawdata/clinical_data.xlsx
 이게 파이프라인. 입력·처리·출력이 파일로 연결됨. .rds로 저장하는 이유: factor·타입 보존(csv는 풀림). 완성 .R 전문은 사이트.
 :::
 
-
-
 ## 3) 분석 Figure {background-color="#2c3e50"}
 
 ### 그림 작업의 원칙
 
-
 R은 알맹이, PPT는 마무리
 
+-   R = 통계적으로 정확한 곡선·점·에러바
+-   꾸미기(폰트·범례·화살표) \>\>\> PPT
 
-- R = 통계적으로 정확한 곡선·점·에러바
-- 꾸미기(폰트·범례·화살표) >>> PPT
-
-::: {.notes}
+::: notes
 theme() 한 줄씩 씨름하지 마라. 축 텍스트·범례는 PPT 드래그가 10배 빠름. R에선 "통계적으로 정확한 그림"에만 집중. 이거 실전 팁이라 강조.
 :::
 
@@ -235,7 +242,6 @@ resdir <- "results/"
 df_pt <- readRDS(paste0(indir, "2_df_pt_processed.rds"))
 ```
 
-
 ## ① Kaplan-Meier
 
 ```{r}
@@ -246,7 +252,7 @@ ggsurvplot(fit, data = df_pt,
            risk.table = TRUE)
 ```
 
-::: {.notes}
+::: notes
 survfit으로 적합, ggsurvplot으로 그림. pval=TRUE면 log-rank 자동. 결과 이미지 자리에 실제 KM 캡처. 옵션 표는 사이트.
 :::
 
@@ -282,26 +288,22 @@ cox_tidy <- cox_tidy %>%
 cox_tidy
 ```
 
-----
+------------------------------------------------------------------------
 
 ### Forest plot 그리기 {.scrollable}
 
-
 #### three components of ggplot2
 
-data: a data frame
-<br>aes: x-axis, y-axis, color, fill, group, etc.
-<br>geom: the type of plot
+data: a data frame <br>aes: x-axis, y-axis, color, fill, group, etc. <br>geom: the type of plot
 
-```{.r}
+``` r
 dataframe %>%
   ggplot(aes(x = xx, y = yy)) +
   geom_function() +
   ...
-```  
+```
 
 ::: fragment
-
 #### Forest plot
 
 ```{r}
@@ -330,10 +332,9 @@ gp <- cox_tidy %>%
   )
 
 ```
-
 :::
 
-----
+------------------------------------------------------------------------
 
 ```{r}
 #| echo: false
@@ -366,9 +367,9 @@ gp <- cox_tidy %>%
 gp
 ```
 
-----
+------------------------------------------------------------------------
 
-```{.r}
+``` r
 # 저장
 ggsave(paste0(resdir, "forest_OS.tiff"), gp, width = 8, height = 4, dpi = 300)
 ggsave(paste0(resdir, "forest_OS.pdf"), gp, width = 8, height = 4)
@@ -376,18 +377,18 @@ ggsave(paste0(resdir, "forest_OS.pdf"), gp, width = 8, height = 4)
 
 ![](/images/plot_save.png){fig-align="center"}
 
-::: {.notes}
+::: notes
 coxph로 모델, tidy로 HR·95%CI·p를 데이터프레임으로. 직접 타이핑 안 하니 오타 없음. ggplot forest 코드 전문은 사이트. 결과 이미지 자리에 실제 forest 캡처.
 :::
 
 ## Part3 예제 정리
 
-```
+```         
 ✅ KM:     survfit() → ggsurvplot()
 ✅ Forest: coxph() → tidy() → ggplot()
 ✅ tiff 300dpi → 논문 투고
 ```
 
-::: {.notes}
+::: notes
 패턴은 똑같다: 모델 적합 → tidy로 추출 → 그림. 저장은 300dpi tiff.
 :::

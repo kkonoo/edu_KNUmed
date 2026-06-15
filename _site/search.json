@@ -88,7 +88,7 @@
     "href": "part3/2_3_figure.html#forest-plot",
     "title": "3) 핵심 Figure 그리기",
     "section": "② Forest Plot",
-    "text": "② Forest Plot\n\nCox regression 실행\n\n# Multivariable Cox\ncox_model &lt;- coxph(\n  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_cm + PTVmean_BED10,\n  data = df_pt\n)\n\nsummary(cox_model)\n\nCall:\ncoxph(formula = Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + \n    size_cm + PTVmean_BED10, data = df_pt)\n\n  n= 55, number of events= 31 \n\n                       coef exp(coef) se(coef)     z Pr(&gt;|z|)  \nAge_Tx             0.005504  1.005519 0.017416 0.316   0.7520  \nSexFemale          0.938781  2.556864 0.374875 2.504   0.0123 *\nMultiplicitysingle 0.030896  1.031378 0.415717 0.074   0.9408  \nsize_cm            0.191956  1.211618 0.220416 0.871   0.3838  \nPTVmean_BED10      0.006047  1.006066 0.011160 0.542   0.5879  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n                   exp(coef) exp(-coef) lower .95 upper .95\nAge_Tx                 1.006     0.9945    0.9718     1.040\nSexFemale              2.557     0.3911    1.2263     5.331\nMultiplicitysingle     1.031     0.9696    0.4566     2.330\nsize_cm                1.212     0.8253    0.7866     1.866\nPTVmean_BED10          1.006     0.9940    0.9843     1.028\n\nConcordance= 0.671  (se = 0.05 )\nLikelihood ratio test= 9.02  on 5 df,   p=0.1\nWald test            = 9.12  on 5 df,   p=0.1\nScore (logrank) test = 9.89  on 5 df,   p=0.08\n\n\n\n\nbroom으로 결과 추출\n\n# 통계 수치를 데이터프레임으로\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\ncox_tidy\n\n# A tibble: 5 × 7\n  term               estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 Age_Tx                 1.01    0.0174    0.316   0.752     0.972      1.04\n2 SexFemale              2.56    0.375     2.50    0.0123    1.23       5.33\n3 Multiplicitysingle     1.03    0.416     0.0743  0.941     0.457      2.33\n4 size_cm                1.21    0.220     0.871   0.384     0.787      1.87\n5 PTVmean_BED10          1.01    0.0112    0.542   0.588     0.984      1.03\n\n\n\n\n\n\n\n\nTipbroom의 장점\n\n\n\ntidy(exponentiate = TRUE) → HR, 95% CI, p-value가 바로 데이터프레임으로 나옴. 직접 타이핑할 필요 없어서 오타 위험 제로.\n\n\n\n\nForest plot 그리기\n\n# 변수 라벨 매핑\ncox_tidy &lt;- cox_tidy %&gt;%\n  mutate(\n    label = case_when(\n      term == \"Age_Tx\"                  ~ \"Age\",\n      term == \"SexM\"                    ~ \"Sex (Male)\",\n      term == \"Multiplicitymultiple\"    ~ \"Multiplicity (Multiple)\",\n      term == \"size_cm\"                 ~ \"Tumor size (cm)\",\n      term == \"PTVmean_BED10\"           ~ \"PTV mean BED10\",\n      TRUE                              ~ term\n    )\n  )\n\n# ggplot으로 forest plot\nggplot(cox_tidy, aes(x = estimate, y = reorder(label, estimate))) +\n  geom_point(size = 3, color = \"#5B4D80\") +\n  geom_errorbarh(\n    aes(xmin = conf.low, xmax = conf.high),\n    height = 0.2,\n    color = \"#5B4D80\"\n  ) +\n  geom_vline(xintercept = 1, linetype = \"dashed\", color = \"gray50\") +\n  scale_x_log10() +\n  labs(\n    x = \"Hazard Ratio (95% CI)\",\n    y = NULL,\n    title = \"Multivariable Cox Regression: Overall Survival\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 13, face = \"bold\"),\n    axis.text = element_text(size = 11)\n  )\n\n\n\n\n\n\n\n\n\n\n저장\n\nggsave(paste0(resdir, \"forest_OS.tiff\"), width = 8, height = 4, dpi = 300)\nggsave(paste0(resdir, \"forest_OS.pdf\"), width = 8, height = 4)",
+    "text": "② Forest Plot\n\nCox regression 실행\n\n# Multivariable Cox\ncox_model &lt;- coxph(\n  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_mm + PTVmean_BED10,\n  data = df_pt\n)\n\nsummary(cox_model)\n\nCall:\ncoxph(formula = Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + \n    size_mm + PTVmean_BED10, data = df_pt)\n\n  n= 55, number of events= 31 \n\n                       coef exp(coef) se(coef)     z Pr(&gt;|z|)  \nAge_Tx             0.005504  1.005519 0.017416 0.316   0.7520  \nSexFemale          0.938781  2.556864 0.374875 2.504   0.0123 *\nMultiplicitysingle 0.030896  1.031378 0.415717 0.074   0.9408  \nsize_mm            0.019196  1.019381 0.022042 0.871   0.3838  \nPTVmean_BED10      0.006047  1.006066 0.011160 0.542   0.5879  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n                   exp(coef) exp(-coef) lower .95 upper .95\nAge_Tx                 1.006     0.9945    0.9718     1.040\nSexFemale              2.557     0.3911    1.2263     5.331\nMultiplicitysingle     1.031     0.9696    0.4566     2.330\nsize_mm                1.019     0.9810    0.9763     1.064\nPTVmean_BED10          1.006     0.9940    0.9843     1.028\n\nConcordance= 0.671  (se = 0.05 )\nLikelihood ratio test= 9.02  on 5 df,   p=0.1\nWald test            = 9.12  on 5 df,   p=0.1\nScore (logrank) test = 9.89  on 5 df,   p=0.08\n\n\n\n\nbroom으로 결과 추출\n\n# 통계 수치를 데이터프레임으로\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\ncox_tidy\n\n# A tibble: 5 × 7\n  term               estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 Age_Tx                 1.01    0.0174    0.316   0.752     0.972      1.04\n2 SexFemale              2.56    0.375     2.50    0.0123    1.23       5.33\n3 Multiplicitysingle     1.03    0.416     0.0743  0.941     0.457      2.33\n4 size_mm                1.02    0.0220    0.871   0.384     0.976      1.06\n5 PTVmean_BED10          1.01    0.0112    0.542   0.588     0.984      1.03\n\n\n\n\n\n\n\n\nTipbroom의 장점\n\n\n\ntidy(exponentiate = TRUE) → HR, 95% CI, p-value가 바로 데이터프레임으로 나옴. 직접 타이핑할 필요 없어서 오타 위험 제로.\n\n\n\n\nForest plot 그리기\n\n# 변수 라벨 매핑\ncox_tidy &lt;- cox_tidy %&gt;%\n  mutate(\n    label = case_when(\n      term == \"Age_Tx\"                  ~ \"Age\",\n      term == \"SexM\"                    ~ \"Sex (Male)\",\n      term == \"Multiplicitymultiple\"    ~ \"Multiplicity (Multiple)\",\n      term == \"size_cm\"                 ~ \"Tumor size (cm)\",\n      term == \"PTVmean_BED10\"           ~ \"PTV mean BED10\",\n      TRUE                              ~ term\n    )\n  )\n\n# ggplot으로 forest plot\nggplot(cox_tidy, aes(x = estimate, y = reorder(label, estimate))) +\n  geom_point(size = 3, color = \"#5B4D80\") +\n  geom_errorbarh(\n    aes(xmin = conf.low, xmax = conf.high),\n    height = 0.2,\n    color = \"#5B4D80\"\n  ) +\n  geom_vline(xintercept = 1, linetype = \"dashed\", color = \"gray50\") +\n  scale_x_log10() +\n  labs(\n    x = \"Hazard Ratio (95% CI)\",\n    y = NULL,\n    title = \"Multivariable Cox Regression: Overall Survival\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 13, face = \"bold\"),\n    axis.text = element_text(size = 11)\n  )\n\n\n\n\n\n\n\n\n\n\n저장\n\nggsave(paste0(resdir, \"forest_OS.tiff\"), width = 8, height = 4, dpi = 300)\nggsave(paste0(resdir, \"forest_OS.pdf\"), width = 8, height = 4)",
     "crumbs": [
       "Home",
       "3. R script 활용하기",
@@ -112,7 +112,7 @@
     "href": "part3/2_3_figure.html#정리",
     "title": "3) 핵심 Figure 그리기",
     "section": "정리",
-    "text": "정리\n✅ KM curve: survfit() → ggsurvplot()\n✅ Forest plot: coxph() → tidy() → ggplot()\n✅ broom::tidy()로 통계 수치 자동 추출 \n✅ tiff 300dpi로 저장 → 논문 투고 가능",
+    "text": "정리\n✅ KM curve: survfit() → ggsurvplot()\n✅ Forest plot: coxph() → tidy() → ggplot()\n✅ broom::tidy()로 통계 수치 자동 추출\n✅ tiff 300dpi로 저장 → 논문 투고 가능\n\n다음\nPart 4: 바이브코딩과 마무리",
     "crumbs": [
       "Home",
       "3. R script 활용하기",
@@ -196,7 +196,7 @@
     "href": "part3/2_1_table1.html#변수명-정리-labeling",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "⑤ 변수명 정리 (Labeling)",
-    "text": "⑤ 변수명 정리 (Labeling)\n코드에서는 Age_Tx, size_mm이지만, 논문에서는 Age at treatment, Tumor size (mm)로 나와야 합니다.\n\n# 변수-라벨 매핑을 한 곳에서 관리\nmy_labels &lt;- list(\n  Age_Tx        ~ \"Age at treatment\",\n  Sex           ~ \"Sex\",\n  Primary       ~ \"Primary site\",\n  Multiplicity  ~ \"Multiplicity\",\n  size_mm       ~ \"Tumor size (mm)\",\n  TD            ~ \"Total dose (cGy)\",\n  GTV_cc        ~ \"GTV volume (cc)\",\n  PTVmean_BED10 ~ \"PTV mean BED₁₀ (Gy)\"\n)\n\ntbl &lt;- df_tbl %&gt;%\n    mutate(\n    Death = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\"))\n  ) %&gt;%\n  tbl_summary(\n    by = Death,\n    label = my_labels,\n    statistic = list(\n      all_continuous() ~ \"{median} ({p25}, {p75})\",\n      all_categorical() ~ \"{n} ({p}%)\"\n    ),\n    digits = list(\n      all_continuous() ~ 1,\n      all_categorical() ~ c(0, 1)\n    )\n  ) %&gt;%\n  add_p() %&gt;%\n  add_overall() %&gt;%\n  bold_labels()\n\ntbl\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOverall\nN = 551\nAlive\nN = 241\nDead\nN = 311\np-value2\n\n\n\n\nSex\n\n\n\n\n\n\n0.001\n\n\n    F\n20 (36.4%)\n3 (12.5%)\n17 (54.8%)\n\n\n\n\n    M\n35 (63.6%)\n21 (87.5%)\n14 (45.2%)\n\n\n\n\nAge at treatment\n71.0 (63.0, 76.0)\n68.0 (60.5, 76.0)\n74.0 (64.0, 77.0)\n0.3\n\n\nPrimary site\n\n\n\n\n\n\n&gt;0.9\n\n\n    Colon\n23 (41.8%)\n10 (41.7%)\n13 (41.9%)\n\n\n\n\n    Rectum\n32 (58.2%)\n14 (58.3%)\n18 (58.1%)\n\n\n\n\nMultiplicity\n\n\n\n\n\n\n0.6\n\n\n    multiple\n21 (38.2%)\n10 (41.7%)\n11 (35.5%)\n\n\n\n\n    single\n34 (61.8%)\n14 (58.3%)\n20 (64.5%)\n\n\n\n\nTumor size (mm)\n12.8 (8.0, 17.0)\n10.0 (7.0, 13.7)\n16.0 (8.0, 20.0)\n0.028\n\n\nTotal dose (cGy)\n\n\n\n\n\n\n0.067\n\n\n    4500\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    4800\n14 (25.5%)\n4 (16.7%)\n10 (32.3%)\n\n\n\n\n    5000\n20 (36.4%)\n10 (41.7%)\n10 (32.3%)\n\n\n\n\n    5100\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    5200\n12 (21.8%)\n9 (37.5%)\n3 (9.7%)\n\n\n\n\n    5400\n4 (7.3%)\n1 (4.2%)\n3 (9.7%)\n\n\n\n\n    6000\n3 (5.5%)\n0 (0.0%)\n3 (9.7%)\n\n\n\n\nGTV volume (cc)\n1.5 (0.4, 5.4)\n0.6 (0.3, 1.7)\n3.3 (0.8, 6.7)\n0.006\n\n\nPTV mean BED₁₀ (Gy)\n135.7 (125.4, 146.4)\n139.0 (128.8, 143.9)\n133.8 (123.9, 149.0)\n0.9\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Pearson’s Chi-squared test; Wilcoxon rank sum test; Fisher’s exact test; Wilcoxon rank sum exact test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote팁: label 재사용\n\n\n\nmy_labels를 한 번 정의해두면, 이후 Table 2, 3 등 여러 테이블에서 label = my_labels로 재사용할 수 있습니다.",
+    "text": "⑤ 변수명 정리 (Labeling)\n코드에서는 Age_Tx, size_mm이지만, 논문에서는 Age at treatment, Tumor size (mm)로 나와야 합니다.\n\n# 변수-라벨 매핑을 한 곳에서 관리\nmy_labels &lt;- list(\n  Age_Tx        ~ \"Age at treatment\",\n  Sex           ~ \"Sex\",\n  Primary       ~ \"Primary site\",\n  Multiplicity  ~ \"Multiplicity\",\n  size_mm       ~ \"Tumor size (mm)\",\n  TD            ~ \"Total dose (cGy)\",\n  GTV_cc        ~ \"GTV volume (cc)\",\n  PTVmean_BED10 ~ \"PTV mean BED₁₀ (Gy)\"\n)\n\ntbl &lt;- df_tbl %&gt;%\n    mutate(\n    Death = factor(Death, levels = c(0, 1), labels = c(\"Alive\", \"Dead\"))\n  ) %&gt;%\n  tbl_summary(\n    by = Death,\n    label = my_labels,\n    statistic = list(\n      all_continuous() ~ \"{median} ({p25}, {p75})\",\n      all_categorical() ~ \"{n} ({p}%)\"\n    ),\n    digits = list(\n      all_continuous() ~ 1,\n      all_categorical() ~ c(0, 1)\n    )\n  ) %&gt;%\n  add_p() %&gt;%\n  add_overall() %&gt;%\n  bold_labels()\n\ntbl\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOverall\nN = 551\nAlive\nN = 241\nDead\nN = 311\np-value2\n\n\n\n\nSex\n\n\n\n\n\n\n0.001\n\n\n    F\n20 (36.4%)\n3 (12.5%)\n17 (54.8%)\n\n\n\n\n    M\n35 (63.6%)\n21 (87.5%)\n14 (45.2%)\n\n\n\n\nAge at treatment\n71.0 (63.0, 76.0)\n68.0 (60.5, 76.0)\n74.0 (64.0, 77.0)\n0.3\n\n\nPrimary site\n\n\n\n\n\n\n&gt;0.9\n\n\n    Colon\n23 (41.8%)\n10 (41.7%)\n13 (41.9%)\n\n\n\n\n    Rectum\n32 (58.2%)\n14 (58.3%)\n18 (58.1%)\n\n\n\n\nMultiplicity\n\n\n\n\n\n\n0.6\n\n\n    multiple\n21 (38.2%)\n10 (41.7%)\n11 (35.5%)\n\n\n\n\n    single\n34 (61.8%)\n14 (58.3%)\n20 (64.5%)\n\n\n\n\nTumor size (mm)\n12.8 (8.0, 17.0)\n10.0 (7.0, 13.7)\n16.0 (8.0, 20.0)\n0.028\n\n\nTotal dose (cGy)\n\n\n\n\n\n\n0.067\n\n\n    4500\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    4800\n14 (25.5%)\n4 (16.7%)\n10 (32.3%)\n\n\n\n\n    5000\n20 (36.4%)\n10 (41.7%)\n10 (32.3%)\n\n\n\n\n    5100\n1 (1.8%)\n0 (0.0%)\n1 (3.2%)\n\n\n\n\n    5200\n12 (21.8%)\n9 (37.5%)\n3 (9.7%)\n\n\n\n\n    5400\n4 (7.3%)\n1 (4.2%)\n3 (9.7%)\n\n\n\n\n    6000\n3 (5.5%)\n0 (0.0%)\n3 (9.7%)\n\n\n\n\nGTV volume (cc)\n1.5 (0.4, 5.4)\n0.6 (0.3, 1.7)\n3.3 (0.8, 6.7)\n0.006\n\n\nPTV mean BED₁₀ (Gy)\n135.7 (125.4, 146.4)\n139.0 (128.8, 143.9)\n133.8 (123.9, 149.0)\n0.9\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Pearson’s Chi-squared test; Wilcoxon rank sum test; Fisher’s exact test; Wilcoxon rank sum exact test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip팁: label 재사용\n\n\n\nmy_labels를 한 번 정의해두면, 이후 Table 2, 3 등 여러 테이블에서 label = my_labels로 재사용할 수 있습니다.",
     "crumbs": [
       "Home",
       "3. R script 활용하기",
@@ -208,7 +208,7 @@
     "href": "part3/2_1_table1.html#내보내기",
     "title": "1) 데이터 읽기 & Table 1 만들기",
     "section": "⑥ 내보내기",
-    "text": "⑥ 내보내기\n\n중간 산물 → .rds\n분석 파이프라인 중간에 생기는 데이터는 .rds로 저장합니다. 파일명 앞에 1_, 2_ 같은 번호를 붙이면 분석 순서를 한눈에 파악할 수 있습니다.\n\n# 전처리된 데이터 저장 (다음 스크립트에서 재사용)\nsaveRDS(df_pt, paste0(outdir, \"1_df_pt.rds\"))\n\n# gtsummary 객체 저장 (나중에 합치거나 수정 가능)\nsaveRDS(tbl, paste0(outdir, \"1_table1.rds\"))\n\n\n\n\n최종 결과물 → Word / CSV\n\n# Word 파일 (논문 투고용)\ntbl %&gt;%\n  as_flex_table() %&gt;%\n  flextable::save_as_docx(path = paste0(resdir, \"Table1.docx\"))\n\n# CSV (공유/기록용)\ntbl %&gt;%\n  as_tibble() %&gt;%\n  write_csv(paste0(resdir, \"Table1.csv\"))\n\n\n\n\n\n\n\n\nNote저장 포맷 가이드\n\n\n\n\n\n\n\n\n\n\n\n상황\n포맷\n이유\n\n\n\n\n다음 스크립트에서 이어 쓸 중간 데이터\n.rds\nfactor level, 타입 보존\n\n\n공동연구자에게 공유\n.xlsx\n비 R 사용자도 열 수 있음\n\n\n다른 프로그램(Python 등)과 호환\n.csv\n범용 포맷\n\n\n\n파일 번호 예시: 1_df_pt.rds → 1_table1.rds → 2_km_result.rds\n\n\n\n\n\n\n\n\nImportant핵심 포인트\n\n\n\n리뷰어가 “BMI 대신 BSA를 넣어주세요”라고 하면?\n\n# select()에서 변수 하나만 바꾸고 다시 실행 → 끝\ndf_tbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, BSA, Primary, size_mm, TD, GTV_cc, PTVmean_BED10, Death)\n\n엑셀로 했으면 30분, R이면 30초.",
+    "text": "⑥ 내보내기\n\n중간 산물 → .rds\n분석 파이프라인 중간에 생기는 데이터는 .rds로 저장합니다. 파일명 앞에 1_, 2_ 같은 번호를 붙이면 분석 순서를 한눈에 파악할 수 있습니다.\n\n# 전처리된 데이터 저장 (다음 스크립트에서 재사용)\nsaveRDS(df_pt, paste0(outdir, \"1_df_pt.rds\"))\n\n# gtsummary 객체 저장 (나중에 합치거나 수정 가능)\nsaveRDS(tbl, paste0(outdir, \"1_table1.rds\"))\n\n\n\n\n최종 결과물 → Word / CSV\n\n# Word 파일 (논문 투고용)\ntbl %&gt;%\n  as_flex_table() %&gt;%\n  flextable::save_as_docx(path = paste0(resdir, \"Table1.docx\"))\n\n# CSV (공유/기록용)\ntbl %&gt;%\n  as_tibble() %&gt;%\n  write_csv(paste0(resdir, \"Table1.csv\"))\n\n\n\n\n\n\n\n\nTip저장 포맷 가이드\n\n\n\n\n\n\n\n\n\n\n\n상황\n포맷\n이유\n\n\n\n\n다음 스크립트에서 이어 쓸 중간 데이터\n.rds\nfactor level, 타입 보존\n\n\n공동연구자에게 공유\n.xlsx\n비 R 사용자도 열 수 있음\n\n\n다른 프로그램(Python 등)과 호환\n.csv\n범용 포맷\n\n\n\n파일 번호 예시: 1_df_pt.rds → 1_table1.rds → 2_km_result.rds",
     "crumbs": [
       "Home",
       "3. R script 활용하기",
@@ -728,11 +728,130 @@
     "href": "part2/1_4_Packages.html#정리",
     "title": "4) 핵심 패키지 미리보기",
     "section": "정리",
-    "text": "정리\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장\n\n다음\nPart 3: 실제 임상 데이터 예제",
+    "text": "정리\n✅ R Script = 분석 기록 → 재현성 확보\n✅ R Project = 프로젝트별 독립 환경 → 경로 문제 해결\n✅ 폴더 구조: rawdata / scripts / analysis / results\n✅ 스크립트 습관: 헤더, 상단 파라미터, 주석, 상대경로, 중간저장\n\n다음\nPart 3: 실제 임상 데이터 적용",
     "crumbs": [
       "Home",
       "2. 환경 구축하기",
       "4) 핵심 패키지 미리보기"
     ]
+  },
+  {
+    "objectID": "slides/Part3_예제.html#table-1-엑셀로-만들면",
+    "href": "slides/Part3_예제.html#table-1-엑셀로-만들면",
+    "title": "R script 할용하기",
+    "section": "Table 1, 엑셀로 만들면",
+    "text": "Table 1, 엑셀로 만들면\n\nmedian(range) 직접 계산 → 복붙\nn(%) 직접 계산 → 복붙\np-value 따로 → 복붙\n변수 하나 바뀌면 → 처음부터\n\n\nR로 만들면 → 코드 한 번 실행, 끝\n\n다들 해본 노가다. 오늘 이걸 코드 한 번으로 바꾼다."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#파라미터-설정-예제-데이터-적용-패키지-로드",
+    "href": "slides/Part3_예제.html#파라미터-설정-예제-데이터-적용-패키지-로드",
+    "title": "R script 할용하기",
+    "section": "파라미터 설정 (예제 데이터 적용)& 패키지 로드",
+    "text": "파라미터 설정 (예제 데이터 적용)& 패키지 로드\n\n\nlibrary(tidyverse)\nlibrary(readxl)\nlibrary(gtsummary)\nlibrary(flextable)\n\n# ===== 디렉토리 설정 =====\nindir  &lt;- \"rawdata/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\n# ===== 파라미터 =====\nDATA_FILE &lt;- paste0(indir, \"clinical_data.xlsx\")\nGROUP_VAR &lt;- \"Death\""
+  },
+  {
+    "objectID": "slides/Part3_예제.html#데이터-구조-먼저",
+    "href": "slides/Part3_예제.html#데이터-구조-먼저",
+    "title": "R script 할용하기",
+    "section": "데이터 구조 먼저",
+    "text": "데이터 구조 먼저\n\ndf &lt;- read_excel(DATA_FILE)\ndim(df); str(df); names(df)\n\n[1] 75 33\n\n\ntibble [75 × 33] (S3: tbl_df/tbl/data.frame)\n $ Key_pt         : num [1:75] 2 6 6 7 9 9 10 15 17 18 ...\n $ Key_lesion     : chr [1:75] \"liver 2-1\" \"lung 6-1\" \"lung 6-2\" \"liver 7-1\" ...\n $ IN_sur         : num [1:75] 1 1 0 1 1 0 1 1 1 1 ...\n $ IN_lesion      : num [1:75] 1 1 1 1 1 1 1 1 1 1 ...\n $ Sex            : chr [1:75] \"M\" \"F\" \"F\" \"F\" ...\n $ Age_Tx         : num [1:75] 76 76 76 55 68 68 77 63 77 76 ...\n $ OMD_Type       : chr [1:75] \"Metachronous oligorecurrence\" \"Repeat oligorecurrence\" \"Repeat oligorecurrence\" \"Induced oligorecurrence\" ...\n $ OMD_class      : chr [1:75] \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" \"oligometastasis\" ...\n $ Tx_site        : chr [1:75] \"liver\" \"lung\" \"lung\" \"liver\" ...\n $ Primary        : chr [1:75] \"Colon\" \"Colon\" \"Colon\" \"Rectum\" ...\n $ Bx_primary     : chr [1:75] \"adenoca\" \"adenoca\" \"adenoca\" \"adenoca\" ...\n $ Bx_primary_diff: chr [1:75] \"mod\" \"mod\" \"mod\" \"well\" ...\n $ Multiplicity   : chr [1:75] \"single\" \"multiple\" \"multiple\" \"single\" ...\n $ OMD_no         : num [1:75] 1 3 3 1 2 2 1 1 1 2 ...\n $ size_mm        : num [1:75] 15 25 7 42 5 6 27.5 19 16.7 4 ...\n $ DD             : num [1:75] 1600 1200 1200 1000 1800 1800 1250 1800 1200 1300 ...\n $ fr             : num [1:75] 3 4 4 5 3 3 4 3 4 4 ...\n $ TD             : num [1:75] 4800 4800 4800 5000 5400 5400 5000 5400 4800 5200 ...\n $ GTV_cc         : num [1:75] 5.839 5.8 0.3 25.904 0.097 ...\n $ ITV_cc         : num [1:75] 8.544 9.7 0.7 25.904 0.221 ...\n $ PTV_cc         : num [1:75] 18.87 33.9 7.5 53.89 3.93 ...\n $ Death          : num [1:75] 1 1 1 1 1 1 1 0 1 0 ...\n $ OS             : num [1:75] 20.7 34.5 34.5 26.6 11.7 ...\n $ LF             : num [1:75] 1 0 0 0 0 0 0 1 0 0 ...\n $ LFFS           : num [1:75] 9.23 33.51 33.51 24.51 6.51 ...\n $ CTxAfterRT     : num [1:75] 0 0 0 0 0 0 0 1 0 0 ...\n $ CTxBeforeRT    : num [1:75] 0 1 1 1 1 1 0 1 1 1 ...\n $ bCTx_Line      : num [1:75] 0 3 3 3 2 2 0 2 1 1 ...\n $ PTVmean_BED10  : num [1:75] 149 124 127 114 178 ...\n $ PTV_D2_BED10   : num [1:75] 162 142 153 116 207 ...\n $ PTV_D5_BED10   : num [1:75] 161 141 151 115 203 ...\n $ PTV_D95_BED10  : num [1:75] 120.5 103.7 98.1 95.9 148.6 ...\n $ PTV_D98_BED10  : num [1:75] 113.5 97 92.2 86.8 143.3 ...\n\n\n [1] \"Key_pt\"          \"Key_lesion\"      \"IN_sur\"          \"IN_lesion\"      \n [5] \"Sex\"             \"Age_Tx\"          \"OMD_Type\"        \"OMD_class\"      \n [9] \"Tx_site\"         \"Primary\"         \"Bx_primary\"      \"Bx_primary_diff\"\n[13] \"Multiplicity\"    \"OMD_no\"          \"size_mm\"         \"DD\"             \n[17] \"fr\"              \"TD\"              \"GTV_cc\"          \"ITV_cc\"         \n[21] \"PTV_cc\"          \"Death\"           \"OS\"              \"LF\"             \n[25] \"LFFS\"            \"CTxAfterRT\"      \"CTxBeforeRT\"     \"bCTx_Line\"      \n[29] \"PTVmean_BED10\"   \"PTV_D2_BED10\"    \"PTV_D5_BED10\"    \"PTV_D95_BED10\"  \n[33] \"PTV_D98_BED10\"  \n\n\n\n환자-병변 pair: 한 환자가 여러 병변\n\n\n분석 단위 주의. 환자 단위(OS, Death)면 IN_sur==1만. 병변 단위(LF)면 전체. 이거 안 맞추면 숫자 다 틀림 — 말로 강조."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#필요한-column-select",
+    "href": "slides/Part3_예제.html#필요한-column-select",
+    "title": "R script 할용하기",
+    "section": "필요한 column select",
+    "text": "필요한 column select\nTable1에서 보여줄 column 선택하기: select()\n\n# 환자 단위: 환자당 1행만 남기기\ndf_pt &lt;- df %&gt;% filter(IN_sur == 1)\n\n# 필요한 것만\ndf_tbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, Primary, Multiplicity, size_mm, TD, GTV_cc, PTVmean_BED10, Death)\n\nnames(df_tbl)\n\n[1] \"Sex\"           \"Age_Tx\"        \"Primary\"       \"Multiplicity\" \n[5] \"size_mm\"       \"TD\"            \"GTV_cc\"        \"PTVmean_BED10\"\n[9] \"Death\""
+  },
+  {
+    "objectID": "slides/Part3_예제.html#가장-간단한-table-1",
+    "href": "slides/Part3_예제.html#가장-간단한-table-1",
+    "title": "R script 할용하기",
+    "section": "가장 간단한 Table 1",
+    "text": "가장 간단한 Table 1\n\n\n\ndf_tbl %&gt;% tbl_summary()\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nN = 551\n\n\n\n\nSex\n\n\n\n\n    F\n20 (36%)\n\n\n    M\n35 (64%)\n\n\nAge_Tx\n71 (63, 76)\n\n\nPrimary\n\n\n\n\n    Colon\n23 (42%)\n\n\n    Rectum\n32 (58%)\n\n\nMultiplicity\n\n\n\n\n    multiple\n21 (38%)\n\n\n    single\n34 (62%)\n\n\nsize_mm\n13 (8, 17)\n\n\nTD\n\n\n\n\n    4500\n1 (1.8%)\n\n\n    4800\n14 (25%)\n\n\n    5000\n20 (36%)\n\n\n    5100\n1 (1.8%)\n\n\n    5200\n12 (22%)\n\n\n    5400\n4 (7.3%)\n\n\n    6000\n3 (5.5%)\n\n\nGTV_cc\n1.5 (0.4, 5.4)\n\n\nPTVmean_BED10\n136 (125, 146)\n\n\nDeath\n31 (56%)\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n\n\n\n\n\n\n\n\n연속형 → median (IQR) 자동\n범주형 → n (%) 자동\n결측치 자동 표시\n\n\n\n한 줄이 이걸 다 한다. select로 넣을 변수만 고른 뒤 파이프 한 번."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#그룹-비교-p-value",
+    "href": "slides/Part3_예제.html#그룹-비교-p-value",
+    "title": "R script 할용하기",
+    "section": "그룹 비교 + p-value",
+    "text": "그룹 비교 + p-value\n\ndf_tbl %&gt;%\n  tbl_summary(by = Death) %&gt;%\n  add_p() %&gt;%        # 검정 자동 선택\n  add_overall() %&gt;%\n  bold_labels()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOverall\nN = 551\n0\nN = 241\n1\nN = 311\np-value2\n\n\n\n\nSex\n\n\n\n\n\n\n0.001\n\n\n    F\n20 (36%)\n3 (13%)\n17 (55%)\n\n\n\n\n    M\n35 (64%)\n21 (88%)\n14 (45%)\n\n\n\n\nAge_Tx\n71 (63, 76)\n68 (61, 76)\n74 (64, 77)\n0.3\n\n\nPrimary\n\n\n\n\n\n\n&gt;0.9\n\n\n    Colon\n23 (42%)\n10 (42%)\n13 (42%)\n\n\n\n\n    Rectum\n32 (58%)\n14 (58%)\n18 (58%)\n\n\n\n\nMultiplicity\n\n\n\n\n\n\n0.6\n\n\n    multiple\n21 (38%)\n10 (42%)\n11 (35%)\n\n\n\n\n    single\n34 (62%)\n14 (58%)\n20 (65%)\n\n\n\n\nsize_mm\n13 (8, 17)\n10 (7, 14)\n16 (8, 20)\n0.028\n\n\nTD\n\n\n\n\n\n\n0.067\n\n\n    4500\n1 (1.8%)\n0 (0%)\n1 (3.2%)\n\n\n\n\n    4800\n14 (25%)\n4 (17%)\n10 (32%)\n\n\n\n\n    5000\n20 (36%)\n10 (42%)\n10 (32%)\n\n\n\n\n    5100\n1 (1.8%)\n0 (0%)\n1 (3.2%)\n\n\n\n\n    5200\n12 (22%)\n9 (38%)\n3 (9.7%)\n\n\n\n\n    5400\n4 (7.3%)\n1 (4.2%)\n3 (9.7%)\n\n\n\n\n    6000\n3 (5.5%)\n0 (0%)\n3 (9.7%)\n\n\n\n\nGTV_cc\n1.5 (0.4, 5.4)\n0.6 (0.3, 1.7)\n3.3 (0.8, 6.7)\n0.006\n\n\nPTVmean_BED10\n136 (125, 146)\n139 (129, 144)\n134 (124, 149)\n0.9\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Pearson’s Chi-squared test; Wilcoxon rank sum test; Fisher’s exact test; Wilcoxon rank sum exact test\n\n\n\n\n\n\n\n\n\nadd_p()가 변수 타입 보고 chi-sq / Wilcoxon 알아서. 결과 이미지 자리에 실제 Table 1 캡처. 라벨링(Age_Tx → Age at treatment)·digits 세부는 사이트."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#리뷰어가-bmibsa-하면",
+    "href": "slides/Part3_예제.html#리뷰어가-bmibsa-하면",
+    "title": "R script 할용하기",
+    "section": "리뷰어가 BMI→BSA 하면?",
+    "text": "리뷰어가 BMI→BSA 하면?\ndf_tbl &lt;- df_pt %&gt;%\n  select(Sex, Age_Tx, BSA, ...)   # 한 단어만\n\n엑셀 30분, R 30초\n\n\n이 한 장이 파트3 핵심. select에서 변수 하나 바꾸고 재실행. 저장(docx/csv)·rds 파이프라인은 사이트."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#전처리",
+    "href": "slides/Part3_예제.html#전처리",
+    "title": "R script 할용하기",
+    "section": "2) 전처리",
+    "text": "2) 전처리\n\n\n전체 분석의 80% 😭\n\n\n스크립트로 만들면 →\n데이터 바뀌어도 재실행, 다음 분석은 .rds 로드\n\n전처리가 연구의 8할(웃음, 말로). 한 번 스크립트로 박아두면 재사용. 리뷰어 대응도 한 줄."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#dplyr-다섯-동사",
+    "href": "slides/Part3_예제.html#dplyr-다섯-동사",
+    "title": "R script 할용하기",
+    "section": "dplyr 다섯 동사",
+    "text": "dplyr 다섯 동사\n\n\n\n함수\n역할\n\n\n\n\nfilter()\n행 고르기\n\n\nselect()\n열 고르기\n\n\nmutate()\n새 변수\n\n\ngroup_by + summarise\n그룹 요약\n\n\narrange()\n정렬\n\n\n\n\n이 다섯 개가 전처리의 거의 전부. 문장처럼 읽힌다 — “df를 filter하고 mutate해서 summarise”."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#mutate-새-변수",
+    "href": "slides/Part3_예제.html#mutate-새-변수",
+    "title": "R script 할용하기",
+    "section": "mutate: 새 변수",
+    "text": "mutate: 새 변수\n\ndf_pt %&gt;% mutate(\n  Age_group = ifelse(Age_Tx &gt;= 65, \"≥65\", \"&lt;65\"),\n  size_cm   = size_mm / 10,\n  BED_group = case_when(\n    PTVmean_BED10 &gt;= 100 ~ \"≥100 Gy\",\n    PTVmean_BED10 &gt;= 80  ~ \"80-99 Gy\",\n    TRUE                 ~ \"&lt;80 Gy\"\n  )\n)\n\n# A tibble: 55 × 36\n   Key_pt Key_lesion IN_sur IN_lesion Sex   Age_Tx OMD_Type    OMD_class Tx_site\n    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  \n 1      2 liver 2-1       1         1 M         76 Metachrono… oligomet… liver  \n 2      6 lung 6-1        1         1 F         76 Repeat oli… oligomet… lung   \n 3      7 liver 7-1       1         1 F         55 Induced ol… oligomet… liver  \n 4      9 lung 9-1        1         1 F         68 Induced ol… oligopro… lung   \n 5     10 lung 10-1       1         1 M         77 Metachrono… oligomet… lung   \n 6     15 lung 15-1       1         1 F         63 Repeat oli… oligopro… lung   \n 7     17 lung 17-1       1         1 F         77 Metachrono… oligomet… lung   \n 8     18 lung 18-1       1         1 M         76 Synchronou… oligomet… lung   \n 9     19 lung 19-1       1         1 M         64 Repeat oli… oligopro… lung   \n10     20 lung 20-1       1         1 M         83 Metachrono… oligomet… lung   \n# ℹ 45 more rows\n# ℹ 27 more variables: Primary &lt;chr&gt;, Bx_primary &lt;chr&gt;, Bx_primary_diff &lt;chr&gt;,\n#   Multiplicity &lt;chr&gt;, OMD_no &lt;dbl&gt;, size_mm &lt;dbl&gt;, DD &lt;dbl&gt;, fr &lt;dbl&gt;,\n#   TD &lt;dbl&gt;, GTV_cc &lt;dbl&gt;, ITV_cc &lt;dbl&gt;, PTV_cc &lt;dbl&gt;, Death &lt;dbl&gt;, OS &lt;dbl&gt;,\n#   LF &lt;dbl&gt;, LFFS &lt;dbl&gt;, CTxAfterRT &lt;dbl&gt;, CTxBeforeRT &lt;dbl&gt;, bCTx_Line &lt;dbl&gt;,\n#   PTVmean_BED10 &lt;dbl&gt;, PTV_D2_BED10 &lt;dbl&gt;, PTV_D5_BED10 &lt;dbl&gt;,\n#   PTV_D95_BED10 &lt;dbl&gt;, PTV_D98_BED10 &lt;dbl&gt;, Age_group &lt;chr&gt;, size_cm &lt;dbl&gt;, …\n\n\n\n조건 2개면 ifelse, 3개 이상이면 case_when. 앞 파트 if/else가 여기서 벡터로."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#저장",
+    "href": "slides/Part3_예제.html#저장",
+    "title": "R script 할용하기",
+    "section": "저장",
+    "text": "저장\n\n# 추가 전처리된 데이터를 2_ 접두사로 저장\nsaveRDS(df_pt, paste0(outdir, \"2_df_pt_processed.rds\"))\n\n# 최종 결과물: csv (공유/기록용) — 필요시\n# write.csv(df_pt, paste0(resdir, \"cleaned_patient_data.csv\"), row.names = FALSE)"
+  },
+  {
+    "objectID": "slides/Part3_예제.html#파이프라인-흐름",
+    "href": "slides/Part3_예제.html#파이프라인-흐름",
+    "title": "R script 할용하기",
+    "section": "파이프라인 흐름",
+    "text": "파이프라인 흐름\nrawdata/clinical_data.xlsx\n  → 01_table1.R\n    → analysis/1_df_pt.rds\n    → results/Table1.docx\n  → 02_preprocessing.R  (1_df_pt.rds 로드)\n    → analysis/2_df_pt_processed.rds\n      → 03_km_plot.R      → results/KM_plot.png\n      → 04_forest_plot.R  → results/Forest_plot.png\n\n각 스크립트는 앞 단계 .rds를 로드\n\n\n이게 파이프라인. 입력·처리·출력이 파일로 연결됨. .rds로 저장하는 이유: factor·타입 보존(csv는 풀림). 완성 .R 전문은 사이트."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#분석-figure",
+    "href": "slides/Part3_예제.html#분석-figure",
+    "title": "R script 할용하기",
+    "section": "3) 분석 Figure",
+    "text": "3) 분석 Figure\n그림 작업의 원칙\nR은 알맹이, PPT는 마무리\n\nR = 통계적으로 정확한 곡선·점·에러바\n꾸미기(폰트·범례·화살표) &gt;&gt;&gt; PPT\n\n\ntheme() 한 줄씩 씨름하지 마라. 축 텍스트·범례는 PPT 드래그가 10배 빠름. R에선 “통계적으로 정확한 그림”에만 집중. 이거 실전 팁이라 강조."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#파라미터-설정-예제-데이터-적용-패키지-로드-1",
+    "href": "slides/Part3_예제.html#파라미터-설정-예제-데이터-적용-패키지-로드-1",
+    "title": "R script 할용하기",
+    "section": "파라미터 설정 (예제 데이터 적용)& 패키지 로드",
+    "text": "파라미터 설정 (예제 데이터 적용)& 패키지 로드\n\nlibrary(tidyverse)\nlibrary(survival)\nlibrary(survminer)\nlibrary(broom)\n\n# ===== 디렉토리 설정 =====\nindir  &lt;- \"analysis/\"\noutdir &lt;- \"analysis/\"\nresdir &lt;- \"results/\"\n\n# ===== 데이터 로드 (2_2에서 저장한 rds) =====\ndf_pt &lt;- readRDS(paste0(indir, \"2_df_pt_processed.rds\"))"
+  },
+  {
+    "objectID": "slides/Part3_예제.html#kaplan-meier",
+    "href": "slides/Part3_예제.html#kaplan-meier",
+    "title": "R script 할용하기",
+    "section": "① Kaplan-Meier",
+    "text": "① Kaplan-Meier\n\nfit &lt;- survfit(Surv(OS, Death) ~ Multiplicity, data = df_pt)\n\nggsurvplot(fit, data = df_pt,\n           pval = TRUE,          # log-rank\n           risk.table = TRUE)\n\n\n\nsurvfit으로 적합, ggsurvplot으로 그림. pval=TRUE면 log-rank 자동. 결과 이미지 자리에 실제 KM 캡처. 옵션 표는 사이트."
+  },
+  {
+    "objectID": "slides/Part3_예제.html#forest-plot",
+    "href": "slides/Part3_예제.html#forest-plot",
+    "title": "R script 할용하기",
+    "section": "② Forest plot",
+    "text": "② Forest plot\nCox regression 실행\n\n# Multivariable Cox\ncox_model &lt;- coxph(\n  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_mm + PTVmean_BED10,\n  data = df_pt\n)\n\n# summary(cox_model)\n\n# 통계 수치를 데이터프레임으로\ncox_tidy &lt;- tidy(cox_model, conf.int = TRUE, exponentiate = TRUE)\n\n# 변수 라벨 매핑\ncox_tidy &lt;- cox_tidy %&gt;%\n  mutate(\n    label = case_when(\n      term == \"Age_Tx\"                  ~ \"Age\",\n      term == \"SexM\"                    ~ \"Sex (Male)\",\n      term == \"Multiplicitymultiple\"    ~ \"Multiplicity (Multiple)\",\n      term == \"size_cm\"                 ~ \"Tumor size (cm)\",\n      term == \"PTVmean_BED10\"           ~ \"PTV mean BED10\",\n      TRUE                              ~ term\n    )\n  )\n\ncox_tidy\n\n# A tibble: 5 × 8\n  term             estimate std.error statistic p.value conf.low conf.high label\n  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;\n1 Age_Tx              1.01     0.0174    0.316   0.752     0.972     1.04  Age  \n2 SexM                0.391    0.375    -2.50    0.0123    0.188     0.815 Sex …\n3 Multiplicitysin…    1.03     0.416     0.0743  0.941     0.457     2.33  Mult…\n4 size_mm             1.02     0.0220    0.871   0.384     0.976     1.06  size…\n5 PTVmean_BED10       1.01     0.0112    0.542   0.588     0.984     1.03  PTV …"
+  },
+  {
+    "objectID": "slides/Part3_예제.html#part3-예제-정리",
+    "href": "slides/Part3_예제.html#part3-예제-정리",
+    "title": "R script 할용하기",
+    "section": "Part3 예제 정리",
+    "text": "Part3 예제 정리\n✅ KM:     survfit() → ggsurvplot()\n✅ Forest: coxph() → tidy() → ggplot()\n✅ tiff 300dpi → 논문 투고\n\n패턴은 똑같다: 모델 적합 → tidy로 추출 → 그림. 저장은 300dpi tiff."
   }
 ]

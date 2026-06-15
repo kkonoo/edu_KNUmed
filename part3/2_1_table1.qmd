@@ -213,7 +213,7 @@ tbl <- df_tbl %>%
 tbl
 ```
 
-::: callout-note
+::: callout-tip
 ## 팁: label 재사용
 
 `my_labels`를 한 번 정의해두면, 이후 Table 2, 3 등 여러 테이블에서 `label = my_labels`로 재사용할 수 있습니다.
@@ -253,7 +253,7 @@ tbl %>%
 
 ![](images/clipboard-2489201586.png){width="681"}
 
-::: callout-note
+::: callout-tip
 ## 저장 포맷 가이드
 
 | 상황                                  | 포맷    | 이유                     |
@@ -263,19 +263,4 @@ tbl %>%
 | 다른 프로그램(Python 등)과 호환       | `.csv`  | 범용 포맷                |
 
 파일 번호 예시: `1_df_pt.rds` → `1_table1.rds` → `2_km_result.rds`
-:::
-
-::: callout-important
-## 핵심 포인트
-
-리뷰어가 "BMI 대신 BSA를 넣어주세요"라고 하면?
-
-```{r}
-#| eval: false
-# select()에서 변수 하나만 바꾸고 다시 실행 → 끝
-df_tbl <- df_pt %>%
-  select(Sex, Age_Tx, BSA, Primary, size_mm, TD, GTV_cc, PTVmean_BED10, Death)
-```
-
-엑셀로 했으면 30분, R이면 30초.
 :::

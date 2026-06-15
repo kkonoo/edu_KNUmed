@@ -20,7 +20,7 @@ resdir <- "results/"
 df_pt <- readRDS(paste0(indir, "2_df_pt_processed.rds"))
 ```
 
-::: callout-important
+::: callout-tip
 ## 실전 팁: R로 알맹이, PPT로 마무리
 
 코드로 축 라벨, 폰트, 범례 위치까지 전부 조절하는 건 **비효율적**입니다. 실제 논문 작업에서는:
@@ -124,7 +124,7 @@ ggsave(paste0(resdir, "KM_OS.pdf"), plot = print(p), width = 7, height = 5)
 ```{r}
 # Multivariable Cox
 cox_model <- coxph(
-  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_cm + PTVmean_BED10,
+  Surv(OS, Death) ~ Age_Tx + Sex + Multiplicity + size_mm + PTVmean_BED10,
   data = df_pt
 )
 
@@ -191,7 +191,7 @@ ggsave(paste0(resdir, "forest_OS.tiff"), width = 8, height = 4, dpi = 300)
 ggsave(paste0(resdir, "forest_OS.pdf"), width = 8, height = 4)
 ```
 
-![](images/clipboard-2259193059.png)
+![](/images/plot_results.png){fig-align="center"}
 
 ## ③ 중간 산물 저장
 
@@ -203,15 +203,17 @@ saveRDS(cox_model, paste0(outdir, "3_cox_model.rds"))
 saveRDS(cox_tidy,  paste0(outdir, "3_cox_tidy.rds"))
 ```
 
-![](images/clipboard-2134562879.png){width="656"}
+![](/images/rds.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 ## 정리
 
-```         
-✅ KM curve: survfit() → ggsurvplot()
-✅ Forest plot: coxph() → tidy() → ggplot()
-✅ broom::tidy()로 통계 수치 자동 추출 
+✅ KM curve: survfit() → ggsurvplot() \
+✅ Forest plot: coxph() → tidy() → ggplot() \
+✅ broom::tidy()로 통계 수치 자동 추출 \
 ✅ tiff 300dpi로 저장 → 논문 투고 가능
-```
+
+### 다음
+
+[Part 4](../part4/3_1_vibecoding.html): 바이브코딩과 마무리

@@ -139,7 +139,7 @@ saveRDS(df_pt, paste0(outdir, "2_df_pt_processed.rds"))
 # write.csv(df_pt, paste0(resdir, "cleaned_patient_data.csv"), row.names = FALSE)
 ```
 
-::: callout-note
+::: callout-tip
 ## 왜 `.rds`로 저장하나?
 
 -   factor level, 변수 타입이 그대로 보존됨
