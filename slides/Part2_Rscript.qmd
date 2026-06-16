@@ -299,6 +299,10 @@ install.packages(c(
 ✅ 폴더      = rawdata / scripts / analysis / results
 ✅ 습관      = 상단 파라미터 · 주석 · 상대경로
 ```
+. . .
+
+→ 다음: 실제 데이터에 R script 적용해보기
+
 
 ::: notes
 전부 한 방향: 막연한 작업을 입력·처리·출력으로 쪼개 이름 붙이기. 다음 Part는 이 환경 위에서 실제 임상 데이터 분석.

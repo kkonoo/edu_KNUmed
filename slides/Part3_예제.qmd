@@ -388,6 +388,9 @@ coxph로 모델, tidy로 HR·95%CI·p를 데이터프레임으로. 직접 타이
 ✅ Forest: coxph() → tidy() → ggplot()
 ✅ tiff 300dpi → 논문 투고
 ```
+. . .
+
+→ 다음: 바이브코딩과 오늘 정리
 
 ::: notes
 패턴은 똑같다: 모델 적합 → tidy로 추출 → 그림. 저장은 300dpi tiff.
